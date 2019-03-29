@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 
 class MyModel : ViewModel() {
      fun completeTask(task: Task, checked: Boolean) {
-          Log.d("Main","complete task " + task.name + checked)
+          Log.d("Main","complete task " + task.name + " $checked $task.id ")
      }
 
      fun openTask(id: Any) {
