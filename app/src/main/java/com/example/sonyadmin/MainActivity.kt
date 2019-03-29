@@ -1,39 +1,49 @@
 package com.example.sonyadmin
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.Menu
-import android.view.MenuItem
-
-import kotlinx.android.synthetic.main.activity_main.*
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import com.example.sonyadmin.databinding.ActivityMainBinding
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    //    private lateinit var viewDataBinding: ActivityMainBinding
+    private lateinit var listAdapter: MyAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        val model = ViewModelProviders.of(this).get(MyModel::class.java)
+        var viewDataBinding = DataBindingUtil.
+            setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
+            viewmodel = model
+            setLifecycleOwner(this@MainActivity)
         }
+
+
+        var list = listOf<Task>(
+            Task("Nuts", 5), Task(),
+            Task(), Task("Nuts", 5), Task(), Task(), Task(
+                "Nuts",
+                5
+            ), Task(), Task(), Task(),
+            Task(), Task("Nuts", 5), Task(), Task(), Task(
+                "Nuts",
+                5
+            ), Task(), Task()
+        )
+
+        model.items.value = list
+        listAdapter = MyAdapter(ArrayList(0), model)
+        viewDataBinding.tasksList.adapter = listAdapter
+
+
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+    override fun onResume() {
+        super.onResume()
+//        viewDataBinding.viewmodel?.start()
     }
 }
