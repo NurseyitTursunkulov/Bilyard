@@ -14,13 +14,10 @@ class MyAdapter(var tasks: List<Task>, var tasksViewModel: MyModel) : BaseAdapte
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
         val binding: TaskItemBinding
         binding = if (view == null) {
-            // Inflate
             val inflater = LayoutInflater.from(viewGroup?.context)
             Log.d("Main", "bincding if view == null" )
-            // Create the binding
             TaskItemBinding.inflate(inflater, viewGroup, false)
         } else {
-            // Recycling view
             Log.d("Main", "bincding if view == null else " )
             DataBindingUtil.getBinding(view) ?: throw IllegalStateException()
         }
