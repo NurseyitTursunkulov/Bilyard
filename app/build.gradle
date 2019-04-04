@@ -38,4 +38,7 @@ dependencies {
     def  archLifecycleVersion = '2.0.0'
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+
+
+    implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
 }
