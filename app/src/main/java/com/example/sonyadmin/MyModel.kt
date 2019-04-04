@@ -14,6 +14,13 @@ class MyModel : ViewModel() {
           Log.d("Main","open task $id")
      }
 
-     val items = MutableLiveData<List<Task>>().apply { value = emptyList() }
+     val items = MutableLiveData<List<Task>>().apply {
+          value = listOf<Task>(
+               Task("Nuts", 0), Task(id = 1), Task("Nuts", 2), Task(id = 3), Task(id = 4), Task(
+                    "Nuts",
+                    5
+               ), Task("wrt", 6), Task("juuuh", 7), Task(id = 8)
+          )
+     }
 
 }
