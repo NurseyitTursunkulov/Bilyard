@@ -28,7 +28,8 @@ class MyAdapter(var tasks: List<Task>, var tasksViewModel: MyModel) : BaseAdapte
                 tasksViewModel.completeTask(task, checked)
             }
 
-            override fun onTaskClicked(task: Task) {
+            override fun onTaskClicked(ispressed: Boolean, task: Task) {
+                if (ispressed)
                 tasksViewModel.openTask(task.id)
             }
         }
