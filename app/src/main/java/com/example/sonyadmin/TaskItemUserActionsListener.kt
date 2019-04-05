@@ -25,5 +25,5 @@ import android.view.View
 interface TaskItemUserActionsListener {
     fun onCompleteChanged(task: Task, v: View)
 
-    fun onTaskClicked(task: Task)
+    fun onTaskClicked(ispressed: Boolean, task: Task)
 }

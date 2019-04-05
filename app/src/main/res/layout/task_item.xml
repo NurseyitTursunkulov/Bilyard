@@ -132,7 +132,7 @@
                     android:layout_marginLeft="40dp"
             />
 
-            <Button
+            <ToggleButton
                     android:text="Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,7 +142,8 @@
                     app:layout_constraintStart_toEndOf="@+id/textView3"
                     android:layout_marginLeft="40dp"
                     android:layout_marginStart="40dp"
-                    android:onClick="@{() -> listener.onTaskClicked(task)}"
+                    android:onCheckedChanged="@{(button,checked)->listener.onTaskClicked(checked, task)}"
+
             />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
