@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        var list = listOf<Task>(
-//            Task("Nuts", 0), Task(id=1), Task("Nuts", 2), Task(id=3), Task(id=4), Task(
+//        var list = listOf<Game>(
+//            Game("Nuts", 0), Game(id=1), Game("Nuts", 2), Game(id=3), Game(id=4), Game(
 //                "Nuts",
 //                5
-//            ), Task("wrt",6),Task("juuuh",7),Task(id=8)
+//            ), Game("wrt",6),Game("juuuh",7),Game(id=8)
 //        )
 
 //        model.items.value = list

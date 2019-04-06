@@ -19,12 +19,12 @@ import android.widget.ListView
 import androidx.databinding.BindingAdapter
 
 /**
- * Contains [BindingAdapter]s for the [Task] list.
+ * Contains [BindingAdapter]s for the [Game] list.
  */
 object TasksListBindings {
 
     @BindingAdapter("app:items")
-    @JvmStatic fun setItems(listView: ListView, items: List<Task>) {
+    @JvmStatic fun setItems(listView: ListView, items: List<Game>) {
         with(listView.adapter as MyAdapter) {
             setList(items)
         }
