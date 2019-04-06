@@ -8,8 +8,8 @@
         <import type="android.view.View.OnClickListener" />
 
         <variable
-                name="task"
-                type="com.example.sonyadmin.Task" />
+                name="game"
+                type="com.example.sonyadmin.Game" />
 
         <variable
                 name="listener"
@@ -47,7 +47,7 @@
         >
 
             <TextView
-                    android:text="15:44"
+                    android:text="@{game.startTime}"
                     android:layout_width="81dp"
                     android:layout_height="44dp"
                     android:id="@+id/textView"
@@ -60,7 +60,7 @@
             />
 
             <TextView
-                    android:text="16:55"
+                    android:text="@{game.endTime}"
                     android:layout_width="81dp"
                     android:layout_height="44dp"
                     android:textSize="30sp"
@@ -72,7 +72,7 @@
             />
 
             <TextView
-                    android:text="@{task.idForTitle}"
+                    android:text="@{game.idForTitle}"
                     android:layout_width="0dp"
                     android:layout_height="34dp"
                     android:id="@+id/textView5"
@@ -112,7 +112,7 @@
             />
 
             <TextView
-                    android:text="155 som"
+                    android:text="@{game.summ}"
                     android:layout_width="141dp"
                     android:layout_height="72dp"
                     android:id="@+id/textView3"
@@ -142,7 +142,7 @@
                     app:layout_constraintStart_toEndOf="@+id/textView3"
                     android:layout_marginLeft="40dp"
                     android:layout_marginStart="40dp"
-                    android:onCheckedChanged="@{(button,checked)->listener.onTaskClicked(checked, task)}"
+                    android:onCheckedChanged="@{(button,checked)->listener.onTaskClicked(checked, game)}"
 
             />
 

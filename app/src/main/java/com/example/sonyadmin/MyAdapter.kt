@@ -7,36 +7,34 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
 import androidx.databinding.DataBindingUtil
-import com.example.sonyadmin.databinding.TaskItemBinding
+import com.example.sonyadmin.databinding.GameItemBinding
 
-class MyAdapter(var tasks: List<Task>, var tasksViewModel: MyModel) : BaseAdapter() {
+class MyAdapter(var games: List<Game>, var tasksViewModel: MyModel) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
-        val binding: TaskItemBinding
+        val binding: GameItemBinding
         binding = if (view == null) {
             val inflater = LayoutInflater.from(viewGroup?.context)
-            Log.d("Main", "bincding if view == null" )
-            TaskItemBinding.inflate(inflater, viewGroup, false)
+            GameItemBinding.inflate(inflater, viewGroup, false)
         } else {
-            Log.d("Main", "bincding if view == null else " )
             DataBindingUtil.getBinding(view) ?: throw IllegalStateException()
         }
 
         val userActionsListener = object : TaskItemUserActionsListener {
-            override fun onCompleteChanged(task: Task, v: View) {
+            override fun onCompleteChanged(game: Game, v: View) {
                 val checked = (v as CheckBox).isChecked
-                tasksViewModel.completeTask(task, checked)
+                tasksViewModel.completeTask(game, checked)
             }
 
-            override fun onTaskClicked(ispressed: Boolean, task: Task) {
+            override fun onTaskClicked(ispressed: Boolean, game: Game) {
                 if (ispressed)
-                tasksViewModel.openTask(task.id)
+                tasksViewModel.openTask(game.id,position)
             }
         }
 
         with(binding) {
             Log.d("Main", "with binding" )
-            task = tasks[position]
+            game = games[position]
             listener = userActionsListener
             executePendingBindings()
         }
@@ -45,15 +43,15 @@ class MyAdapter(var tasks: List<Task>, var tasksViewModel: MyModel) : BaseAdapte
 
     }
 
-     fun setList(tasks: List<Task>) {
-        this.tasks = tasks
+     fun setList(games: List<Game>) {
+        this.games = games
         notifyDataSetChanged()
     }
 
-    override fun getItem(position: Int): Any = tasks[position]
+    override fun getItem(position: Int): Any = games[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getCount(): Int = tasks.size
+    override fun getCount(): Int = games.size
 
 }

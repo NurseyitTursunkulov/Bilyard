@@ -23,7 +23,7 @@ import android.view.View
  * Listener used with data binding to process user actions.
  */
 interface TaskItemUserActionsListener {
-    fun onCompleteChanged(task: Task, v: View)
+    fun onCompleteChanged(game: Game, v: View)
 
-    fun onTaskClicked(ispressed: Boolean, task: Task)
+    fun onTaskClicked(ispressed: Boolean, game: Game)
 }
