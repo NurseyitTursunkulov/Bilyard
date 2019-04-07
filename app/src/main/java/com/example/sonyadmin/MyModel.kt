@@ -3,18 +3,37 @@ package com.example.sonyadmin
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class MyModel : ViewModel() {
-     fun completeTask(game: Game, checked: Boolean) {
-          Log.d("Main","complete game " + game.name + " $checked $game.id ")
+    var list :List<Game> = createList()
+     fun endGame(game: Game, position: Int) {
+          Log.d("Main","complete game " + game.name + " $position $game.id ")
+         viewModelScope.launch {
+             try {
+             } catch (error: Error) {
+
+             } finally {
+
+             }
+         }
      }
 
-     fun openTask(id: Any, position: Int) {
-          Log.d("Main","open task $id")
+     fun startGame(game: Game, position: Int) {
+         viewModelScope.launch {
+             try {
+             } catch (error: Error) {
+
+             } finally {
+
+             }
+         }
+          Log.d("Main","open task $game")
          list[position]
      }
 
-     var list :List<Game> = createList()
+
 
     private fun createList(): List<Game> {
         var list : ArrayList<Game> = ArrayList()

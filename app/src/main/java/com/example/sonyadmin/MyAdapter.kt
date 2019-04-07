@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.CheckBox
 import androidx.databinding.DataBindingUtil
 import com.example.sonyadmin.databinding.GameItemBinding
 
@@ -22,18 +21,19 @@ class MyAdapter(var games: List<Game>, var tasksViewModel: MyModel) : BaseAdapte
 
         val userActionsListener = object : TaskItemUserActionsListener {
             override fun onCompleteChanged(game: Game, v: View) {
-                val checked = (v as CheckBox).isChecked
-                tasksViewModel.completeTask(game, checked)
+                tasksViewModel.endGame(game, position)
             }
 
             override fun onTaskClicked(ispressed: Boolean, game: Game) {
                 if (ispressed)
-                tasksViewModel.openTask(game.id,position)
+                    tasksViewModel.startGame(game, position)
+                else
+                    tasksViewModel.endGame(game, position)
             }
         }
 
         with(binding) {
-            Log.d("Main", "with binding" )
+            Log.d("Main", "with binding")
             game = games[position]
             listener = userActionsListener
             executePendingBindings()
@@ -43,7 +43,7 @@ class MyAdapter(var games: List<Game>, var tasksViewModel: MyModel) : BaseAdapte
 
     }
 
-     fun setList(games: List<Game>) {
+    fun setList(games: List<Game>) {
         this.games = games
         notifyDataSetChanged()
     }
