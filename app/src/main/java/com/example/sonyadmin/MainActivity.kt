@@ -1,11 +1,12 @@
 package com.example.sonyadmin
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.sonyadmin.databinding.ActivityMainBinding
+import com.example.sonyadmin.gameList.MyAdapter
+import com.example.sonyadmin.gameList.MyModel
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.sonyadmin
+package com.example.sonyadmin.gameList
 
 import androidx.lifecycle.MutableLiveData
 

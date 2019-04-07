@@ -5,7 +5,7 @@
         <import type="android.view.View" />
 
         <import type="androidx.core.content.ContextCompat" />
-        <variable name="viewmodel" type="com.example.sonyadmin.MyModel"/>
+        <variable name="viewmodel" type="com.example.sonyadmin.gameList.MyModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:tools="http://schemas.android.com/tools"
