@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.sonyadmin
+package com.example.sonyadmin.gameList
 
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
+import com.example.sonyadmin.gameList.Game
+import com.example.sonyadmin.gameList.MyAdapter
 
 /**
  * Contains [BindingAdapter]s for the [Game] list.

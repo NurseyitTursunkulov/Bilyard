@@ -1,4 +1,4 @@
-package com.example.sonyadmin
+package com.example.sonyadmin.gameList
 
 import android.util.Log
 import android.view.LayoutInflater

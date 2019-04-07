@@ -9,11 +9,11 @@
 
         <variable
                 name="game"
-                type="com.example.sonyadmin.Game" />
+                type="com.example.sonyadmin.gameList.Game" />
 
         <variable
                 name="listener"
-                type="com.example.sonyadmin.TaskItemUserActionsListener" />
+                type="com.example.sonyadmin.gameList.TaskItemUserActionsListener" />
     </data>
 
 
