@@ -13,9 +13,9 @@ class MyModel(val repository: Repository) : ViewModel() {
     fun endGame(game: Game, position: Int) {
         viewModelScope.launch {
                 repository.writeEndTime(game)
-//                repository.getAllGameProccesBiCabin(game.id).forEach {
-//                    Log.d("DataBase", "get all${it.startTime}")
-//                }
+                repository.getAllGameProccesBiCabin(game.id).forEach {
+                    Log.d("DataBase", "get all${it.startTime}")
+                }
         }
     }
 
