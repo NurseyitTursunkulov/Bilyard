@@ -7,7 +7,7 @@ interface Repository {
 
     suspend fun writeEndTime(game: Game)
 
-//    suspend fun getAllGameProccesBiCabin(cabinId :Int) : List<GameProcess>
+    suspend fun getAllGameProccesBiCabin(cabinId :Int) : List<GameProcess>
 
     fun getLastGameProcessById(cabinId: Int) : GameProcess
 }
