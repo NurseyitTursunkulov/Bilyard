@@ -6,16 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.sonyadmin.databinding.ActivityMainBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     //    private lateinit var viewDataBinding: ActivityMainBinding
     private lateinit var listAdapter: MyAdapter
-
+    val model: MyModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val model = ViewModelProviders.of(this).get(MyModel::class.java)
         var viewDataBinding = DataBindingUtil.
             setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
             viewmodel = model
