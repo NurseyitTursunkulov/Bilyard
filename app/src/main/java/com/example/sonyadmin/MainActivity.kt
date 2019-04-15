@@ -23,14 +23,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        var list = listOf<Task>(
-            Task("Nuts", 0), Task(id=1), Task("Nuts", 2), Task(id=3), Task(id=4), Task(
-                "Nuts",
-                5
-            ), Task("wrt",6),Task("juuuh",7),Task(id=8)
-        )
-
-        model.items.value = list
+        model.items.value?.forEach {
+            it.observe(this,androidx.lifecycle.Observer {
+                Log.d("Main","changed ${it.idForTitle}")
+            })
+        }
         listAdapter = MyAdapter(ArrayList(0), model)
         viewDataBinding.tasksList.adapter = listAdapter
 

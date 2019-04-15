@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.databinding.TaskItemBinding
 
-class MyAdapter(var tasks: List<Task>, var tasksViewModel: MyModel) : BaseAdapter() {
+class MyAdapter(var tasks: List<MutableLiveData<Task>>, var tasksViewModel: MyModel) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
         val binding: TaskItemBinding
@@ -38,7 +39,7 @@ class MyAdapter(var tasks: List<Task>, var tasksViewModel: MyModel) : BaseAdapte
 
         with(binding) {
             Log.d("Main", "with binding" )
-            task = tasks[position]
+            task = tasks[position].value
             listener = userActionsListener
             executePendingBindings()
         }
@@ -47,7 +48,7 @@ class MyAdapter(var tasks: List<Task>, var tasksViewModel: MyModel) : BaseAdapte
 
     }
 
-     fun setList(tasks: List<Task>) {
+     fun setList(tasks: List<MutableLiveData<Task>>) {
         this.tasks = tasks
         notifyDataSetChanged()
     }

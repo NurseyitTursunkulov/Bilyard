@@ -17,6 +17,7 @@ package com.example.sonyadmin
 
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 
 /**
  * Contains [BindingAdapter]s for the [Task] list.
@@ -24,7 +25,7 @@ import androidx.databinding.BindingAdapter
 object TasksListBindings {
 
     @BindingAdapter("app:items")
-    @JvmStatic fun setItems(listView: ListView, items: List<Task>) {
+    @JvmStatic fun setItems(listView: ListView, items:List<MutableLiveData<Task>>) {
         with(listView.adapter as MyAdapter) {
             setList(items)
         }
