@@ -25,10 +25,13 @@ class MainActivity : AppCompatActivity() {
 
         model.items.value?.forEach {
             it.observe(this,androidx.lifecycle.Observer {
+                it.startTime.observe(this,androidx.lifecycle.Observer {
+                    Log.d("Main","startTime ${it}")
+                })
                 Log.d("Main","changed ${it.idForTitle}")
             })
         }
-        listAdapter = MyAdapter(ArrayList(0), model)
+        listAdapter = MyAdapter( model)
         viewDataBinding.tasksList.adapter = listAdapter
 
 

@@ -1,6 +1,7 @@
 package com.example.sonyadmin
 
 import android.app.Application
+import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -16,6 +17,7 @@ class MyApp : Application(){
             androidContext(this@MyApp)
             modules(appModule)
         }
+        JodaTimeAndroid.init(this);
     }
 }
 

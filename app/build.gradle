@@ -41,4 +41,7 @@ dependencies {
 
 
     implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
+
+    //jodatime
+    implementation 'net.danlew:android.joda:2.10.1.2'
 }

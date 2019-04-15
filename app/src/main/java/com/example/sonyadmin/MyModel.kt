@@ -1,9 +1,10 @@
 package com.example.sonyadmin
 
-import android.util.Log
+import android .util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.joda.time.DateTime
 
 class MyModel : ViewModel() {
      var list = listOf<MutableLiveData<Task>>(
@@ -23,9 +24,9 @@ class MyModel : ViewModel() {
           Log.d("Main","complete task " + task.name + " $checked $task.id ")
      }
 
-     fun openTask(id: Any) {
-          Log.d("Main","open task $id")
-          items.value?.get(4)?.value=Task(id = 55)
+     fun openTask(task: Task) {
+          Log.d("Main","open task $task")
+          items.value?.get(task.id)?.value?.startTime?.value = DateTime.now().getTime()
      }
 
      val items = MutableLiveData<List<MutableLiveData<Task>>>()

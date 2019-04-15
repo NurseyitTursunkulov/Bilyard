@@ -45,9 +45,9 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
         >
-
+{
             <TextView
-                    android:text="15:44"
+                    android:text="@{task.startTime.toString()}"
                     android:layout_width="81dp"
                     android:layout_height="44dp"
                     android:id="@+id/textView"
@@ -60,7 +60,7 @@
             />
 
             <TextView
-                    android:text="16:55"
+                    android:text="@{task.endTime}"
                     android:layout_width="81dp"
                     android:layout_height="44dp"
                     android:textSize="30sp"

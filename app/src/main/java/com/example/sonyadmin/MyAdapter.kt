@@ -6,24 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.InverseMethod
 import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.databinding.TaskItemBinding
+import org.joda.time.DateTime
 
-class MyAdapter(var tasks: List<MutableLiveData<Task>>, var tasksViewModel: MyModel) : BaseAdapter() {
-
+class MyAdapter( var tasksViewModel: MyModel) : BaseAdapter() {
+    var tasks: List<MutableLiveData<Task>> = tasksViewModel.items.value!!
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
         val binding: TaskItemBinding
         binding = if (view == null) {
             // Inflate
             val inflater = LayoutInflater.from(viewGroup?.context)
-            Log.d("Main", "bincding if view == null" )
-            // Create the binding
             TaskItemBinding.inflate(inflater, viewGroup, false)
         } else {
-            // Recycling view
-            Log.d("Main", "bincding if view == null else " )
-            DataBindingUtil.getBinding(view) ?: throw IllegalStateException()
+            DataBindingUtil.getBinding(view) ?: throw IllegalStateException() as Throwable
         }
 
         val userActionsListener = object : TaskItemUserActionsListener {
@@ -33,12 +32,13 @@ class MyAdapter(var tasks: List<MutableLiveData<Task>>, var tasksViewModel: MyMo
             }
 
             override fun onTaskClicked(task: Task) {
-                tasksViewModel.openTask(task.id)
+                tasksViewModel.openTask(task)
+                binding.executePendingBindings()
+                notifyDataSetChanged()
             }
         }
 
         with(binding) {
-            Log.d("Main", "with binding" )
             task = tasks[position].value
             listener = userActionsListener
             executePendingBindings()
@@ -59,4 +59,16 @@ class MyAdapter(var tasks: List<MutableLiveData<Task>>, var tasksViewModel: MyMo
 
     override fun getCount(): Int = tasks.size
 
+}
+
+
+fun DateTime.getTime(): String {
+    var h = DateTime.now().hourOfDay().get()
+    var m = DateTime.now().secondOfMinute().get()
+    return "${h.length()}:${m.length()}"
+}
+
+fun Int.length() = when(this) {
+    in 0..9-> "0$this"
+    else -> "$this"
 }
