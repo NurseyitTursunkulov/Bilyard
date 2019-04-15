@@ -20,13 +20,20 @@ class MyModel : ViewModel() {
           MutableLiveData<Task>(Task("Nuts", 9))
 
           )
-     fun completeTask(task: Task, checked: Boolean) {
-          Log.d("Main","complete task " + task.name + " $checked $task.id ")
+     fun completeTask(task: Task) {
+          Log.d("Main","complete task " + task.name + " ")
+         items.value?.get(task.id)?.value?.apply {
+             startTime?.value = DateTime.now().getTime()
+             isPlaying.value = true
+         }
      }
 
      fun openTask(task: Task) {
           Log.d("Main","open task $task")
-          items.value?.get(task.id)?.value?.startTime?.value = DateTime.now().getTime()
+          items.value?.get(task.id)?.value?.apply {
+              startTime?.value = DateTime.now().getTime()
+              isPlaying.value = false
+          }
      }
 
      val items = MutableLiveData<List<MutableLiveData<Task>>>()
@@ -36,6 +43,6 @@ class MyModel : ViewModel() {
      init {
           items.value=list
 
-
+        Log.d("Bag","init")
      }
 }

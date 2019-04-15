@@ -28,11 +28,18 @@ class MyAdapter( var tasksViewModel: MyModel) : BaseAdapter() {
         val userActionsListener = object : TaskItemUserActionsListener {
             override fun onCompleteChanged(task: Task, v: View) {
                 val checked = (v as CheckBox).isChecked
-                tasksViewModel.completeTask(task, checked)
+                tasksViewModel.completeTask(task)
             }
 
             override fun onTaskClicked(task: Task) {
-                tasksViewModel.openTask(task)
+                task.isPlaying.value?.let {
+                    if (it){
+                            tasksViewModel.openTask(task)
+                    }
+
+                    else
+                        tasksViewModel.completeTask(task)
+                }
                 binding.executePendingBindings()
                 notifyDataSetChanged()
             }
