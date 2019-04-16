@@ -69,13 +69,3 @@ class MyAdapter( var tasksViewModel: MyModel) : BaseAdapter() {
 }
 
 
-fun DateTime.getTime(): String {
-    var h = DateTime.now().hourOfDay().get()
-    var m = DateTime.now().secondOfMinute().get()
-    return "${h.length()}:${m.length()}"
-}
-
-fun Int.length() = when(this) {
-    in 0..9-> "0$this"
-    else -> "$this"
-}

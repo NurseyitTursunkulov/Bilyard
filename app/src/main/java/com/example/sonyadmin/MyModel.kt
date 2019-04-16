@@ -21,18 +21,20 @@ class MyModel : ViewModel() {
 
           )
      fun completeTask(task: Task) {
-          Log.d("Main","complete task " + task.name + " ")
+          Log.d("Main","complete task " + task.id + " ")
          items.value?.get(task.id)?.value?.apply {
-             startTime?.value = DateTime.now().getTime()
+             startTime?.value = DateTime.now()
              isPlaying.value = true
+             Log.d("Main","inside complete ${this.id}")
          }
      }
 
      fun openTask(task: Task) {
-          Log.d("Main","open task $task")
+          Log.d("Main","open task ${task.id} isplaing = ${task.isPlaying.value}")
           items.value?.get(task.id)?.value?.apply {
-              startTime?.value = DateTime.now().getTime()
+              startTime?.value = DateTime.now()
               isPlaying.value = false
+              Log.d("Main","inside open ${this.id}")
           }
      }
 

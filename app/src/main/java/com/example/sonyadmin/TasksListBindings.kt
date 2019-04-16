@@ -16,8 +16,11 @@
 package com.example.sonyadmin
 
 import android.widget.ListView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import org.joda.time.DateTime
+
 
 /**
  * Contains [BindingAdapter]s for the [Task] list.
@@ -29,5 +32,21 @@ object TasksListBindings {
         with(listView.adapter as MyAdapter) {
             setList(items)
         }
+    }
+
+    @BindingAdapter("app:txt")
+    @JvmStatic fun dateToText(textView: TextView, hobbies: DateTime?) {
+        textView.text = getTime(hobbies)
+    }
+    fun getTime(dateTime: DateTime?): String {
+        if (dateTime == null) return "----"
+        var h = dateTime.hourOfDay().get()
+        var m = dateTime.secondOfMinute().get()
+        return "${h.length()}:${m.length()}"
+    }
+
+    fun Int.length() = when(this) {
+        in 0..9-> "0$this"
+        else -> "$this"
     }
 }
