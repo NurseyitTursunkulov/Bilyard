@@ -1,45 +1,42 @@
 package com.example.sonyadmin.gameList
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.sonyadmin.data.Repository
-import kotlinx.coroutines.launch
-import java.util.*
+import com.example.sonyadmin.data.Task
+import com.example.sonyadmin.gameList.Model.changeGameEndTime
+import com.example.sonyadmin.gameList.Model.changeGameStartTime
+import com.example.sonyadmin.gameList.Model.initItems
+import com.example.sonyadmin.gameList.Model.onBG
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
-class MyModel(val repository: Repository) : ViewModel() {
-    var list: List<Game> = createList()
-    fun endGame(game: Game, position: Int) {
-        viewModelScope.launch {
-                repository.writeEndTime(game)
-                repository.getAllGameProccesBiCabin(game.id).forEach {
-                    Log.d("DataBase", "get all${it.startTime}")
-                }
+class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainScope() {
+    val items = MutableLiveData<List<MutableLiveData<Task>>>().apply {
+        value = emptyList()
+    }
+
+    init {
+        initItems()
+    }
+
+    fun completeTask(task: Task) {
+        changeGameEndTime(task)
+        onBG { repository.writeEndTime(task) }
+    }
+
+    fun openTask(task: Task) {
+        changeGameStartTime(task)
+        onBG {
+            repository.writeStartTime(items.value!![task.cabinId].value!!)
         }
+
     }
 
-    fun startGame(game: Game, position: Int) {
-        viewModelScope.launch {
-                repository.writeStartTime(game)
-        }
+    fun deleteAll() {
+        repository.deleteAll()
     }
 
 
-    private fun createList(): List<Game> {
-        var list: ArrayList<Game> = ArrayList()
-        for (x in 1..10) {
-            list.add(Game(id = x).apply {
-                startTime.value = "1$x:23"
-                endTime.value = "2$x:12"
-                summ.value = "$x сом"
-            })
-        }
-        return list
-    }
-
-    val items = MutableLiveData<List<Game>>().apply {
-        value = list
-    }
 
 }

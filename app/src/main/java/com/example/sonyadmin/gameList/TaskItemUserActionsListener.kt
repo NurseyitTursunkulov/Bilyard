@@ -17,14 +17,16 @@ package com.example.sonyadmin.gameList
 
 
 import android.view.View
-import com.example.sonyadmin.gameList.Game
+import com.example.sonyadmin.data.Task
 
 
 /**
  * Listener used with data binding to process user actions.
  */
 interface TaskItemUserActionsListener {
-    fun onCompleteChanged(game: Game, v: View)
+    fun onCompleteChanged(task: Task, v: View)
 
-    fun onTaskClicked(ispressed: Boolean, game: Game)
+    fun onTaskClicked(task: Task)
+
+    fun deleteAll(taskId: Int)
 }

@@ -1,9 +1,13 @@
 package com.example.sonyadmin
 
 import android.app.Application
+import com.example.sonyadmin.data.Dao
+import com.example.sonyadmin.data.GameProcessDataBase
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.RepositoryImpl
 import com.example.sonyadmin.gameList.MyModel
+import com.example.sonyadmin.gemaDetails.DetailsViewModel
+import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -19,13 +23,13 @@ class MyApp : Application(){
             androidContext(this@MyApp)
             modules(appModule)
         }
+        JodaTimeAndroid.init(this);
     }
 }
 
 val appModule = module {
+    single <Dao>{ GameProcessDataBase.getInstance(get()).gameProcesDao()}
     single<Repository> { RepositoryImpl(get()) }
-
-    // MyViewModel ViewModel
     viewModel { MyModel(get()) }
-
+    viewModel { DetailsViewModel(get()) }
 }
