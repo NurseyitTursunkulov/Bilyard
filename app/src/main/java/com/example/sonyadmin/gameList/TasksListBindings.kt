@@ -16,19 +16,42 @@
 package com.example.sonyadmin.gameList
 
 import android.widget.ListView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.example.sonyadmin.gameList.Game
-import com.example.sonyadmin.gameList.MyAdapter
+import androidx.lifecycle.MutableLiveData
+import com.example.sonyadmin.data.Task
+import org.joda.time.DateTime
+
 
 /**
- * Contains [BindingAdapter]s for the [Game] list.
+ * Contains [BindingAdapter]s for the [Task] list.
  */
 object TasksListBindings {
 
     @BindingAdapter("app:items")
-    @JvmStatic fun setItems(listView: ListView, items: List<Game>) {
+    @JvmStatic fun setItems(listView: ListView, items:List<MutableLiveData<Task>>) {
         with(listView.adapter as MyAdapter) {
             setList(items)
         }
+    }
+
+    @BindingAdapter("app:txt")
+    @JvmStatic fun dateToText(textView: TextView, hobbies: DateTime?) {
+        textView.text = getTime(hobbies)
+    }
+    @BindingAdapter("app:ttx")
+    @JvmStatic fun doubleToText(textView: TextView, hobbies: Double?) {
+        textView.text = hobbies?.toString() ?: "0"
+    }
+    fun getTime(dateTime: DateTime?): String {
+        if (dateTime == null) return "----"
+        var h = dateTime.hourOfDay().get()
+        var m = dateTime.minuteOfHour().get()
+        return "${h.length()}:${m.length()}"
+    }
+
+    fun Int.length() = when(this) {
+        in 0..9-> "0$this"
+        else -> "$this"
     }
 }

@@ -1,51 +1,39 @@
 package com.example.sonyadmin.data
 
-import android.app.Application
 import android.util.Log
-import com.example.sonyadmin.gameList.Game
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.util.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 
-class RepositoryImpl(application: Application) : Repository {
-    val db = GameProcessDataBase.getInstance(application).gameProcesDao()
-    override suspend fun writeStartTime(game: Game) {
-        withContext(Dispatchers.IO) {
-            db.insertStartGameProcess(
-                GameProcess(
-                    cabinId = game.id,
-                    startTime = Date(), endTime = null, sum = null
-                )
-            )
-            Log.d("DataBase", "writeStartTime")
-        }
+class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
+    override fun getGameDetails(cabinId: Int): DataSource.Factory<Int, Task> {
+        return dao.getAllGameProccesBiCabin(cabinId)
     }
 
-    override suspend fun writeEndTime(game: Game) {
-        withContext(Dispatchers.IO) {
-            var gameProcess = db.getLastGameProcessById(game.id)
-            gameProcess.endTime = Date()
-            gameProcess.finished = true
-            db.insertEndGameProcees(gameProcess)
-            db.getById(gameProcess.id!!).let {
-                Log.d("DataBase", " id = ${it.id} start : ${it.startTime} end = ${it.endTime}")
-            }
-//            Log.d("DataBase", "writeEndTime")
-//            db.getAllGameProccesBiCabin(game.id).forEach {
-//                Log.d("DataBase","for each ${it.id} cabin id = ${it.cabinId}  ${it.startTime}")
-//            }
-        }
+    override fun deleteAll() {
+        dao.deleteAll()
     }
 
-    override suspend fun getAllGameProccesBiCabin(cabinId: Int): List<GameProcess> {
-        var list : List<GameProcess>
-       return withContext(Dispatchers.IO) {
-            db.getAllGameProccesBiCabin(cabinId)
-        }
+    override fun getLastGame(cabinId: Int): MutableLiveData<Task>? {
+        var data = dao.getLastGameProcessById(cabinId)
+        Log.d("DataBase", "getLast = ${data?.cabinId} ${data?.startTime}")
+        return if (data != null)
+            MutableLiveData<Task>(data)
+        else null
+
 
     }
 
-    override fun getLastGameProcessById(cabinId: Int): GameProcess {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun writeStartTime(game: Task) {
+        dao.insertStartGameProcess(game)
     }
+
+    override fun writeEndTime(game: Task) {
+        dao.insertEndGameProcees(game)
+    }
+
+    override fun getAllGameProccesBiCabin(cabinId: Int): LiveData<List<Task>>? {
+        return dao.getAllGameProccesBiCabin()
+    }
+
 }

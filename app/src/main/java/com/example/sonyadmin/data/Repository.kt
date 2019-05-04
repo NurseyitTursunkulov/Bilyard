@@ -1,13 +1,20 @@
 package com.example.sonyadmin.data
 
-import com.example.sonyadmin.gameList.Game
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
+
 
 interface Repository {
-    suspend fun writeStartTime( game: Game)
+    fun writeStartTime(game: Task)
 
-    suspend fun writeEndTime(game: Game)
+    fun writeEndTime(game: Task)
 
-    suspend fun getAllGameProccesBiCabin(cabinId :Int) : List<GameProcess>
+    fun getAllGameProccesBiCabin(cabinId: Int): LiveData<List<Task>>?
 
-    fun getLastGameProcessById(cabinId: Int) : GameProcess
+    fun getLastGame(cabinId: Int): MutableLiveData<Task>?
+
+    fun deleteAll()
+
+    fun getGameDetails(cabinId: Int): DataSource.Factory<Int, Task>
 }

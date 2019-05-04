@@ -6,10 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = arrayOf(GameProcess::class),version = 2)
+@Database(entities = arrayOf(Task::class),version = 8)
 @TypeConverters(Converters::class)
 abstract class GameProcessDataBase : RoomDatabase(){
-    abstract fun gameProcesDao():GameProcessDAO
+    abstract fun gameProcesDao():Dao
 
     companion object {
         private var INSTANCE: GameProcessDataBase? = null

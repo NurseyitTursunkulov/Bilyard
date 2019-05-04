@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/listOfGamesFragment"
+        >
+
+    <fragment
+            android:id="@+id/listOfGamesFragment"
+            android:name="com.example.sonyadmin.gameList.ListOfGamesFragment"
+            android:label="ListOfGamesFragment"
+            >
+        <action
+                android:id="@+id/action_listOfGamesFragment_to_detailsFragment"
+                app:destination="@id/detailsFragment"
+                >
+            <argument android:defaultValue="0"
+                      android:name="cabinId"
+                    />
+        </action>
+    </fragment>
+    <fragment
+            android:id="@+id/detailsFragment"
+            android:name="com.example.sonyadmin.gemaDetails.DetailsFragment"
+            android:label="fragment_details"
+            tools:layout="@layout/fragment_details"
+            >
+        <argument
+                android:name="cabinId"
+                app:argType="integer"
+                />
+    </fragment>
+</navigation>

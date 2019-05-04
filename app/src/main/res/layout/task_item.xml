@@ -5,11 +5,9 @@
 >
 
     <data>
-        <import type="android.view.View.OnClickListener" />
-
         <variable
-                name="game"
-                type="com.example.sonyadmin.gameList.Game" />
+                name="task"
+                type="com.example.sonyadmin.data.Task" />
 
         <variable
                 name="listener"
@@ -44,14 +42,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:background="@{task.isPlaying ? @color/colorAccent : @color/colorPrimary}"
         >
 
             <TextView
-                    android:text="@{game.startTime}"
+                    app:txt="@{task.startTime}"
                     android:layout_width="81dp"
                     android:layout_height="44dp"
                     android:id="@+id/textView"
                     android:textSize="30sp"
+                    tools:text = "startTime"
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="8dp"
@@ -60,8 +60,9 @@
             />
 
             <TextView
-                    android:text="@{game.endTime}"
+                    app:txt="@{task.endTime}"
                     android:layout_width="81dp"
+                    tools:text="endtime"
                     android:layout_height="44dp"
                     android:textSize="30sp"
                     android:id="@+id/textView4"
@@ -72,7 +73,8 @@
             />
 
             <TextView
-                    android:text="@{game.idForTitle}"
+                    android:text="@{task.idForTitle}"
+                    tools:text="cabinID"
                     android:layout_width="0dp"
                     android:layout_height="34dp"
                     android:id="@+id/textView5"
@@ -112,7 +114,9 @@
             />
 
             <TextView
-                    android:text="@{game.summ}"
+                    android:onClick="@{() ->listener.deleteAll(task.cabinId)}"
+                    app:ttx="@{task.summ}"
+                    tools:text="sum"
                     android:layout_width="141dp"
                     android:layout_height="72dp"
                     android:id="@+id/textView3"
@@ -124,7 +128,7 @@
                     android:typeface="normal"
                     android:textSize="36sp"
                     android:lineSpacingExtra="8sp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/white"
                     android:layout_marginTop="20dp"
                     app:layout_constraintTop_toTopOf="@+id/guideline"
                     android:layout_marginStart="40dp"
@@ -132,7 +136,8 @@
                     android:layout_marginLeft="40dp"
             />
 
-            <ToggleButton
+            <Button
+                    android:onClick="@{() ->listener.onTaskClicked(task)}"
                     android:text="Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,7 +147,6 @@
                     app:layout_constraintStart_toEndOf="@+id/textView3"
                     android:layout_marginLeft="40dp"
                     android:layout_marginStart="40dp"
-                    android:onCheckedChanged="@{(button,checked)->listener.onTaskClicked(checked, game)}"
 
             />
 
