@@ -21,14 +21,15 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
     }
 
     fun completeTask(task: Task) {
-        changeGameEndTime(task)
-        onBG { repository.writeEndTime(task) }
+        changeGameEndTime(items.value!![task.cabinId].value!!)
+        onBG { repository.writeEndTime(items.value!![task.cabinId].value!!) }
     }
 
     fun openTask(task: Task) {
         changeGameStartTime(task)
         onBG {
             repository.writeStartTime(items.value!![task.cabinId].value!!)
+            items.value!![task.cabinId].postValue(repository.getLastGame(task.cabinId)?.value!!)
         }
 
     }

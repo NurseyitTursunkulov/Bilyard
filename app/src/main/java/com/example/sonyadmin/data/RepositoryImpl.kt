@@ -29,7 +29,12 @@ class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
     }
 
     override fun writeEndTime(game: Task) {
-        dao.insertEndGameProcees(game)
+        Log.d("DataBase", "writeEndtime = ${game?.startTime.value} ${game?.endTime?.value}")
+        if(game.endTime!=null){
+            if (game.id!=null)
+            dao.insertEndGameProcees(game.endTime!!,game.summ,game.isPlaying,game.id!!)
+        }
+
     }
 
     override fun getAllGameProccesBiCabin(cabinId: Int): LiveData<List<Task>>? {
