@@ -7,25 +7,24 @@ import com.example.sonyadmin.gameList.MyModel
 import kotlinx.coroutines.*
 import org.joda.time.DateTime
 import org.joda.time.Duration
+import java.lang.Thread.sleep
 import java.math.RoundingMode
 
 fun MyModel.initItems() {
     launch {
         var list = arrayListOf<MutableLiveData<Task>>()
-        coroutineScope { // limits the scope of concurrency
-            (0..10).map {
-                async(Dispatchers.IO) { // async means "concurrently", context goes here
-                    list.add(repository.getLastGame(it) ?: MutableLiveData<Task>(Task(cabinId = it)))
-                    Log.d("Init","async $it")
-                }
-            }.awaitAll() // waits all of them
+        withContext(Dispatchers.IO) { // l
+            for (x  in 0..10){
+                list.add(repository.getLastGame(x) ?: MutableLiveData<Task>(Task(cabinId = x)))
+                Log.d("Init","in for $x")
+            }
             Log.d("Init","after")
             list.sortBy {
                 it.value?.cabinId
             }
             Log.d("Init","after sort")
             items.postValue(list)
-
+            dataLoading.postValue(false)
         } // if any task crashes -- this scope ends with exception
 
     }
