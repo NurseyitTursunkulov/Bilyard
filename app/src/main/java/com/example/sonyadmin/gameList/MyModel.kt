@@ -3,6 +3,9 @@ package com.example.sonyadmin.gameList
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.example.sonyadmin.MyCoroutineWorker
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.gameList.Model.changeGameEndTime
@@ -19,7 +22,7 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
     val items = MutableLiveData<List<MutableLiveData<Task>>>().apply {
         value = emptyList()
     }
-    val dataLoading = MutableLiveData<Boolean>()
+    val dataLoading = MutableLiveData<Boolean>(false)
 
     init {
         initItems()
