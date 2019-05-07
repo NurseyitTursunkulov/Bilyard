@@ -12,6 +12,7 @@ import java.math.RoundingMode
 
 fun MyModel.initItems() {
     launch {
+        dataLoading.postValue(true)
         var list = arrayListOf<MutableLiveData<Task>>()
         withContext(Dispatchers.IO) { // l
             for (x  in 0..10){
