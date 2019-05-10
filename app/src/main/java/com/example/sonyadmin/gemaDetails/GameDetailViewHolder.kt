@@ -11,7 +11,7 @@ import com.example.sonyadmin.gameList.TasksListBindings.getTime
 
 class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
     (LayoutInflater.from(parent.context).inflate(R.layout.cheese_item, parent, false)) {
-    private val startTime = itemView.findViewById<TextView>(R.id.start_time)
+    private val startTime = itemView.findViewById<TextView>(R.id.date)
     private val endTime = itemView.findViewById<TextView>(R.id.end_time)
     private val sum = itemView.findViewById<TextView>(R.id.sum)
     var cheese: Task? = null

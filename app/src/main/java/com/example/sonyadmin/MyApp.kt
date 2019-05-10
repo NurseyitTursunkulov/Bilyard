@@ -7,6 +7,7 @@ import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.RepositoryImpl
 import com.example.sonyadmin.gameList.MyModel
 import com.example.sonyadmin.gemaDetails.DetailsViewModel
+import com.example.sonyadmin.infoPerDay.DailyInfoViewModel
 import net.danlew.android.joda.JodaTimeAndroid
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +24,7 @@ class MyApp : Application(){
             androidContext(this@MyApp)
             modules(appModule)
         }
-        JodaTimeAndroid.init(this);
+        JodaTimeAndroid.init(this)
     }
 }
 
@@ -32,4 +33,5 @@ val appModule = module {
     single<Repository> { RepositoryImpl(get()) }
     viewModel { MyModel(get()) }
     viewModel { DetailsViewModel(get()) }
+    viewModel { DailyInfoViewModel(get()) }
 }

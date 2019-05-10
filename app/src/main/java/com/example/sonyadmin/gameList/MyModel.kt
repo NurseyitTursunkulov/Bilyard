@@ -3,9 +3,11 @@ package com.example.sonyadmin.gameList
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.sonyadmin.MyCoroutineWorker
+import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.gameList.Model.changeGameEndTime
@@ -17,6 +19,10 @@ import kotlinx.coroutines.MainScope
 import me.nikhilchaudhari.asynkio.core.async
 import me.nikhilchaudhari.asynkio.core.request
 import me.nikhilchaudhari.asynkio.response.Response
+import net.danlew.android.joda.DateUtils
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
+import java.text.SimpleDateFormat
 
 class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainScope() {
     val items = MutableLiveData<List<MutableLiveData<Task>>>().apply {
@@ -25,6 +31,9 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
     val dataLoading = MutableLiveData<Boolean>(false)
 
     init {
+        val uploadWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
+            .build()
+        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.KEEP,uploadWorkRequest)
         initItems()
     }
 
@@ -48,6 +57,10 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
                 }
             }.onError {
 
+            }
+            items.value!![task.cabinId].value?.summ?.value?.apply {
+                repository.updateCash(DateTime.now().withTime(9,0,0,0),DateTime.now().plusDays(1).withTime(8,59,59,0),
+                    this)
             }
 
             repository.writeEndTime(items.value!![task.cabinId].value!!)
