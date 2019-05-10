@@ -31,4 +31,10 @@
                 app:argType="integer"
                 />
     </fragment>
+    <fragment
+            android:id="@+id/dailyInfoFragment"
+            android:name="com.example.sonyadmin.infoPerDay.DailyInfoFragment"
+            android:label="fragment_daily_info"
+            tools:layout="@layout/fragment_daily_info"
+            />
 </navigation>

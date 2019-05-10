@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SonyAdmin</string>
     <string name="action_settings">Settings</string>
+    <string name="daily_cash">касса</string>
 </resources>

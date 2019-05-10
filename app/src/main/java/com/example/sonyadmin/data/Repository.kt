@@ -16,6 +16,8 @@ interface Repository {
     fun getLastGame(cabinId: Int): MutableLiveData<Task>?
 
     fun deleteAll()
-
+    fun setCash(dailyCount: DailyCount)
+    fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, sum: Double)
+    fun getCash() : DataSource.Factory<Int, DailyCount>
     fun getGameDetails(cabinId: Int): DataSource.Factory<Int, Task>
 }

@@ -56,4 +56,14 @@ class Converters {
         return MutableLiveData<Boolean>().apply { postValue(date) }
     }
 
+    @TypeConverter
+    fun fromTime(value: Long?): DateTime? {
+        return value?.let { DateTime(it) }
+    }
+
+    @TypeConverter
+    fun dateToTime(date: DateTime?): Long? {
+        return date?.millis
+    }
+
 }
