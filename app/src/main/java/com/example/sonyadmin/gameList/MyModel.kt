@@ -33,7 +33,7 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
     init {
         val uploadWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
             .build()
-        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.KEEP,uploadWorkRequest)
+        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.REPLACE,uploadWorkRequest)
         initItems()
     }
 
