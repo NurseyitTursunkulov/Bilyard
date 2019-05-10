@@ -29,11 +29,11 @@ class MyCoroutineWorker(context: Context, params: WorkerParameters) : CoroutineW
         if (DateUtils.isToday(last?.date)) {
             Log.d("Worker", "yea it true ${last}")
             Log.d("Worker", "${last?.date?.minuteOfDay}")
-            Log.d("Worker", "utro min = ${DateTime.now().withTime(9,0,0,0).minuteOfDay}")
+            val timediff = 86400 - last?.date?.secondOfDay!!
             val dailyWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
-                .setInitialDelay(15, TimeUnit.MINUTES)
+                .setInitialDelay(timediff.toLong(), TimeUnit.SECONDS)
                 .build()
-            WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.KEEP, dailyWorkRequest)
+            WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.REPLACE, dailyWorkRequest)
 
         } else {
             dao.setCash(DailyCount(DateTime.now(), 0.0))
