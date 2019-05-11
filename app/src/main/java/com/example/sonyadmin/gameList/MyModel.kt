@@ -59,7 +59,7 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
 
             }
             items.value!![task.cabinId].value?.summ?.value?.apply {
-                repository.updateCash(DateTime.now().withTime(9,0,0,0),DateTime.now().plusDays(1).withTime(8,59,59,0),
+                repository.updateCash(DateTime.now().withTime(0,0,0,0),DateTime.now().withTime(23,59,59,0),
                     this)
             }
 

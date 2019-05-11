@@ -7,6 +7,10 @@ import androidx.paging.DataSource
 import org.joda.time.DateTime
 
 class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
+    override fun getLastCash(): DailyCount? {
+        return dao.getLastCash()
+    }
+
     override fun getCash(): DataSource.Factory<Int, DailyCount> {
       return  dao.getCash()
     }

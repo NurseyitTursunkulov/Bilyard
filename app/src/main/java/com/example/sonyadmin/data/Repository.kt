@@ -20,4 +20,6 @@ interface Repository {
     fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, sum: Double)
     fun getCash() : DataSource.Factory<Int, DailyCount>
     fun getGameDetails(cabinId: Int): DataSource.Factory<Int, Task>
+    fun getLastCash(): DailyCount?
+
 }

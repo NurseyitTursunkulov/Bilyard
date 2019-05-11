@@ -32,7 +32,7 @@ interface Dao {
     @Query("update DailyCount set summ = summ + :sum where date between  :sTimeOfDay and :endTimeOfDay")
     fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, sum: Double)
 
-    @Query("select * from DailyCount")
+    @Query("select * from DailyCount order by date desc")
     fun getCash() :  DataSource.Factory<Int, DailyCount>
     @Query("select  * from DailyCount ORDER BY date DESC LIMIT 1")
     fun getLastCash() : DailyCount?
