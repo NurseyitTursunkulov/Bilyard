@@ -15,6 +15,7 @@ import com.example.sonyadmin.R
 import com.example.sonyadmin.databinding.FragmentListOfGamesBinding
 import me.nikhilchaudhari.asynkio.core.async
 import me.nikhilchaudhari.asynkio.core.request
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 

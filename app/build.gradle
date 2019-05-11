@@ -83,4 +83,5 @@ dependencies {
     androidTestImplementation "androidx.work:work-testing:$work_version"
     implementation "me.nikhilchaudhari:asynkio:1.0.0"
 
+    implementation 'com.jakewharton:process-phoenix:2.0.0'
 }

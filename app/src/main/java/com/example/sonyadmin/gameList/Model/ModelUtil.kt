@@ -33,14 +33,19 @@ fun MyModel.initItems() {
 
 fun MyModel.changeGameEndTime(task: Task) {
     items.value!![task.cabinId].value?.apply {
-        var duration: Double = (Duration(this.startTime.value, DateTime.now()).standardSeconds) / 60.toDouble()
-        duration = duration.toBigDecimal().setScale(0, RoundingMode.UP).toDouble()
+        var duration: Double = countMinutes(this)
 
         this.endTime?.value = DateTime.now()
         this.summ?.value = duration
         this.isPlaying?.value = false
     }
 
+}
+
+fun countMinutes(task : Task): Double {
+    var duration: Double = (Duration(task.startTime.value, DateTime.now()).standardSeconds) / 60.toDouble()
+    duration = duration.toBigDecimal().setScale(0, RoundingMode.UP).toDouble()
+    return duration
 }
 
 fun MyModel.changeGameStartTime(task: Task) {
