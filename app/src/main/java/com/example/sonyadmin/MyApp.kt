@@ -31,7 +31,7 @@ class MyApp : Application(){
 val appModule = module {
     single <Dao>{ GameProcessDataBase.getInstance(get()).gameProcesDao()}
     single<Repository> { RepositoryImpl(get()) }
-    viewModel { MyModel(get()) }
+    viewModel { MyModel(get(),get()) }
     viewModel { DetailsViewModel(get()) }
     viewModel { DailyInfoViewModel(get()) }
 }

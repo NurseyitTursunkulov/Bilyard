@@ -1,6 +1,10 @@
 package com.example.sonyadmin.gameList
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.work.ExistingWorkPolicy
@@ -14,6 +18,7 @@ import com.example.sonyadmin.gameList.Model.changeGameEndTime
 import com.example.sonyadmin.gameList.Model.changeGameStartTime
 import com.example.sonyadmin.gameList.Model.initItems
 import com.example.sonyadmin.gameList.Model.onBG
+import io.navendra.retrofitkotlindeferred.service.ApiFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import me.nikhilchaudhari.asynkio.core.async
@@ -24,7 +29,7 @@ import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.text.SimpleDateFormat
 
-class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainScope() {
+class MyModel(var repository: Repository,application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
     val items = MutableLiveData<List<MutableLiveData<Task>>>().apply {
         value = emptyList()
     }
@@ -33,34 +38,25 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
     init {
         val uploadWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
             .build()
-        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.REPLACE,uploadWorkRequest)
+        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.REPLACE, uploadWorkRequest)
         initItems()
     }
 
     fun completeTask(task: Task) {
         changeGameEndTime(items.value!![task.cabinId].value!!)
         onBG {
-            async {
-                lateinit var result: Response
-                try {
-
-                     result = await {
-                        request(method = "GET", url = "https://jsonplaceholder.typicode.com/posts/${task.cabinId}", timeout = 1.0)
-                    }
-                    Log.d("Internet", "${result.jsonObject}")
-                    Log.d("Internet", "status ${result.statusCode}")
-                } catch (exeption: Exception) {
-                    Log.d("Internet", "status ${result.statusCode}")
-                }
-                if (result.statusCode == 200){
-                    Log.d("Internet", "status okk ${result.statusCode}")
-                }
-            }.onError {
-
+            val response = ApiFactory.placeholderApi.off().await()
+            if(response.isSuccessful){
+                Log.d("Retrofit", response.body().toString())
+            }
+            else{
+                Log.d("Retrofit", "else complete")
             }
             items.value!![task.cabinId].value?.summ?.value?.apply {
-                repository.updateCash(DateTime.now().withTime(0,0,0,0),DateTime.now().withTime(23,59,59,0),
-                    this)
+                repository.updateCash(
+                    DateTime.now().withTime(0, 0, 0, 0), DateTime.now().withTime(23, 59, 59, 0),
+                    this
+                )
             }
 
             repository.writeEndTime(items.value!![task.cabinId].value!!)
@@ -70,21 +66,12 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
     fun openTask(task: Task) {
         changeGameStartTime(task)
         onBG {
-            async {
-                lateinit var result: Response
-                try {
-
-                    result = await {
-                        request(method = "GET", url = "https://jsonplaceholder.typicode.com/posts/${task.cabinId}", timeout = 1.0)
-                    }
-                    Log.d("Internet", "${result.jsonArray.get(1)}")
-                    Log.d("Internet", "status ${result.statusCode}")
-                } catch (exeption: Exception) {
-                    Log.d("Internet", "exeption $exeption")
-                    Log.d("Internet", "status ${result.statusCode}")
-
-                }
-
+            val response = ApiFactory.placeholderApi.onn().await()
+            if(response.isSuccessful){
+                Log.d("Retrofit", response.body().toString())
+            }
+            else{
+                Log.d("Retrofit", "else open")
             }
             repository.writeStartTime(items.value!![task.cabinId].value!!)
             items.value!![task.cabinId].postValue(repository.getLastGame(task.cabinId)?.value!!)
@@ -96,5 +83,9 @@ class MyModel(var repository: Repository) : ViewModel(), CoroutineScope by MainS
         repository.deleteAll()
     }
 
-
+    fun isInternetOn(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        val activeNetwork = cm?.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnected
+    }
 }
