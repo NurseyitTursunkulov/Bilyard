@@ -6,6 +6,7 @@ import com.example.sonyadmin.data.GameProcessDataBase
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.RepositoryImpl
 import com.example.sonyadmin.gameList.MyModel
+import com.example.sonyadmin.gameList.ScopeProvider
 import com.example.sonyadmin.gemaDetails.DetailsViewModel
 import com.example.sonyadmin.infoPerDay.DailyInfoViewModel
 import net.danlew.android.joda.JodaTimeAndroid

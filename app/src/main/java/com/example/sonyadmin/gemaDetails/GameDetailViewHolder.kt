@@ -23,10 +23,10 @@ class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
     @SuppressLint("SetTextI18n")
     fun bindTo(cheese: Task?) {
         this.cheese = cheese
-        startTime.text = getTime(cheese?.startTime?.value)
-        endTime.text = "${getTime(cheese?.endTime?.value)}" +
-                " ${cheese?.endTime?.value?.year}/${cheese?.endTime?.value?.monthOfYear}/" +
-                "${cheese?.endTime?.value?.dayOfMonth}"
-        sum.text = cheese?.summ?.value.toString()
+        startTime.text = getTime(cheese?.startTime)
+        endTime.text = getTime(cheese?.endTime) +
+                " ${cheese?.endTime?.year}/${cheese?.endTime?.monthOfYear}/" +
+                "${cheese?.endTime?.dayOfMonth}"
+        sum.text = cheese?.summ.toString()
     }
 }

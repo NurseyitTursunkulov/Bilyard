@@ -7,13 +7,16 @@ import org.joda.time.DateTime
 
 
 interface Repository {
+    var list:ArrayList<LiveData<Task>>
+    val first: LiveData<Task>
     fun writeStartTime(game: Task)
 
     fun writeEndTime(game: Task)
 
     fun getAllGameProccesBiCabin(cabinId: Int): LiveData<List<Task>>?
 
-    fun getLastGame(cabinId: Int): MutableLiveData<Task>?
+    fun getLastGame(cabinId: Int):Task
+    fun getLastGameLive(cabinId: Int):LiveData<Task>
 
     fun deleteAll()
     fun setCash(dailyCount: DailyCount)
