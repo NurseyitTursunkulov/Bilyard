@@ -8,10 +8,10 @@ import org.joda.time.DateTime
 @Entity
 data class Task(@PrimaryKey(autoGenerate = true) var id: Int? = null,
                 var cabinId:Int =0,
-                var startTime: MutableLiveData<DateTime> = MutableLiveData(),
-                var endTime: MutableLiveData<DateTime>? = MutableLiveData(),
-                var summ: MutableLiveData<Double>? = MutableLiveData(),
-                var isPlaying:MutableLiveData<Boolean> = MutableLiveData(false)) {
+                var startTime: DateTime ,
+                var endTime: DateTime? = null ,
+                var summ: Double = 0.0,
+                var isPlaying:Boolean = false) {
     var idForTitle = cabinId.toString() + "я кабинка"
 
 }

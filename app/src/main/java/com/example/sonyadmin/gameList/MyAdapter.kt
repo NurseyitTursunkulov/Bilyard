@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation.findNavController
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.databinding.TaskItemBinding
 
-class MyAdapter(private var tasks: List<MutableLiveData<Task>>, var tasksViewModel: MyModel) : BaseAdapter() {
+class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyModel) : BaseAdapter() {
     init {
+        tasksViewModel.liveItems?.forEach {
+            it.observeForever {
+                Log.d("Adapter", "change $it")
+                notifyDataSetChanged()
+            }
+        }
         Log.d("cycle", "adapter")
     }
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
@@ -32,7 +39,7 @@ class MyAdapter(private var tasks: List<MutableLiveData<Task>>, var tasksViewMod
             }
 
             override fun onTaskClicked(task: Task) {
-                task.isPlaying.value?.let {
+                task.isPlaying?.let {
                     if (it){
                         tasksViewModel.completeTask(task)
                     }
@@ -54,9 +61,10 @@ class MyAdapter(private var tasks: List<MutableLiveData<Task>>, var tasksViewMod
 
     }
 
-     fun setList(tasks: List<MutableLiveData<Task>>) {
+     fun setList(tasks: List<LiveData<Task>>) {
         this.tasks = tasks
         notifyDataSetChanged()
+         Log.d("Adapter","setList")
     }
 
     override fun getItem(position: Int): Any = tasks[position]

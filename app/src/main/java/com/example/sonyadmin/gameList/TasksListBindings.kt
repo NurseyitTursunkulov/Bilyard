@@ -18,6 +18,7 @@ package com.example.sonyadmin.gameList
 import android.widget.ListView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
@@ -29,7 +30,7 @@ import org.joda.time.DateTime
 object TasksListBindings {
 
     @BindingAdapter("app:items")
-    @JvmStatic fun setItems(listView: ListView, items:List<MutableLiveData<Task>>) {
+    @JvmStatic fun setItems(listView: ListView, items:List<LiveData<Task>>) {
         with(listView.adapter as MyAdapter) {
             setList(items)
         }

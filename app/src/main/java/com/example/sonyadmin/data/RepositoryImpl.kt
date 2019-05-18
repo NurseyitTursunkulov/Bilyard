@@ -7,6 +7,25 @@ import androidx.paging.DataSource
 import org.joda.time.DateTime
 
 class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
+    override var list: ArrayList<LiveData<Task>>
+        get() = getAllgames()
+        set(value) {}
+
+    private fun getAllgames(): ArrayList<LiveData<Task>> {
+        var list =  ArrayList<LiveData<Task>>()
+        for (x in 0..10){
+            list.add(dao.getOneGameLive(x))
+        }
+        return list
+    }
+
+    override val first: LiveData<Task>
+        get() = dao.getOneGameLive(3)
+
+    override fun getLastGameLive(cabinId: Int): LiveData<Task> {
+       return dao.getOneGameLive(cabinId)
+    }
+
     override fun getLastCash(): DailyCount? {
         return dao.getLastCash()
     }
@@ -32,12 +51,10 @@ class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
         dao.deleteAll()
     }
 
-    override fun getLastGame(cabinId: Int): MutableLiveData<Task>? {
+    override fun getLastGame(cabinId: Int): Task {
         var data = dao.getLastGameProcessById(cabinId)
-        Log.d("DataBase", "getLast = ${data?.cabinId} ${data?.startTime}")
-        return if (data != null)
-            MutableLiveData<Task>(data)
-        else null
+//        Log.d("DataBase", "getLast = ${data?.cabinId} ${data?.startTime}")
+   return data
 
 
     }
@@ -47,7 +64,7 @@ class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
     }
 
     override fun writeEndTime(game: Task) {
-        Log.d("DataBase", "writeEndtime = ${game?.startTime.value} ${game?.endTime?.value}")
+//        Log.d("DataBase", "writeEndtime = ${game?.startTime.value} ${game?.endTime?.value}")
         if (game.endTime != null) {
             if (game.id != null)
                 dao.insertEndGameProcees(game.endTime!!, game.summ, game.isPlaying, game.id!!)
