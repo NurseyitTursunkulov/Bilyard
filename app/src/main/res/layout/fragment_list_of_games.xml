@@ -34,7 +34,7 @@
 
         <ListView
                 android:id="@+id/tasks_list"
-                app:items="@{viewmodel.liveItems}"
+                app:items="@{viewmodel.items}"
                 android:visibility="@{viewmodel.dataLoading? View.GONE : View.VISIBLE}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
