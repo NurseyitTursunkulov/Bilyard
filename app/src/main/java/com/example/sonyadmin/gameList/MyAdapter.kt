@@ -13,15 +13,7 @@ import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.databinding.TaskItemBinding
 
 class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyModel) : BaseAdapter() {
-    init {
-        tasksViewModel.liveItems?.forEach {
-            it.observeForever {
-                Log.d("Adapter", "change $it")
-                notifyDataSetChanged()
-            }
-        }
-        Log.d("cycle", "adapter")
-    }
+
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
 
         val binding: TaskItemBinding = getTaskItemBinding(view, viewGroup)

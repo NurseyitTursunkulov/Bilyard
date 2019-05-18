@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.ExistingWorkPolicy
@@ -24,16 +25,16 @@ class MyModel(var repository: Repository,application: Application) : AndroidView
         return viewModelScope
     }
 
-
+    val items = MutableLiveData<List<LiveData<Task>>>().apply {
+        value = emptyList()
+    }
     val liveItems =repository.list
     val dataLoading = MutableLiveData<Boolean>(false)
 
     init {
-//        liveItems.observeForever {
-//            Log.e("Onclick","yeee llistLive changed ${it}")
-//        }
         liveItems.forEach {
             it.observeForever {
+                items.postValue(liveItems)
                 Log.d("Onclick","observer for ${it}")
             }
         }
