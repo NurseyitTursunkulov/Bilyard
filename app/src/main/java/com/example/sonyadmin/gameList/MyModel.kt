@@ -15,22 +15,26 @@ import com.example.sonyadmin.Event
 import com.example.sonyadmin.MyCoroutineWorker
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
-import com.example.sonyadmin.gameList.Model.changeGameEndTime
-import com.example.sonyadmin.gameList.Model.changeGameStartTime
-import com.example.sonyadmin.gameList.Model.onBG
+import com.example.sonyadmin.data.service.UserRepository
+import com.example.sonyadmin.gameList.Model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import me.nikhilchaudhari.asynkio.core.async
 import me.nikhilchaudhari.asynkio.core.request
 import me.nikhilchaudhari.asynkio.response.Response
+import org.joda.time.DateTime
 
-class MyModel(var repository: Repository,application: Application) : AndroidViewModel(application), CoroutineScope by MainScope(),ScopeProvider {
+class MyModel(var repository: Repository, application: Application, val userRepository: UserRepository) :
+    AndroidViewModel(application),
+    CoroutineScope by MainScope(), ScopeProvider {
     override fun provideScope(): CoroutineScope {
         return viewModelScope
     }
+
     private val _showToast = MutableLiveData<Event<String>>()
 
-    val showToast : LiveData<Event<String>>
+    val showToast: LiveData<Event<String>>
         get() = _showToast
 
     val items = MutableLiveData<List<LiveData<Task>>>().apply {
@@ -38,12 +42,13 @@ class MyModel(var repository: Repository,application: Application) : AndroidView
     }
     val liveItems =repository.list
     val dataLoading = MutableLiveData<Boolean>(false)
+    val anyData = MutableLiveData<String>("hz")
 
     init {
         liveItems.forEach {
             it.observeForever {
                 items.postValue(liveItems)
-                Log.d("Onclick","observer for ${it}")
+                Log.d("Onclick", "observer for ${it}")
             }
         }
         val uploadWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
@@ -53,73 +58,23 @@ class MyModel(var repository: Repository,application: Application) : AndroidView
     }
 
     fun completeTask(task: Task) {
-        if (isInternetOn(getApplication())) {
-            dataLoading.postValue(true)
-            async {
-                lateinit var result: Response
-                try {
-
-                    result = await {
-                        request(
-                            method = "GET",
-                            url = "https://jsonplaceholder.typicode.com/posts/${task.cabinId}",
-                            timeout = 1.0
-                        )
-                    }
-                } catch (exeption: Exception) {
-                    _showToast.value = Event("ошибка ${exeption.toString()}")
-                    dataLoading.postValue(false)
-                }
-                if (result.statusCode == 200) {
-                    onBG {
-                        repository.writeEndTime(changeGameEndTime(task))
-                        dataLoading.postValue(false)
-                    }
-                } else {
-                    _showToast.value = Event("нет соединения с сервером")
-                    dataLoading.postValue(false)
-                }
-            }.onError {
-                dataLoading.postValue(false)
-            }
-        }else{
-            _showToast.value = Event("no internet")
+//        launch {
+//            val h = userRepository.search()
+//            if (h.isSuccessful)
+//            Log.d("Retrofit","eeeeee Retrofit ${h}")
+//        }
+        sendRequest(task, dataLoading,"off", _showToast) {
+            repository.writeEndTime(changeGameEndTime(task))
+            repository.updateCash( DateTime.now().withTime(0, 0, 0, 0), DateTime.now().withTime(23, 59, 59, 0),
+                countMinutes(task))
         }
     }
 
-    fun openTask(task: Task) {
-        if (isInternetOn(getApplication())) {
-            dataLoading.value = true
-            async {
-                lateinit var result: Response
-                try {
 
-                    result = await {
-                        request(
-                            method = "GET",
-                            url = "https://jsonplaceholder.typicode.com/posts/${task.cabinId}",
-                            timeout = 1.0
-                        )
-                    }
-                } catch (exeption: Exception) {
-                    _showToast.value = Event("ошибка ${exeption.toString()}")
-                }
-                if (result.statusCode == 200) {
-                    dataLoading.postValue(false)
-                    onBG {
-                        repository.writeStartTime(changeGameStartTime(task))
-                    }
-                } else {
-                    _showToast.value = Event("нет соединения с сервером")
-                    dataLoading.postValue(false)
-                }
-            }.onError {
-                dataLoading.postValue(false)
-                _showToast.value = Event("error")
-            }
-        }else{
-            _showToast.value = Event("no internet")
-        }
+    fun openTask(task: Task) =viewModelScope.launch{
+//            val h = userRepository.search().body()
+//        repository.writeStartTime(changeGameStartTime(task))
+        sendRequest(task, dataLoading,"onn", _showToast) { repository.writeStartTime(changeGameStartTime(task)) }
     }
 
     fun deleteAll() {
