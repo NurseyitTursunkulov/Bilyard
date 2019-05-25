@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.Event
 import com.example.sonyadmin.data.Task
+import com.example.sonyadmin.data.service.PlaceholderPosts
 import com.example.sonyadmin.gameList.MyModel
 import kotlinx.coroutines.*
 import me.nikhilchaudhari.asynkio.core.async
 import me.nikhilchaudhari.asynkio.core.request
 import me.nikhilchaudhari.asynkio.response.Response
 import org.joda.time.*
+import java.lang.Exception
 import java.math.RoundingMode
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -56,31 +58,31 @@ fun countSum(task: Task, endTime: DateTime): Double {
     }
     /***/
     if (fomMiddNightTillMiddDay && checkInterval(12, 17, DateTime.now())) {
-        var firstSum: Double = countFirstTime(task,12,0)
-        var secondTime: Double = countSecondTime(12,0)
-        sum = (firstSum/60*100) + (secondTime/60*150)
+        var firstSum: Double = countFirstTime(task, 12, 0)
+        var secondTime: Double = countSecondTime(12, 0)
+        sum = (firstSum / 60 * 100) + (secondTime / 60 * 150)
     }
     if (fromMiddDayTillEvening && checkInterval(17, 23, DateTime.now())) {
-        var firstSum: Double = countFirstTime(task,18,0)
-        var secondTime: Double = countSecondTime(18,0)
-        sum = (firstSum/60*150) + (secondTime/60*180)
+        var firstSum: Double = countFirstTime(task, 18, 0)
+        var secondTime: Double = countSecondTime(18, 0)
+        sum = (firstSum / 60 * 150) + (secondTime / 60 * 180)
     }
     if (fromEveningTillMiddNight && checkInterval(0, 11, DateTime.now())) {
-        var firstSum: Double = countFirstTime(task,0,0)
-        var secondTime: Double = countSecondTime(0,0)
+        var firstSum: Double = countFirstTime(task, 0, 0)
+        var secondTime: Double = countSecondTime(0, 0)
         sum = firstSum + secondTime
     }
     return sum.toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
 }
 
-private fun countSecondTime(hour:Int,minute : Int): Double {
+private fun countSecondTime(hour: Int, minute: Int): Double {
     return (Duration(
         DateTime.now().withHourOfDay(hour).withMinuteOfHour(minute),
         DateTime.now()
     ).standardSeconds) / 60.toDouble()
 }
 
-private fun countFirstTime(task: Task,hour:Int,minute : Int): Double {
+private fun countFirstTime(task: Task, hour: Int, minute: Int): Double {
     return (Duration(
         task.startTime,
         DateTime.now().withHourOfDay(hour).withMinuteOfHour(minute)
@@ -100,49 +102,33 @@ fun MyModel.onBG(bar: suspend () -> Unit) {
     }
 }
 
-fun MyModel.sendRequest(
-    task: Task, dataLoading: MutableLiveData<Boolean>,
-    state: String,
-    _showToast: MutableLiveData<Event<String>>,
-    bar: () -> Unit
+fun MyModel.makeRequest(
+    bar: suspend () -> retrofit2.Response<List<PlaceholderPosts>>, onSuccess:
+        () -> Unit
 ) {
-    if (isInternetOn(getApplication())) {
-        dataLoading.postValue(true)
-        async {
-            lateinit var result: Response
+    dataLoading.postValue(true)
+    launch {
+        withContext(Dispatchers.IO) {
             try {
-
-                result = await {
-                    request(
-                        method = "GET",
-                        url = "http://192.168.43.9:5000/${state}/${task.cabinId}",
-                        timeout = 3.0
-                    )
+                val h = bar()
+                if (h.isSuccessful) {
+                    onSuccess()
+                    Log.d("Retrofit", "eeeeee Retrofit ${h}")
+                } else {
+                    _showToast.postValue(Event(" нет соединения"))
+                    Log.d("Retrofit", "uuuuu Retrofit ${h}")
                 }
+            } catch (timeOut: SocketTimeoutException) {
+                _showToast.postValue(Event(" нет соединения"))
+                Log.d("Retrofit", "yaaa timeout Retrofit ${timeOut}")
             } catch (connect: ConnectException) {
-                _showToast.value = Event(" нет соединения")
-                dataLoading.postValue(false)
-            } catch (exeption: SocketTimeoutException) {
-                _showToast.value = Event("нет соединения")
-                dataLoading.postValue(false)
+                _showToast.postValue(Event(" нет соединения"))
             } catch (exeption: Exception) {
-                dataLoading.postValue(false)
-                _showToast.value = Event("ошибка ${exeption.toString()}")
-            }
-            if (result.statusCode == 200) {
-                onBG {
-                    bar()
-                    dataLoading.postValue(false)
-                }
-            } else {
-                _showToast.value = Event("нет соединения с сервером")
+                _showToast.postValue(Event(" нет соединения"))
+            } finally {
                 dataLoading.postValue(false)
             }
-        }.onError {
-            dataLoading.postValue(false)
-            _showToast.value = Event("ошибка ${it.toString()}")
         }
-    } else {
-        _showToast.value = Event("no internet")
+
     }
 }
