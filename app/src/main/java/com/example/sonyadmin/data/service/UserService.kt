@@ -5,9 +5,8 @@ import com.example.sonyadmin.data.service.PlaceholderPosts
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 
-interface PlaceholderApi{
+interface UserService{
 
 //    @GET("/off/{led}")
 //    fun off(@Path("led")led: Int) : Deferred<Response<List<PlaceholderPosts>>>
