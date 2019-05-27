@@ -6,15 +6,15 @@ import retrofit2.Response
 
 class UserRepository(private val service: UserService) {
 
-     suspend fun search() : Response<List<PlaceholderPosts>> {
-        var h = service.off().await()
+     suspend fun off(led: String) : Response<PlaceholderPosts> {
+        var h = service.off(led).await()
 
          h.body()
          return h
      }
 
-    suspend fun onn() : Response<List<PlaceholderPosts>> {
-        var h = service.onn().await()
+    suspend fun onn(led: String) : Response<PlaceholderPosts> {
+        var h = service.onn(led).await()
 
         h.body()
         return h

@@ -103,7 +103,7 @@ fun MyModel.onBG(bar: suspend () -> Unit) {
 }
 
 fun MyModel.makeRequest(
-    bar: suspend () -> retrofit2.Response<List<PlaceholderPosts>>, onSuccess:
+    bar: suspend () -> retrofit2.Response<PlaceholderPosts>, onSuccess:
         () -> Unit
 ) {
     dataLoading.postValue(true)

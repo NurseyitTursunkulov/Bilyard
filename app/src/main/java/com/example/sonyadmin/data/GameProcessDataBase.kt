@@ -1,6 +1,5 @@
 package com.example.sonyadmin.data
 
-import android.app.Application
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
@@ -9,15 +8,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.sonyadmin.gameList.ScopeProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.joda.time.DateTime
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-@Database(entities = [Task::class, DailyCount::class],version = 8)
+@Database(entities = [Task::class, DailyCount::class],version = 9)
 @TypeConverters(Converters::class)
 abstract class GameProcessDataBase : RoomDatabase() {
     abstract fun gameProcesDao(): Dao

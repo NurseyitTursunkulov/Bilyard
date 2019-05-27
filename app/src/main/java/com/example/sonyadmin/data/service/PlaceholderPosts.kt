@@ -2,7 +2,7 @@ package com.example.sonyadmin.data.service
 
 data class PlaceholderPosts(
     val id: Int,
-    val userId : Int,
+    val description : String,
     val title: String,
-    val body: String
+    val done: Boolean
 )
