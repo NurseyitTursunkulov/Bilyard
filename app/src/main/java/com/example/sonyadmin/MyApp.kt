@@ -44,14 +44,10 @@ class MyApp : Application(){
         }
         JodaTimeAndroid.init(this)
     }
-
-
+fun getCon():Context{
+    return applicationContext
 }
-object KoinHelper{
-    @JvmStatic
-    fun start(application: Application) {
-        startKoin{modules(appModule)}
-    }
+
 }
 
 val appModule = module {
@@ -74,7 +70,7 @@ val appModule = module {
     single {
         Retrofit.Builder()
             .client(get())
-            .baseUrl("http://192.168.0.109:5000/")
+            .baseUrl("http://jsonplaceholder.typicode.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()

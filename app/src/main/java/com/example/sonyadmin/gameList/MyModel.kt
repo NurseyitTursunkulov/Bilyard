@@ -13,12 +13,12 @@ import com.example.sonyadmin.Event
 import com.example.sonyadmin.MyCoroutineWorker
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
-import com.example.sonyadmin.data.service.UserRepository
 import com.example.sonyadmin.gameList.Model.*
+import io.navendra.retrofitkotlindeferred.service.UserService
 import kotlinx.coroutines.*
 import org.joda.time.DateTime
 
-class MyModel(var repository: Repository, application: Application, val userRepository: UserRepository) :
+class MyModel(var repository: Repository, application: Application, val userService: UserService) :
     AndroidViewModel(application),
     CoroutineScope by MainScope(), ScopeProvider {
     override fun provideScope(): CoroutineScope {
@@ -50,7 +50,9 @@ class MyModel(var repository: Repository, application: Application, val userRepo
     }
 
     fun completeTask(task: Task) {
-        makeRequest( { userRepository.off(task.cabinId.toString()) }, {
+        makeRequest( {
+            userService.off(task.cabinId.toString()).await()
+        }, {
             repository.writeEndTime(changeGameEndTime(task))
             repository.updateCash(
                 DateTime.now().withTime(0, 0, 0, 0), DateTime.now().withTime(23, 59, 59, 0),
@@ -62,7 +64,7 @@ class MyModel(var repository: Repository, application: Application, val userRepo
 
 
     fun openTask(task: Task)  {
-        makeRequest( {userRepository.onn(task.cabinId.toString())}, {
+        makeRequest( {userService.onn(task.cabinId.toString()).await()}, {
             repository.writeStartTime(changeGameStartTime(task))
         })
 

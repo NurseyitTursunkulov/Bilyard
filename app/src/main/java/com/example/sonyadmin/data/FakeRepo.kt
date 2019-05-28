@@ -1,24 +1,12 @@
-package com.example.sonyadmin
+package com.example.sonyadmin.data
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import com.example.sonyadmin.data.DailyCount
-import com.example.sonyadmin.data.Price
-import com.example.sonyadmin.data.Repository
-import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
 
-class FakeRepository : Repository{
-    override fun setPrice(price: Price) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getPrice(): LiveData<Price> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+class FakeRepo : Repository {
     override var list: ArrayList<LiveData<Task>>
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        get() = arrayListOf<LiveData<Task>>()
         set(value) {}
     override val first: LiveData<Task>
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
@@ -65,5 +53,4 @@ class FakeRepository : Repository{
     override fun getLastCash(): DailyCount? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }
