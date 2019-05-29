@@ -112,6 +112,26 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun completeTask_on_error_changes_livedata() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        doAnswer {
+            Result.Error(Exception())
+        }.whenever(api).off(any())
+        tasksViewModel.completeTask(
+            Task(
+                cabinId = 4, startTime = DateTime.now(),
+                isPlaying = true, endTime = null
+            )
+        )
+        // Execute pending coroutines actions
+        testContext.triggerActions()
+
+        assertEquals(tasksViewModel.dataLoading.value, true)
+        assertLiveDataEventTriggered(tasksViewModel.showToast, " нет соединения")
+        verify(tasksRepository, never()).writeEndTime(any())
+        verify(tasksRepository, never()).updateCash(any(), any(), any())
+    }
+
+    @Test
     fun openTask_changes_livedata() = coroutinesTestRule.testDispatcher.runBlockingTest {
         doAnswer {
             Result.Success(PlaceholderPosts(4,"adf","eq",true))
@@ -135,8 +155,26 @@ class ExampleUnitTest {
             isPlaying = true, endTime = null
         )
         tasksViewModel.openTask(task)
+        testContext.triggerActions()
         verify(api).onn(any())
         verify(tasksRepository).writeStartTime(any())
+    }
+
+    @Test
+    fun completeTask_makes_api_call_and_writes_to_database()= coroutinesTestRule.testDispatcher.runBlockingTest {
+        doAnswer {
+            Result.Success(PlaceholderPosts(4,"adf","eq",true))
+        }.whenever(api).off(any())
+        val st = DateTime(2016, DateTimeConstants.MARCH, 28, 9, 10)
+        val task = Task(
+            cabinId = 4, startTime = st,
+            isPlaying = true, endTime = null
+        )
+        tasksViewModel.completeTask(task)
+        testContext.triggerActions()
+        verify(api).off(any())
+        verify(tasksRepository).writeEndTime(any())
+        verify(tasksRepository).updateCash(any(), any(), any())
     }
 
     fun assertLiveDataEventTriggered(
