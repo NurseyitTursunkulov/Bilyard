@@ -3,11 +3,11 @@ package com.example.sonyadmin.hz
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import com.example.sonyadmin.CoroutinesTestRule
-import com.example.sonyadmin.Event
+import com.example.sonyadmin.EveryDayUpdateCashWorker
+import com.example.sonyadmin.util.Event
 import com.example.sonyadmin.LiveDataTestUtil
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Result
@@ -33,7 +33,6 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import retrofit2.Response
 import java.io.InputStream
 import java.lang.Exception
 
@@ -49,6 +48,8 @@ class ExampleUnitTest {
     private lateinit var tasksViewModel: MyModel
     @Mock
     private lateinit var api: Api
+    @Mock
+    private lateinit var updateWorker: EveryDayUpdateCashWorker
 
     // Use a fake repository to be injected into the viewmodel
     @Mock
@@ -82,8 +83,7 @@ class ExampleUnitTest {
         JodaTimeAndroid.init(context)
 
         val applicationMock = Mockito.mock(Application::class.java)
-//        tasksRepository = FakeRepo()
-        tasksViewModel = MyModel(tasksRepository, applicationMock, api)
+        tasksViewModel = MyModel(tasksRepository, applicationMock, api,updateWorker)
     }
 
     @Test

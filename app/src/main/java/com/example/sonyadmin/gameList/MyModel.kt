@@ -5,21 +5,22 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.sonyadmin.Event
+import com.example.sonyadmin.EveryDayUpdateCashWorker
+import com.example.sonyadmin.util.Event
 import com.example.sonyadmin.MyCoroutineWorker
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.gameList.Model.*
-import io.navendra.retrofitkotlindeferred.service.UserService
 import kotlinx.coroutines.*
 import org.joda.time.DateTime
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class MyModel(var repository: Repository, application: Application, val userService: Api) :
+class MyModel(var repository: Repository, application: Application, val userService: Api, everyDayUpdateCashWorker: EveryDayUpdateCashWorker ) :
     AndroidViewModel(application),
     CoroutineScope by MainScope() {
 
@@ -41,10 +42,7 @@ class MyModel(var repository: Repository, application: Application, val userServ
                 Log.d("Onclick", "observer for ${it}")
             }
         }
-        val uploadWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
-            .build()
-//        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.REPLACE, uploadWorkRequest)
-
+        everyDayUpdateCashWorker.update()
     }
 
     fun completeTask(task: Task) {

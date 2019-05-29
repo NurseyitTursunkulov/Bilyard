@@ -4,10 +4,10 @@ package com.example.sonyadmin
 
 import android.util.Log
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.work.*
 import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
+import com.example.sonyadmin.util.EchoWorker
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,8 +16,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.mockito.Mockito
 import java.util.concurrent.TimeUnit
-import javax.xml.datatype.DatatypeConstants.MINUTES
-import kotlin.text.Typography.times
 
 /**
  * Instrumented test, which will execute on an Android device.

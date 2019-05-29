@@ -45,19 +45,16 @@ class MyApp : Application(){
         }
         JodaTimeAndroid.init(this)
     }
-fun getCon():Context{
-    return applicationContext
-}
 
 }
 
 val appModule = module {
     single <Dao>{ GameProcessDataBase.getInstance(androidApplication()).gameProcesDao()}
     single<Repository> { RepositoryImpl(get()) }
-    viewModel { MyModel(get(),get(),get()) }
+    viewModel { MyModel(get(),get(),get(),get()) }
     viewModel { DetailsViewModel(get()) }
     viewModel { DailyInfoViewModel(get()) }
-
+    single <EveryDayUpdateCashWorker>{EveryDayUpdateCashWorkerImpl()  }
     factory<Interceptor> {
         HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.d("API", it) })
             .setLevel(HttpLoggingInterceptor.Level.HEADERS)

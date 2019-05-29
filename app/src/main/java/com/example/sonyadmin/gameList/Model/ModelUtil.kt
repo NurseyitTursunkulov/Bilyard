@@ -1,22 +1,14 @@
 package com.example.sonyadmin.gameList.Model
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.example.sonyadmin.Event
+import com.example.sonyadmin.util.Event
 import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.PlaceholderPosts
 import com.example.sonyadmin.gameList.MyModel
 import kotlinx.coroutines.*
-import me.nikhilchaudhari.asynkio.core.async
-import me.nikhilchaudhari.asynkio.core.request
-import me.nikhilchaudhari.asynkio.response.Response
 import org.joda.time.*
-import java.lang.Exception
 import java.math.RoundingMode
-import java.net.ConnectException
-import java.net.SocketTimeoutException
-import kotlin.math.roundToInt
 
 
 fun MyModel.changeGameEndTime(task: Task): Task {
