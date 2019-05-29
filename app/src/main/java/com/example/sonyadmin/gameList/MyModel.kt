@@ -43,7 +43,7 @@ class MyModel(var repository: Repository, application: Application, val userServ
         }
         val uploadWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
             .build()
-        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.REPLACE, uploadWorkRequest)
+//        WorkManager.getInstance().enqueueUniqueWork("database", ExistingWorkPolicy.REPLACE, uploadWorkRequest)
 
     }
 

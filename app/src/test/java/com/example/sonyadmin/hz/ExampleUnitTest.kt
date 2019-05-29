@@ -15,10 +15,7 @@ import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.data.service.PlaceholderPosts
 import com.example.sonyadmin.gameList.MyModel
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineContext
 import kotlinx.coroutines.test.runBlockingTest
@@ -96,8 +93,10 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun openTask_changes_livedata() = coroutinesTestRule.testDispatcher.runBlockingTest {
-
+    fun openTask_on_error_changes_livedata() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        doAnswer {
+            Result.Error(Exception())
+        }.whenever(api).onn(any())
         tasksViewModel.openTask(
             Task(
                 cabinId = 4, startTime = DateTime.now(),
@@ -109,10 +108,24 @@ class ExampleUnitTest {
 
         assertEquals(tasksViewModel.dataLoading.value, true)
         assertLiveDataEventTriggered(tasksViewModel.showToast, " нет соединения")
+        verify(tasksRepository, never()).writeStartTime(any())
     }
 
     @Test
-    fun completeTask_makes_api_call_and_writes_to_database()= coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun openTask_changes_livedata() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        doAnswer {
+            Result.Success(PlaceholderPosts(4,"adf","eq",true))
+        }.whenever(api).onn(any())
+        tasksViewModel.openTask(
+            Task(
+                cabinId = 4, startTime = DateTime.now(),
+                isPlaying = true, endTime = null
+            )
+        )
+        assertEquals(tasksViewModel.dataLoading.value, true)
+    }
+    @Test
+    fun openTask_makes_api_call_and_writes_to_database()= coroutinesTestRule.testDispatcher.runBlockingTest {
         doAnswer {
             Result.Success(PlaceholderPosts(4,"adf","eq",true))
         }.whenever(api).onn(any())
