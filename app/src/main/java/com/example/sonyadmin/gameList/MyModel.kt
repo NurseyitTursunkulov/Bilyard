@@ -13,17 +13,15 @@ import com.example.sonyadmin.Event
 import com.example.sonyadmin.MyCoroutineWorker
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
+import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.gameList.Model.*
 import io.navendra.retrofitkotlindeferred.service.UserService
 import kotlinx.coroutines.*
 import org.joda.time.DateTime
 
-class MyModel(var repository: Repository, application: Application, val userService: UserService) :
+class MyModel(var repository: Repository, application: Application, val userService: Api) :
     AndroidViewModel(application),
-    CoroutineScope by MainScope(), ScopeProvider {
-    override fun provideScope(): CoroutineScope {
-        return viewModelScope
-    }
+    CoroutineScope by MainScope() {
 
     internal val _showToast = MutableLiveData<Event<String>>()
 
@@ -50,23 +48,27 @@ class MyModel(var repository: Repository, application: Application, val userServ
     }
 
     fun completeTask(task: Task) {
-        makeRequest( {
-            userService.off(task.cabinId.toString()).await()
-        }, {
-            repository.writeEndTime(changeGameEndTime(task))
-            repository.updateCash(
-                DateTime.now().withTime(0, 0, 0, 0), DateTime.now().withTime(23, 59, 59, 0),
-                countSum(task, DateTime.now())
-            )
-        })
+        makeRequest(
+            { userService.off(task.cabinId.toString()) },
+            {
+                repository.writeEndTime(changeGameEndTime(task))
+                repository.updateCash(
+                    DateTime.now().withTime(0, 0, 0, 0), DateTime.now().withTime(23, 59, 59, 0),
+                    countSum(task, DateTime.now())
+                )
+            }
+        )
 
     }
 
 
-    fun openTask(task: Task)  {
-        makeRequest( {userService.onn(task.cabinId.toString()).await()}, {
-            repository.writeStartTime(changeGameStartTime(task))
-        })
+    fun openTask(task: Task) {
+        makeRequest(
+            { userService.onn(task.cabinId.toString()) },
+            {
+                repository.writeStartTime(changeGameStartTime(task))
+            }
+        )
 
     }
 

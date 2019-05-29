@@ -3,6 +3,7 @@ package com.example.sonyadmin.gameList.Model
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.Event
+import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.PlaceholderPosts
 import com.example.sonyadmin.gameList.MyModel
@@ -103,7 +104,7 @@ fun MyModel.onBG(bar: suspend () -> Unit) {
 }
 
 fun MyModel.makeRequest(
-    bar: suspend () -> retrofit2.Response<PlaceholderPosts>, onSuccess:
+    bar: suspend () -> Result<PlaceholderPosts>, onSuccess:
         () -> Unit
 ) {
     dataLoading.postValue(true)
@@ -111,21 +112,14 @@ fun MyModel.makeRequest(
         withContext(Dispatchers.IO) {
             try {
                 val h = bar()
-                if (h.isSuccessful) {
+                if (h is Result.Success) {
                     onSuccess()
                     Log.d("Retrofit", "eeeeee Retrofit ${h}")
                 } else {
                     _showToast.postValue(Event(" нет соединения"))
                     Log.d("Retrofit", "uuuuu Retrofit ${h}")
                 }
-            } catch (timeOut: SocketTimeoutException) {
-                _showToast.postValue(Event(" нет соединения"))
-                Log.d("Retrofit", "yaaa timeout Retrofit ${timeOut}")
-            } catch (connect: ConnectException) {
-                _showToast.postValue(Event(" нет соединения"))
-            } catch (exeption: Exception) {
-                _showToast.postValue(Event(" нет соединения"))
-            } finally {
+            }finally {
                 dataLoading.postValue(false)
             }
         }

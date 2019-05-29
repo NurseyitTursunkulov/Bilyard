@@ -12,9 +12,10 @@ import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.GameProcessDataBase
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.RepositoryImpl
+import com.example.sonyadmin.data.service.Api
+import com.example.sonyadmin.data.service.ApiImpl
 import com.example.sonyadmin.data.service.UserRepository
 import com.example.sonyadmin.gameList.MyModel
-import com.example.sonyadmin.gameList.ScopeProvider
 import com.example.sonyadmin.gemaDetails.DetailsViewModel
 import com.example.sonyadmin.infoPerDay.DailyInfoViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -78,6 +79,7 @@ val appModule = module {
 
     factory{ get<Retrofit>().create(UserService::class.java) }
     factory { UserRepository(get()) }
+    factory<Api> { ApiImpl(get())}
 }
 
 class MyWorkManagerInitializer : DummyContentProvider() {

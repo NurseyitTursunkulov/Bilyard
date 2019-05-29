@@ -9,16 +9,16 @@ import androidx.lifecycle.LiveData
 import com.example.sonyadmin.CoroutinesTestRule
 import com.example.sonyadmin.Event
 import com.example.sonyadmin.LiveDataTestUtil
-import com.example.sonyadmin.data.FakeRepo
 import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
+import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.data.service.PlaceholderPosts
 import com.example.sonyadmin.gameList.MyModel
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import io.navendra.retrofitkotlindeferred.service.UserService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineContext
 import kotlinx.coroutines.test.runBlockingTest
@@ -38,6 +38,7 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
 import java.io.InputStream
+import java.lang.Exception
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -50,7 +51,7 @@ class ExampleUnitTest {
     // Subject under test
     private lateinit var tasksViewModel: MyModel
     @Mock
-    private lateinit var userService: UserService
+    private lateinit var api: Api
 
     // Use a fake repository to be injected into the viewmodel
     @Mock
@@ -85,7 +86,7 @@ class ExampleUnitTest {
 
         val applicationMock = Mockito.mock(Application::class.java)
 //        tasksRepository = FakeRepo()
-        tasksViewModel = MyModel(tasksRepository, applicationMock, userService)
+        tasksViewModel = MyModel(tasksRepository, applicationMock, api)
     }
 
     @Test
@@ -111,21 +112,17 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun completeTaskCallsService()= coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun completeTask_makes_api_call_and_writes_to_database()= coroutinesTestRule.testDispatcher.runBlockingTest {
         doAnswer {
-            Log.d("Main","answer")
-            CompletableDeferred<Response<PlaceholderPosts>>()
-//            async {
-//                PlaceholderPosts(id = 0, description = "adf", title = "qer", done = true)
-//            }
-        }.whenever(userService).onn(any())
+            Result.Success(PlaceholderPosts(4,"adf","eq",true))
+        }.whenever(api).onn(any())
         val st = DateTime(2016, DateTimeConstants.MARCH, 28, 9, 10)
         val task = Task(
             cabinId = 4, startTime = st,
             isPlaying = true, endTime = null
         )
         tasksViewModel.openTask(task)
-        verify(userService).onn(any())
+        verify(api).onn(any())
         verify(tasksRepository).writeStartTime(any())
     }
 
