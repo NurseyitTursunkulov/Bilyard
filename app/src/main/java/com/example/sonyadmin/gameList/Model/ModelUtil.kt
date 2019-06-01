@@ -35,7 +35,7 @@ private fun countMinutes(task: Task, endTime: DateTime):Double{
     return duration.toBigDecimal().setScale(0, RoundingMode.UP).toDouble()
 }
 
-fun MyModel.countSum(task: Task, endTime: DateTime): Double {
+fun countSum(task: Task, endTime: DateTime): Double {
     var minutes = countMinutes(task,endTime)
     if (task.cabinId!=1) {
         var sum: Double = minutes / 60 * 100

@@ -2,18 +2,14 @@ package com.example.sonyadmin
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.work.*
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.gameList.Model.countMinutes
-import com.jakewharton.processphoenix.ProcessPhoenix
+import com.example.sonyadmin.gameList.Model.countSum
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import net.danlew.android.joda.DateUtils
 import org.joda.time.DateTime
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -36,8 +32,8 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
             repository.setCash(DailyCount(DateTime.now(), 0.0))
             return@coroutineScope Result.success()
         }
-        val lastTimeFromDB = DateTime.now().withHourOfDay(9).withMinuteOfHour(0)
-        val currentDateTime = DateTime.now().withHourOfDay(9).withMinuteOfHour(0)
+        val lastTimeFromDB = last.date
+        val currentDateTime = DateTime.now()
         if (!isWorkingDayFinished(
                 lastTimeFromDB,
                 currentDateTime
@@ -64,18 +60,17 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
             for (x in 0..10) {
                 var lastTask = repository.getLastGame(x)
                 if (lastTask!!.isPlaying) {
-                    val duration = countMinutes(lastTask!!)
-                    // TODO("not implemented")// count sum
+                    val summ = countSum(lastTask!!, DateTime.now())
                     repository.writeEndTime(
                         Task(
                             id = lastTask!!.id, startTime = lastTask.startTime,
-                            endTime = currentDateTime, cabinId = x, summ = duration, isPlaying = false
+                            endTime = currentDateTime, cabinId = x, summ = summ, isPlaying = false
                         )
                     )
                     repository.updateCash(
                         DateTime.now().minusDays(1).withTime(0, 0, 0, 0),
                         DateTime.now().withTime(23, 59, 59, 0),
-                        duration
+                        summ
                     )
                     // TODO("not implemented")// add minutes
                     repository.writeStartTime(Task(startTime = currentDateTime, cabinId = x, isPlaying = true))

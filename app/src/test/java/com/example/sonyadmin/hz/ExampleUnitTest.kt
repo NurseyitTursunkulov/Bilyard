@@ -188,7 +188,7 @@ class ExampleUnitTest {
             cabinId = 4, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(0),
             isPlaying = true, endTime = null
         )
-       var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(11).withMinuteOfHour(15))
+       var k =  countSum(task, DateTime.now().withHourOfDay(11).withMinuteOfHour(15))
         assertEquals(k,25.0,0.1)
     }
     @Test
@@ -197,7 +197,7 @@ class ExampleUnitTest {
             cabinId = 4, startTime = DateTime.now().withHourOfDay(12).withMinuteOfHour(0),
             isPlaying = true, endTime = null
         )
-        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(12).withMinuteOfHour(15))
+        var k =  countSum(task, DateTime.now().withHourOfDay(12).withMinuteOfHour(15))
         assertEquals(k,37.5,0.1)
     }
 
@@ -207,7 +207,7 @@ class ExampleUnitTest {
             cabinId = 4, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(0),
             isPlaying = true, endTime = null
         )
-        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(17).withMinuteOfHour(5))
+        var k =  countSum(task, DateTime.now().withHourOfDay(17).withMinuteOfHour(5))
         assertEquals(k,12.5,0.1)
     }
 
@@ -217,7 +217,7 @@ class ExampleUnitTest {
             cabinId = 4, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(1),
             isPlaying = true, endTime = null
         )
-        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(53))
+        var k =  countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(53))
         assertEquals(k,486.5,0.8)
     }
     @Test
@@ -226,7 +226,7 @@ class ExampleUnitTest {
             cabinId = 4, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(40),
             isPlaying = true, endTime = null
         )
-        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(15).withMinuteOfHour(38))
+        var k =  countSum(task, DateTime.now().withHourOfDay(15).withMinuteOfHour(38))
         assertEquals(k,578.5,0.8)
     }
     @Test
@@ -235,7 +235,7 @@ class ExampleUnitTest {
             cabinId = 1, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(0),
             isPlaying = true, endTime = null
         )
-        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(14).withMinuteOfHour(0))
+        var k =  countSum(task, DateTime.now().withHourOfDay(14).withMinuteOfHour(0))
         assertEquals(k,600.0,0.8)
     }
     @Test
@@ -244,7 +244,7 @@ class ExampleUnitTest {
             cabinId = 1, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(0),
             isPlaying = true, endTime = null
         )
-        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(0))
+        var k =  countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(0))
         assertEquals(k,450.0,0.8)
     }
 
