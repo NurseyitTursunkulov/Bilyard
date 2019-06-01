@@ -68,7 +68,7 @@ val appModule = module {
     single {
         Retrofit.Builder()
             .client(get())
-            .baseUrl("http://192.168.0.109:5000/")
+            .baseUrl("http://jsonplaceholder.typicode.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()

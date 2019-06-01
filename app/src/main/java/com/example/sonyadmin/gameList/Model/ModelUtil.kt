@@ -48,7 +48,7 @@ fun MyModel.countSum(task: Task, endTime: DateTime): Double {
         if (fromMiddDayTillEvening) {
             sum = minutes / 60 * 150
         }
-        var fromEveningTillMiddNight = checkInterval(17, 23, task.startTime)
+        var fromEveningTillMiddNight = checkInterval(18, 23, task.startTime)
 
         if (fromEveningTillMiddNight) {
             sum = minutes / 60 * 180
@@ -59,7 +59,7 @@ fun MyModel.countSum(task: Task, endTime: DateTime): Double {
             var secondTime: Double = countSecondTime(12, 0, endTime)
             sum = (firstSum / 60 * 100) + (secondTime / 60 * 150)
         }
-        if (fromMiddDayTillEvening && checkInterval(17, 23, endTime)) {
+        if (fromMiddDayTillEvening && checkInterval(18, 23, endTime)) {
             var firstSum: Double = countFirstTime(task, 18, 0)
             var secondTime: Double = countSecondTime(18, 0, endTime)
             sum = (firstSum / 60 * 150) + (secondTime / 60 * 180)

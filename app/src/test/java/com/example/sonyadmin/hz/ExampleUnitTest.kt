@@ -7,7 +7,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import com.example.sonyadmin.CoroutinesTestRule
 import com.example.sonyadmin.EveryDayUpdateCashWorker
-import com.example.sonyadmin.util.Event
 import com.example.sonyadmin.LiveDataTestUtil
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Result
@@ -16,19 +15,23 @@ import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.data.service.PlaceholderPosts
 import com.example.sonyadmin.gameList.Model.countSum
 import com.example.sonyadmin.gameList.MyModel
-import com.nhaarman.mockitokotlin2.*
-import kotlinx.coroutines.*
+import com.example.sonyadmin.isWorkingDayFinished
+import com.example.sonyadmin.util.Event
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineContext
 import kotlinx.coroutines.test.runBlockingTest
 import net.danlew.android.joda.JodaTimeAndroid
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
-import org.junit.After
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.ArgumentMatchers
@@ -36,7 +39,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import java.io.InputStream
-import java.lang.Exception
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -202,11 +204,11 @@ class ExampleUnitTest {
     @Test
     fun timeTestMidDay2(){
         val task = Task(
-            cabinId = 4, startTime = DateTime.now().withHourOfDay(12).withMinuteOfHour(0),
+            cabinId = 4, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(0),
             isPlaying = true, endTime = null
         )
-        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(12).withMinuteOfHour(15))
-        assertEquals(k,37.5,0.1)
+        var k =  tasksViewModel.countSum(task, DateTime.now().withHourOfDay(17).withMinuteOfHour(5))
+        assertEquals(k,12.5,0.1)
     }
 
     @Test
