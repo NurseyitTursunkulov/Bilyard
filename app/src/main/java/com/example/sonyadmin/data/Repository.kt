@@ -20,7 +20,7 @@ interface Repository {
 
     fun deleteAll()
     fun setCash(dailyCount: DailyCount)
-    fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, sum: Double)
+    fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, day:Int, sum: Double)
     fun getCash() : DataSource.Factory<Int, DailyCount>
     fun getGameDetails(cabinId: Int): DataSource.Factory<Int, Task>
     fun getLastCash(): DailyCount?

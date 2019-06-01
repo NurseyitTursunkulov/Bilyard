@@ -51,7 +51,9 @@ class MyModel(var repository: Repository, application: Application, val userServ
             {
                 repository.writeEndTime(changeGameEndTime(task))
                 repository.updateCash(
-                    DateTime.now().withTime(0, 0, 0, 0), DateTime.now().withTime(23, 59, 59, 0),
+                    DateTime.now().minusDays(1),
+                    DateTime.now().plusDays(1).withTime(23, 59, 59, 0),
+                    DateTime.now().dayOfYear,
                     countSum(task, DateTime.now())
                 )
             }

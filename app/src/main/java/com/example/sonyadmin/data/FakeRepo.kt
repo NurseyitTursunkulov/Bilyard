@@ -38,7 +38,7 @@ class FakeRepo : Repository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, sum: Double) {
+    override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, day:Int, sum: Double) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

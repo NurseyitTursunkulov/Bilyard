@@ -35,8 +35,8 @@ interface Dao {
     @Insert
     fun setCash(dailyCount: DailyCount)
 
-    @Query("update DailyCount set summ = summ + :sum where date between  :sTimeOfDay and :endTimeOfDay")
-    fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, sum: Double)
+    @Query("update DailyCount set summ = summ + :sum where day ==:day and date between  :sTimeOfDay and :endTimeOfDay")
+    fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime,day :Int, sum: Double)
 
     @Query("select * from DailyCount order by date desc")
     fun getCash() :  DataSource.Factory<Int, DailyCount>

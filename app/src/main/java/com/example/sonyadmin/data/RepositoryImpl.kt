@@ -38,8 +38,8 @@ class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
         dao.setCash(dailyCount)
     }
 
-    override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, sum: Double) {
-        dao.updateCash(sTimeOfDay,endTimeOfDay,sum)
+    override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime,day:Int, sum: Double) {
+        dao.updateCash(sTimeOfDay,endTimeOfDay,day,sum)
     }
 
 
