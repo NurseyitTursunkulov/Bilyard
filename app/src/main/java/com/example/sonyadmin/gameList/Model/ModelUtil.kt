@@ -29,7 +29,7 @@ fun determineDay() : Int {
     if (Interval(
             DateTime.now().withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0),
             DateTime.now().withHourOfDay(9).withMinuteOfHour(0).withSecondOfMinute(0)
-        ).contains(DateTime.now().withHourOfDay(4))
+        ).contains(DateTime.now())
     )
         day = DateTime.now().dayOfYear - 1
     else
