@@ -1,7 +1,7 @@
 # Bilyard
 Android app for snooker clubs to automotize counting  process
 
-<img src="https://user-images.githubusercontent.com/18099819/58758149-c74ebe00-8538-11e9-9641-b8c49fd0bbd8.jpg" width="418">
+<img src="https://user-images.githubusercontent.com/18099819/58758149-c74ebe00-8538-11e9-9641-b8c49fd0bbd8.jpg" width="200">
 
  Android app will display all game processes. Will save to and load from database 
  
