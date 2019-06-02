@@ -29,7 +29,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
         val last = repository.getLastCash()
 
         if (last == null) {
-            repository.setCash(DailyCount(DateTime.now(), DateTime.now().dayOfYear,0.0))
+            repository.setCash(DailyCount(DateTime.now(), DateTime.now().dayOfYear, 0.0))
             return@coroutineScope Result.success()
         }
         val lastTimeFromDB = last.date
@@ -48,7 +48,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
             } else {
                 timediff = time - currentDateTime.secondOfDay
             }
-            Log.d("Worker", "${timediff/60/60}")
+            Log.d("Worker", "${timediff / 60 / 60}")
             val dailyWorkRequest = OneTimeWorkRequestBuilder<MyCoroutineWorker>()
                 .setInitialDelay(timediff.toLong(), TimeUnit.SECONDS)
                 .build()
@@ -67,10 +67,14 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                             endTime = currentDateTime, cabinId = x, summ = summ, isPlaying = false
                         )
                     )
+                    var day = DateTime.now().dayOfYear
+                    if (DateTime.now().isBefore(9))
+                        DateTime.now().dayOfYear - 1
+
                     repository.updateCash(
-                       lastTimeFromDB.minusDays(1),
+                        lastTimeFromDB.minusDays(1),
                         currentDateTime.plusDays(1).withTime(23, 59, 59, 0),
-                        DateTime.now().dayOfYear,
+                        day,
                         summ
                     )
                     // TODO("not implemented")// add minutes
@@ -78,7 +82,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                 }
 
             }
-            repository.setCash(DailyCount(currentDateTime, DateTime.now().dayOfYear,0.0))
+            repository.setCash(DailyCount(currentDateTime, DateTime.now().dayOfYear, 0.0))
             Log.d("Worker", "no it is not ${last}")
             Log.d("Worker", " rebearth ${last}")
 //            ProcessPhoenix.triggerRebirth(context)

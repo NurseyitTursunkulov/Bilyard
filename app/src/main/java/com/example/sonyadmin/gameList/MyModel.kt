@@ -17,10 +17,16 @@ import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.gameList.Model.*
 import kotlinx.coroutines.*
 import org.joda.time.DateTime
+import org.joda.time.Interval
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class MyModel(var repository: Repository, application: Application, val userService: Api, everyDayUpdateCashWorker: EveryDayUpdateCashWorker ) :
+class MyModel(
+    var repository: Repository,
+    application: Application,
+    val userService: Api,
+    everyDayUpdateCashWorker: EveryDayUpdateCashWorker
+) :
     AndroidViewModel(application),
     CoroutineScope by MainScope() {
 
@@ -51,9 +57,9 @@ class MyModel(var repository: Repository, application: Application, val userServ
             {
                 repository.writeEndTime(changeGameEndTime(task))
                 repository.updateCash(
-                    DateTime.now().minusDays(1),
+                    DateTime.now().minusDays(1).withTime(0, 0, 0, 0),
                     DateTime.now().plusDays(1).withTime(23, 59, 59, 0),
-                    DateTime.now().dayOfYear,
+                    determineDay(),
                     countSum(task, DateTime.now())
                 )
             }

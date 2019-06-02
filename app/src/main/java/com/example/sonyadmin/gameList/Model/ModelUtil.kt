@@ -24,20 +24,34 @@ fun countMinutes(task: Task): Double {
     return duration
 }
 
+fun MyModel.determineDay() : Int {
+    var day: Int
+    if (Interval(
+            DateTime.now().withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0),
+            DateTime.now().withHourOfDay(9).withMinuteOfHour(0).withSecondOfMinute(0)
+        ).contains(DateTime.now().withHourOfDay(4))
+    )
+        day = DateTime.now().dayOfYear - 1
+    else
+        day = DateTime.now().dayOfYear
+    return day
+}
+
 fun MyModel.changeGameStartTime(task: Task): Task {
     return Task(
         cabinId = task.cabinId, startTime = DateTime.now(),
         isPlaying = true, endTime = null
     )
 }
-private fun countMinutes(task: Task, endTime: DateTime):Double{
+
+private fun countMinutes(task: Task, endTime: DateTime): Double {
     var duration: Double = (Duration(task.startTime, endTime).standardSeconds) / 60.toDouble()
     return duration.toBigDecimal().setScale(0, RoundingMode.UP).toDouble()
 }
 
 fun countSum(task: Task, endTime: DateTime): Double {
-    var minutes = countMinutes(task,endTime)
-    if (task.cabinId!=1) {
+    var minutes = countMinutes(task, endTime)
+    if (task.cabinId != 1) {
         var sum: Double = minutes / 60 * 100
         var fomMiddNightTillMiddDay = checkInterval(0, 11, task.startTime)
         Log.d("Main", "interval = $fomMiddNightTillMiddDay")
@@ -67,11 +81,10 @@ fun countSum(task: Task, endTime: DateTime): Double {
         if (fromEveningTillMiddNight && checkIntervalForNextDay(0, 11, endTime)) {
             var firstSum: Double = countFirstTime(task, 0, 0)
             var secondTime: Double = countSecondTime(0, 0, endTime)
-            sum = (firstSum + secondTime)/60*180
+            sum = (firstSum + secondTime) / 60 * 180
         }
         return sum.toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
-    }
-    else{
+    } else {
         var fromMorningTillEvening = checkInterval(9, 17, task.startTime)
         var sum: Double = minutes / 60 * 200
         if (fromMorningTillEvening) {
@@ -101,7 +114,8 @@ fun countSum(task: Task, endTime: DateTime): Double {
 
 private fun countSecondTime(hour: Int, minute: Int, endTime: DateTime): Double {
     return (Duration(
-        DateTime.now().withHourOfDay(hour).withMinuteOfHour(minute),endTime).standardSeconds) / 60.toDouble()
+        DateTime.now().withHourOfDay(hour).withMinuteOfHour(minute), endTime
+    ).standardSeconds) / 60.toDouble()
 }
 
 private fun countFirstTime(task: Task, hour: Int, minute: Int): Double {
@@ -112,22 +126,19 @@ private fun countFirstTime(task: Task, hour: Int, minute: Int): Double {
 }
 
 fun checkInterval(startTime: Int, endTime: Int, inRange: DateTime): Boolean {
-    return Interval(DateTime.now().withHourOfDay(startTime).withMinuteOfHour(0).withSecondOfMinute(0),
-        DateTime.now().withHourOfDay(endTime).withMinuteOfHour(59).withSecondOfMinute(59)).contains(inRange)
+    return Interval(
+        DateTime.now().withHourOfDay(startTime).withMinuteOfHour(0).withSecondOfMinute(0),
+        DateTime.now().withHourOfDay(endTime).withMinuteOfHour(59).withSecondOfMinute(59)
+    ).contains(inRange)
 }
+
 fun checkIntervalForNextDay(startTime: Int, endTime: Int, inRange: DateTime): Boolean {
-    return Interval(DateTime.now().plusDays(1).withHourOfDay(startTime).withMinuteOfHour(0).withSecondOfMinute(0),
-        DateTime.now().plusDays(1).withHourOfDay(endTime).withMinuteOfHour(59).withSecondOfMinute(59)).contains(inRange)
+    return Interval(
+        DateTime.now().plusDays(1).withHourOfDay(startTime).withMinuteOfHour(0).withSecondOfMinute(0),
+        DateTime.now().plusDays(1).withHourOfDay(endTime).withMinuteOfHour(59).withSecondOfMinute(59)
+    ).contains(inRange)
 }
 
-fun MyModel.onBG(bar: suspend () -> Unit) {
-    launch {
-        withContext(Dispatchers.IO) {
-            bar()
-        }
-
-    }
-}
 
 fun MyModel.makeRequest(
     bar: suspend () -> Result<PlaceholderPosts>, onSuccess:
@@ -145,7 +156,7 @@ fun MyModel.makeRequest(
                     _showToast.postValue(Event(" нет соединения"))
                     Log.d("Retrofit", "uuuuu Retrofit ${h}")
                 }
-            }finally {
+            } finally {
                 dataLoading.postValue(false)
             }
         }
