@@ -8,6 +8,7 @@ import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.gameList.Model.countMinutes
 import com.example.sonyadmin.gameList.Model.countSum
+import com.example.sonyadmin.gameList.Model.determineDay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import org.joda.time.DateTime
@@ -67,17 +68,14 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                             endTime = currentDateTime, cabinId = x, summ = summ, isPlaying = false
                         )
                     )
-                    var day = DateTime.now().dayOfYear
-                    if (DateTime.now().isBefore(9))
-                        DateTime.now().dayOfYear - 1
+
 
                     repository.updateCash(
                         lastTimeFromDB.minusDays(1),
                         currentDateTime.plusDays(1).withTime(23, 59, 59, 0),
-                        day,
+                        determineDay(),
                         summ
                     )
-                    // TODO("not implemented")// add minutes
                     repository.writeStartTime(Task(startTime = currentDateTime, cabinId = x, isPlaying = true))
                 }
 

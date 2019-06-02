@@ -12,10 +12,9 @@ import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
-import com.example.sonyadmin.data.service.PlaceholderPosts
+import com.example.sonyadmin.data.service.ResponseType
 import com.example.sonyadmin.gameList.Model.countSum
 import com.example.sonyadmin.gameList.MyModel
-import com.example.sonyadmin.isWorkingDayFinished
 import com.example.sonyadmin.util.Event
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
@@ -138,7 +137,7 @@ class ExampleUnitTest {
     @Test
     fun openTask_changes_livedata() = runBlocking {
         doAnswer {
-            Result.Success(PlaceholderPosts(4, "adf", "eq", true))
+            Result.Success(ResponseType(4, "adf", "eq", true))
         }.whenever(api).onn(any())
         tasksViewModel.openTask(
             Task(
@@ -152,7 +151,7 @@ class ExampleUnitTest {
     @Test
     fun openTask_makes_api_call_and_writes_to_database() = runBlocking {
         doAnswer {
-            Result.Success(PlaceholderPosts(4, "adf", "eq", true))
+            Result.Success(ResponseType(4, "adf", "eq", true))
         }.whenever(api).onn(any())
         val st = DateTime(2016, DateTimeConstants.MARCH, 28, 9, 10)
         val task = Task(
@@ -168,7 +167,7 @@ class ExampleUnitTest {
     @Test
     fun completeTask_makes_api_call_and_writes_to_database() = runBlocking {
         doAnswer {
-            Result.Success(PlaceholderPosts(4, "adf", "eq", true))
+            Result.Success(ResponseType(4, "adf", "eq", true))
         }.whenever(api).off(any())
         val st = DateTime(2016, DateTimeConstants.MARCH, 28, 9, 10)
         val task = Task(

@@ -1,6 +1,6 @@
 package com.example.sonyadmin.data.service
 
-data class PlaceholderPosts(
+data class ResponseType(
     val id: Int,
     val description : String,
     val title: String,

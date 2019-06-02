@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.sonyadmin.util.Event
 import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
-import com.example.sonyadmin.data.service.PlaceholderPosts
+import com.example.sonyadmin.data.service.ResponseType
 import com.example.sonyadmin.gameList.MyModel
 import kotlinx.coroutines.*
 import org.joda.time.*
@@ -24,7 +24,7 @@ fun countMinutes(task: Task): Double {
     return duration
 }
 
-fun MyModel.determineDay() : Int {
+fun determineDay() : Int {
     var day: Int
     if (Interval(
             DateTime.now().withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0),
@@ -141,7 +141,7 @@ fun checkIntervalForNextDay(startTime: Int, endTime: Int, inRange: DateTime): Bo
 
 
 fun MyModel.makeRequest(
-    bar: suspend () -> Result<PlaceholderPosts>, onSuccess:
+    bar: suspend () -> Result<ResponseType>, onSuccess:
         () -> Unit
 ) {
     dataLoading.postValue(true)
