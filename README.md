@@ -11,8 +11,16 @@ Raspbery pi will controll rele. And it will recieve commands from Android phone
   
   <img src="https://user-images.githubusercontent.com/18099819/58758181-447a3300-8539-11e9-889b-1a0ebacc121c.png" width="200">
 </p>
- Android app will display all game processes. Will save to and load from database 
-Raspbery pi will controll rele. And it will recieve commands from Android phone
+ It works as following:
+ when user presses the button it turns onn electricity above snooker table and starts to count time.
+  When he presses again it turns off light and counts summ
+  <p float="left">
+  
+  <img src="https://34.img.avito.st/640x480/4952543034.jpg" width="200">
+   
+   <img src="https://apollo-frankfurt.akamaized.net/v1/files/tusjdt9mrqw31-KZ/image;s=644x461" width="200">
+    
+    </p>
 <img src="https://www.trafex.nl/wp-content/uploads/2014/08/2014-08-22-13.29.36.jpg" width="418">
 
 <!DOCTYPE html>
