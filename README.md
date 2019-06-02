@@ -16,9 +16,9 @@ Raspbery pi will controll rele. And it will recieve commands from Android phone
   When he presses again it turns off light and counts summ
   <p float="left">
   
-  <img src="https://34.img.avito.st/640x480/4952543034.jpg" width="200">
+  <img src="https://34.img.avito.st/640x480/4952543034.jpg" width="400">
    
-   <img src="https://apollo-frankfurt.akamaized.net/v1/files/tusjdt9mrqw31-KZ/image;s=644x461" width="200">
+   <img src="https://apollo-frankfurt.akamaized.net/v1/files/tusjdt9mrqw31-KZ/image;s=644x461" width="400">
     
     </p>
 <img src="https://www.trafex.nl/wp-content/uploads/2014/08/2014-08-22-13.29.36.jpg" width="418">
