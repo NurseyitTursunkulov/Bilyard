@@ -20,8 +20,13 @@ Raspbery pi will controll rele. And it will recieve commands from Android phone
    
    <img src="https://apollo-frankfurt.akamaized.net/v1/files/tusjdt9mrqw31-KZ/image;s=644x461" width="400">
     
-    </p>
-<img src="https://www.trafex.nl/wp-content/uploads/2014/08/2014-08-22-13.29.36.jpg" width="418">
+   </p>
+   
+   Application is bound with hardware Component Raspberry Pi 
+     <p float="left">
+      <img src="https://user-images.githubusercontent.com/18099819/58758675-53181880-8540-11e9-90da-a76fc00f04f5.png" width="418">
+      <img src="https://www.trafex.nl/wp-content/uploads/2014/08/2014-08-22-13.29.36.jpg" width="418">
+     </p>
 
 <!DOCTYPE html>
 <html lang="en">
