@@ -1,7 +1,10 @@
 # Bilyard
 Android app for snooker clubs to automotize counting  process
 
-![alt text](https://user-images.githubusercontent.com/18099819/58758149-c74ebe00-8538-11e9-9641-b8c49fd0bbd8.jpg)  Android app will display all game processes. Will save to and load from database <img src="https://user-images.githubusercontent.com/18099819/58758182-447a3300-8539-11e9-82f7-cc07d76c7d63.png" width="418">
+![alt text](https://user-images.githubusercontent.com/18099819/58758149-c74ebe00-8538-11e9-9641-b8c49fd0bbd8.jpg) 
+ Android app will display all game processes. Will save to and load from database 
+ 
+ <img src="https://user-images.githubusercontent.com/18099819/58758182-447a3300-8539-11e9-82f7-cc07d76c7d63.png" width="200">
 
 Raspbery pi will controll rele. And it will recieve commands from Android phone
 <img src="https://www.trafex.nl/wp-content/uploads/2014/08/2014-08-22-13.29.36.jpg" width="418">
