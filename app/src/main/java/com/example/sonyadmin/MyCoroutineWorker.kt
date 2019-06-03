@@ -73,7 +73,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                     repository.updateCash(
                         lastTimeFromDB.minusDays(1),
                         currentDateTime.plusDays(1).withTime(23, 59, 59, 0),
-                        determineDay(),
+                        lastTimeFromDB.dayOfYear,
                         summ
                     )
                     repository.writeStartTime(Task(startTime = currentDateTime, cabinId = x, isPlaying = true))
