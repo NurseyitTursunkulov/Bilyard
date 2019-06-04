@@ -1,6 +1,7 @@
 package com.example.sonyadmin
 
 import android.content.Context
+import android.os.Handler
 import android.util.Log
 import androidx.work.*
 import com.example.sonyadmin.data.DailyCount
@@ -15,6 +16,11 @@ import org.joda.time.DateTime
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.concurrent.TimeUnit
+import android.widget.Toast
+import androidx.core.os.HandlerCompat.postDelayed
+import android.os.Looper
+
+
 
 const val hour = 9
 const val time = hour * 60 * 60
@@ -57,6 +63,11 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
 
         } else {
             Log.d("Worker", "nein it falsh ${last}")
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed(Runnable {
+                // Run your task here
+                Toast.makeText(context, "09:00 refresh", Toast.LENGTH_LONG).show()
+            }, 1000)
             // I need to finish all started games for previous game and continue count as it was started today
             for (x in 0..10) {
                 var lastTask = repository.getLastGame(x)

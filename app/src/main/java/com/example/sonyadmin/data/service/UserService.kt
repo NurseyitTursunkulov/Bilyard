@@ -13,9 +13,9 @@ interface UserService{
 //    fun off(@Path("led")led: Int) : Deferred<Response<List<ResponseType>>>
 //    @GET("/onn/{led}")
 //    fun onn(@Path("led")led: Int) : Deferred<Response<List<ResponseType>>>
-    @GET("/posts/{led}")
+    @GET("/off/{led}")
     fun off(@Path("led") led: String) : Deferred<Response<ResponseType>>
-    @GET("/posts/{led}")
+    @GET("/onn/{led}")
     fun onn(@Path("led") led: String) : Deferred<Response<ResponseType>>
 
 }
