@@ -2,6 +2,7 @@ package com.example.sonyadmin
 
 
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.sonyadmin.login.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -46,33 +48,54 @@ class LoginFragment : Fragment() {
             Log.d(TAG, "createUserWithEmail:success ${auth.currentUser?.displayName}")
 //            }
         }
-        next_button.setOnClickListener { view ->
-            activity?.let {
-                auth.signInWithEmailAndPassword("nurs@mail.ru", "12345678")
-                    .addOnCompleteListener(it) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success")
-                            currentUser = auth.currentUser
-                            Navigation.findNavController(view)
-                                .navigate(R.id.action_loginFragment_to_listOfGamesFragment)
-//                        updateUI(user)
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.exception)
-                            Toast.makeText(
-                                context, "Authentication failed.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-//                        updateUI(null)
-                        }
+        // Set an error if the password is less than 8 characters.
+        next_button.setOnClickListener {myView->
+            if (!isPasswordValid(password_edit_text.text)) {
+                password_text_input.error = getString(R.string.shr_error_password)
+            } else {
+                password_text_input.error = null // Clear the error
 
-                        // ...
-                    }
+                activity?.let {
+                    auth.signInWithEmailAndPassword(user_name_edit_text.text.toString(), password_edit_text.text.toString())
+                        .addOnCompleteListener(it) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithEmail:success")
+                                currentUser = auth.currentUser
+                                Navigation.findNavController(myView)
+                                    .navigate(R.id.action_loginFragment_to_listOfGamesFragment)
+//                        updateUI(user)
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "signInWithEmail:failure", task.exception)
+                                Toast.makeText(
+                                    context, "Authentication failed.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+//                        updateUI(null)
+                            }
+
+                            // ...
+                        }
+                }
+
+//                Navigation.findNavController(next_button).navigate(R.id.action_loginFragment_to_listOfGamesFragment)
             }
+        }
+
+        // Clear the error once more than 8 characters are typed.
+        password_edit_text.setOnKeyListener { _, _, _ ->
+            if (isPasswordValid(password_edit_text.text)) {
+                password_text_input.error = null //Clear the error
+            }
+            false
+        }
+//        next_button.setOnClickListener { view ->
+
+
 //        }
 
-            Log.d(LoginFragment::class.java.simpleName, "$currentUser")
+        Log.d(LoginFragment::class.java.simpleName, "$currentUser")
 
 //        button2.setOnClickListener {
 //            activity?.let { it1 ->
@@ -98,9 +121,12 @@ class LoginFragment : Fragment() {
 //                    }
 //            }
 //        }
-        }
+//        }
     }
 
+    private fun isPasswordValid(text: Editable?): Boolean {
+        return text != null && text.length >= 8
+    }
 
 
 }
