@@ -3,7 +3,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/listOfGamesFragment"
+            app:startDestination="@id/loginFragment"
         >
 
     <fragment
@@ -37,4 +37,15 @@
             android:label="fragment_daily_info"
             tools:layout="@layout/fragment_daily_info"
             />
+    <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.sonyadmin.LoginFragment"
+            android:label="fragment_login"
+            tools:layout="@layout/fragment_login"
+            >
+        <action
+                android:id="@+id/action_loginFragment_to_listOfGamesFragment"
+                app:destination="@id/listOfGamesFragment"
+                />
+    </fragment>
 </navigation>

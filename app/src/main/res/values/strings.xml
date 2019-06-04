@@ -2,4 +2,21 @@
     <string name="app_name">SonyAdmin</string>
     <string name="action_settings">Settings</string>
     <string name="daily_cash">касса</string>
+    <string name="shr_app_name">Baza Zapad</string>
+    <string name="shr_hint_username">Username</string>
+    <string name="shr_hint_password">Password</string>
+    <string name="shr_button_next">Next</string>
+    <string name="shr_button_cancel">Cancel</string>
+    <string name="shr_error_password">Password must contain at least 8 characters.</string>
+
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+
+    <string name="action_login">Login</string>
+
+    <string name="error_format_invalid">Format is invalid</string>
+    <string name="error_too_short">Too short</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="adf">adkjf</string>
 </resources>

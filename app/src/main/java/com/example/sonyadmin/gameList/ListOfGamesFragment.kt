@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.sonyadmin.R
@@ -24,6 +25,8 @@ class ListOfGamesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) { activity?.finish()}
         listItemBinding = DataBindingUtil.inflate<FragmentListOfGamesBinding>(
             layoutInflater,
             R.layout.fragment_list_of_games,
@@ -44,5 +47,9 @@ class ListOfGamesFragment : Fragment() {
                 Toast.makeText(this@ListOfGamesFragment.context, it, Toast.LENGTH_SHORT).show()
             }
         })
+        // This callback will only be called when MyFragment is at least Started.
+
+
+
     }
 }
