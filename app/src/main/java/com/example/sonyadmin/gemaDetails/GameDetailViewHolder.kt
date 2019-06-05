@@ -14,6 +14,7 @@ class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
     private val startTime = itemView.findViewById<TextView>(R.id.date)
     private val endTime = itemView.findViewById<TextView>(R.id.end_time)
     private val sum = itemView.findViewById<TextView>(R.id.sum)
+    private val userName = itemView.findViewById<TextView>(R.id.user_name)
     var cheese: Task? = null
 
     /**
@@ -28,5 +29,6 @@ class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
                 " ${cheese?.endTime?.year}/${cheese?.endTime?.monthOfYear}/" +
                 "${cheese?.endTime?.dayOfMonth}"
         sum.text = cheese?.summ.toString()
+        userName.text = cheese?.userName
     }
 }

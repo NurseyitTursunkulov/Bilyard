@@ -14,6 +14,7 @@ class DailyInfoViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
     (LayoutInflater.from(parent.context).inflate(R.layout.dayli_info_item, parent, false)) {
     private val date = itemView.findViewById<TextView>(R.id.date)
     private val sum = itemView.findViewById<TextView>(R.id.sum)
+    private val userName = itemView.findViewById<TextView>(R.id.user_name)
     var cheese: DailyCount? = null
 
     /**
@@ -26,5 +27,6 @@ class DailyInfoViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
         date.text = " ${cheese?.date?.year}/${cheese?.date?.monthOfYear}/" +
                 "${cheese?.date?.dayOfMonth}"
         sum.text = cheese?.summ?.toString()
+        userName.text = cheese?.userName
     }
 }

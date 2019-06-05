@@ -14,7 +14,7 @@ import java.math.RoundingMode
 fun MyModel.changeGameEndTime(task: Task): Task {
     return Task(
         cabinId = task.cabinId, endTime = DateTime.now(),
-        isPlaying = false, startTime = task.startTime, summ = countSum(task, DateTime.now()), id = task.id
+        isPlaying = false, startTime = task.startTime, summ = countSum(task, DateTime.now()), id = task.id,userName = userName
     )
 }
 
@@ -40,7 +40,7 @@ fun determineDay() : Int {
 fun MyModel.changeGameStartTime(task: Task): Task {
     return Task(
         cabinId = task.cabinId, startTime = DateTime.now(),
-        isPlaying = true, endTime = null
+        isPlaying = true, endTime = null,userName = userName
     )
 }
 

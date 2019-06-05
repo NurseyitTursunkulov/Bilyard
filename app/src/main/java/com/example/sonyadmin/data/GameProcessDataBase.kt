@@ -29,7 +29,7 @@ abstract class GameProcessDataBase : RoomDatabase() {
             if (mDao.count()==0){
                 for (x in 0..10){
                     mDao.insertStartGameProcess(Task(cabinId = x,startTime = DateTime.now(),
-                        endTime = DateTime.now(),summ = 0.0, isPlaying = false))
+                        endTime = DateTime.now(),summ = 0.0, isPlaying = false,userName = ""))
                     Log.d("Database","new ")
                 }
             }

@@ -36,16 +36,29 @@
                     app:layout_constraintEnd_toStartOf="@+id/sum"
                     app:layout_constraintBaseline_toBaselineOf="@+id/date"
                     app:layout_constraintHorizontal_weight="2"/>
+
             <TextView
                     android:text="TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/sum"
-                    app:layout_constraintStart_toEndOf="@+id/end_time" app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/end_time"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintBaseline_toBaselineOf="@+id/end_time"
-                    app:layout_constraintHorizontal_weight="1" android:layout_marginRight="8dp"
-                    android:layout_marginEnd="8dp"/>
+                    app:layout_constraintHorizontal_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/user_name"
+                    />
+
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/sum"
+                    />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

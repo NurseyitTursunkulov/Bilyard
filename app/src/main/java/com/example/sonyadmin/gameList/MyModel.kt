@@ -5,21 +5,16 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.example.sonyadmin.EveryDayUpdateCashWorker
-import com.example.sonyadmin.util.Event
-import com.example.sonyadmin.MyCoroutineWorker
 import com.example.sonyadmin.data.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.gameList.Model.*
-import kotlinx.coroutines.*
+import com.example.sonyadmin.util.Event
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 import org.joda.time.DateTime
-import org.joda.time.Interval
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
 class MyModel(
     var repository: Repository,
@@ -31,6 +26,7 @@ class MyModel(
     CoroutineScope by MainScope() {
 
     internal val _showToast = MutableLiveData<Event<String>>()
+    lateinit var userName :String
 
     val showToast: LiveData<Event<String>>
         get() = _showToast
@@ -42,6 +38,8 @@ class MyModel(
     val dataLoading = MutableLiveData<Boolean>(false)
 
     init {
+        userName = FirebaseAuth.getInstance().currentUser!!.email!!.substringBeforeLast("@")
+        Log.d("init",userName)
         liveItems.forEach {
             it.observeForever {
                 items.postValue(liveItems)
