@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "356550903349",
+    "firebase_url": "https://sony-5e3fc.firebaseio.com",
+    "project_id": "sony-5e3fc",
+    "storage_bucket": "sony-5e3fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356550903349:android:0cc4eff64c7d2426",
+        "android_client_info": {
+          "package_name": "com.example.sonyadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356550903349-ibqk15frlh4psurfe9s8jfkugfos01n7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sonyadmin",
+            "certificate_hash": "b7b056e1b1ffec3eed9e60fe43d6adce9c3cb0a2"
+          }
+        },
+        {
+          "client_id": "356550903349-ot126c742u3r99g25ueqe6cbqnm4bfrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyhQmVyvOMNsLtBIek3PFUPsrKWTgcFag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356550903349-ot126c742u3r99g25ueqe6cbqnm4bfrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
