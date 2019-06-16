@@ -3,15 +3,14 @@ package com.example.sonyadmin
 import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentValues
-import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.GameProcessDataBase
-import com.example.sonyadmin.data.Repository
-import com.example.sonyadmin.data.RepositoryImpl
+import com.example.sonyadmin.data.Repository.Repository
+import com.example.sonyadmin.data.Repository.RepositoryImpl
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.data.service.ApiImpl
 import com.example.sonyadmin.data.service.UserRepository
