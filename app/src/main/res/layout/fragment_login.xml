@@ -5,7 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/loginPageBackgroundColor"
-            tools:context=".LoginFragment">
+            tools:context=".login.LoginFragment">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:text="@string/shr_button_next" />
 
             <com.google.android.material.button.MaterialButton
-                    android:id="@+id/cancel_button"
+                    android:id="@+id/bar_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

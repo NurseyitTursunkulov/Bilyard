@@ -7,6 +7,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.work.Configuration
 import androidx.work.WorkManager
+import com.example.sonyadmin.bar.BarViewModel
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.GameProcessDataBase
 import com.example.sonyadmin.data.Repository.Repository
@@ -52,6 +53,7 @@ val appModule = module {
     single<Repository> { RepositoryImpl(get()) }
     viewModel { MyModel(get(),get(),get(),get()) }
     viewModel { DetailsViewModel(get()) }
+    viewModel { BarViewModel() }
     viewModel { DailyInfoViewModel(get()) }
     single <EveryDayUpdateCashWorker>{EveryDayUpdateCashWorkerImpl()  }
     factory<Interceptor> {

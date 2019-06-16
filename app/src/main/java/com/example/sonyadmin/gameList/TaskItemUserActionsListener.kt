@@ -29,4 +29,6 @@ interface TaskItemUserActionsListener {
     fun onTaskClicked(task: Task)
 
     fun deleteAll(taskId: Int)
+
+    fun openBar()
 }
