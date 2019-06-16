@@ -3,11 +3,11 @@ package com.example.sonyadmin.hz
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.example.sonyadmin.data.DailyCount
-import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
 
-class FakeRepository : Repository{
+class FakeRepository : Repository {
 
 
     override var list: ArrayList<LiveData<Task>>

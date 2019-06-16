@@ -5,11 +5,9 @@ import android.os.Handler
 import android.util.Log
 import androidx.work.*
 import com.example.sonyadmin.data.DailyCount
-import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
-import com.example.sonyadmin.gameList.Model.countMinutes
 import com.example.sonyadmin.gameList.Model.countSum
-import com.example.sonyadmin.gameList.Model.determineDay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import org.joda.time.DateTime
@@ -17,7 +15,6 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.concurrent.TimeUnit
 import android.widget.Toast
-import androidx.core.os.HandlerCompat.postDelayed
 import android.os.Looper
 import com.google.firebase.auth.FirebaseAuth
 

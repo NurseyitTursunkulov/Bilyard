@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.EveryDayUpdateCashWorker
-import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.gameList.Model.*
@@ -65,6 +65,8 @@ class MyModel(
 
     }
 
+
+    private val TAG: String=MyModel::class.java.simpleName
 
     fun openTask(task: Task) {
         makeRequest(

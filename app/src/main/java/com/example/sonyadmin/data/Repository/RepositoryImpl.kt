@@ -1,12 +1,13 @@
-package com.example.sonyadmin.data
+package com.example.sonyadmin.data.Repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import com.example.sonyadmin.data.DailyCount
+import com.example.sonyadmin.data.Dao
+import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
 
-class RepositoryImpl(var dao: com.example.sonyadmin.data.Dao) : Repository {
+class RepositoryImpl(var dao: Dao) : Repository {
     override var list: ArrayList<LiveData<Task>>
         get() = getAllgames()
         set(value) {}

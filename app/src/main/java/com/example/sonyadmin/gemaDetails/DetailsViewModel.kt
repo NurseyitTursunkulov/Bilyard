@@ -3,7 +3,7 @@ package com.example.sonyadmin.gemaDetails
 import androidx.lifecycle.ViewModel
 import androidx.paging.Config
 import androidx.paging.toLiveData
-import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.data.Repository.Repository
 
 class DetailsViewModel(var repository: Repository) : ViewModel() {
     var chees = repository.getGameDetails(0).toLiveData(

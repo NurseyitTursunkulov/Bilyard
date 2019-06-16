@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData
 import com.example.sonyadmin.CoroutinesTestRule
 import com.example.sonyadmin.EveryDayUpdateCashWorker
 import com.example.sonyadmin.LiveDataTestUtil
-import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api

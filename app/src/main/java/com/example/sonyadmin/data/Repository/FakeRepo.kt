@@ -1,7 +1,9 @@
-package com.example.sonyadmin.data
+package com.example.sonyadmin.data.Repository
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import com.example.sonyadmin.data.DailyCount
+import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
 
 class FakeRepo : Repository {
