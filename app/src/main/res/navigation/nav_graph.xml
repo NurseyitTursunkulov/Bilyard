@@ -54,7 +54,7 @@
     </fragment>
     <fragment
             android:id="@+id/barFragment"
-            android:name="com.example.sonyadmin.bar.BarFragment"
+            android:name="com.example.sonyadmin.bar.category.BarFragment"
             android:label="fragment_bar"
             tools:layout="@layout/fragment_bar"
             />
