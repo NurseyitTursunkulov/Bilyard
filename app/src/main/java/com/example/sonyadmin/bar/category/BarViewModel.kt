@@ -1,8 +1,10 @@
 package com.example.sonyadmin.bar.category
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.sonyadmin.util.Event
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -11,6 +13,8 @@ class BarViewModel : ViewModel() {
     private val TAG: String = BarViewModel::class.java.simpleName
     var categories: MutableLiveData<List<Category>> = MutableLiveData(arrayListOf())
 
+    private val _openCategoryEvent = MutableLiveData<Event<Category>>()
+    val openCategoryEvent: LiveData<Event<Category>> = _openCategoryEvent
     init {
         db.collection("category")
             .get()
@@ -35,5 +39,9 @@ class BarViewModel : ViewModel() {
             .addOnFailureListener {
                 Log.w(TAG, "Error getting snap.", it)
             }
+    }
+
+    fun openCategory(category: Category){
+        _openCategoryEvent.value=Event(category)
     }
 }

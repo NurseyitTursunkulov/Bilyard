@@ -1,5 +1,5 @@
 package com.example.sonyadmin.bar.category
 
 interface CategoryInterface{
-    fun onCategoryClicked()
+    fun onCategoryClicked(category: Category)
 }

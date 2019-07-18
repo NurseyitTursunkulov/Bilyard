@@ -18,7 +18,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
-            android:onClick="@{() ->listener.onCategoryClicked()}"
+            android:onClick="@{() ->listener.onCategoryClicked(categor)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"

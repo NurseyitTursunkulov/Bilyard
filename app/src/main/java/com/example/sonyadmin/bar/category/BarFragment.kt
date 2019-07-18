@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.sonyadmin.R
 import com.example.sonyadmin.databinding.FragmentBarBinding
+import com.example.sonyadmin.util.EventObserver
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -34,7 +36,10 @@ class BarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
         setupListAdapter()
+        binding.viewmodel?.openCategoryEvent?.observe(this,EventObserver {
 
+            findNavController().navigate(BarFragmentDirections.actionBarFragmentToProductFragment(it.categoryName))
+        })
     }
 
     private fun setupListAdapter() {

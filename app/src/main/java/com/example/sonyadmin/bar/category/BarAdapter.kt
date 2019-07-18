@@ -9,13 +9,13 @@ import com.example.sonyadmin.databinding.CategoryItemBinding
 
 class BarAdapter(
     var data: List<Category>,
-    viewModel: BarViewModel
+    val viewModel: BarViewModel
 ) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding: CategoryItemBinding = getTaskItemBinding(convertView, parent)
         val userActionsListener = object : CategoryInterface {
-            override fun onCategoryClicked() {
-
+            override fun onCategoryClicked(category: Category) {
+                viewModel.openCategory(category)
             }
 
         }
