@@ -7,7 +7,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import com.example.sonyadmin.bar.BarViewModel
+import com.example.sonyadmin.bar.category.BarViewModel
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.GameProcessDataBase
 import com.example.sonyadmin.data.Repository.Repository

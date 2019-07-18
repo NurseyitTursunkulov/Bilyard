@@ -6,7 +6,7 @@
         <import type="android.view.View" />
 
         <import type="androidx.core.content.ContextCompat" />
-        <variable name="viewmodel" type="com.example.sonyadmin.bar.BarViewModel"/>
+        <variable name="viewmodel" type="com.example.sonyadmin.bar.category.BarViewModel"/>
     </data>
     <FrameLayout
                  android:layout_width="match_parent"
