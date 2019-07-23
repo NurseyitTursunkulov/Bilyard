@@ -14,7 +14,7 @@ class DailyInfoViewModel(var repository: Repository) : ViewModel() {
     )
 
 
-    fun getCash( ) {
+    fun getCash() {
 
         chees = repository.getCash().toLiveData(
             Config(

@@ -13,35 +13,35 @@ class BarViewModel : ViewModel() {
     private val TAG: String = BarViewModel::class.java.simpleName
     var categories: MutableLiveData<List<Category>> = MutableLiveData(arrayListOf())
 
+    private val _dataLoading = MutableLiveData<Boolean>()
+    val dataLoading: LiveData<Boolean> = _dataLoading
+
+    private val _snackbarText = MutableLiveData<Event<String>>()
+    val snackbarMessage: LiveData<Event<String>> = _snackbarText
+
     private val _openCategoryEvent = MutableLiveData<Event<Category>>()
     val openCategoryEvent: LiveData<Event<Category>> = _openCategoryEvent
+
     init {
+        _dataLoading.value = true
         db.collection("category")
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                }
                 var cat: List<Category> = result.map {
                     Category(it.id)
                 }
                 categories.postValue(cat)
+                _dataLoading.value = false
 
             }
             .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
+                _snackbarText.value = Event(exception.localizedMessage)
+                _dataLoading.value = false
             }
 
-        db.collection("category").document("drinks").get()
-            .addOnSuccessListener {
-                Log.d(TAG, it.data?.get("fanta")?.toString())
-            }
-            .addOnFailureListener {
-                Log.w(TAG, "Error getting snap.", it)
-            }
     }
 
-    fun openCategory(category: Category){
-        _openCategoryEvent.value=Event(category)
+    fun openCategory(category: Category) {
+        _openCategoryEvent.value = Event(category)
     }
 }

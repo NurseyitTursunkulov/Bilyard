@@ -2,21 +2,21 @@ package com.example.sonyadmin
 
 import android.content.Context
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.work.*
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.gameList.Model.countSum
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import org.joda.time.DateTime
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.concurrent.TimeUnit
-import android.widget.Toast
-import android.os.Looper
-import com.google.firebase.auth.FirebaseAuth
 
 
 const val hour = 9
@@ -27,14 +27,14 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
 
     override val coroutineContext = Dispatchers.IO
     val repository: Repository by inject()
-    lateinit var userName:String
+    lateinit var userName: String
 
     override suspend fun doWork(): Result = coroutineScope {
         userName = FirebaseAuth.getInstance().currentUser!!.email!!.substringBeforeLast("@")
         val last = repository.getLastCash()
 
         if (last == null) {
-            repository.setCash(DailyCount(DateTime.now(), userName,DateTime.now().dayOfYear, 0.0))
+            repository.setCash(DailyCount(DateTime.now(), userName, DateTime.now().dayOfYear, 0.0))
             return@coroutineScope Result.success()
         }
         val lastTimeFromDB = last.date
@@ -73,7 +73,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                     val summ = countSum(lastTask!!, DateTime.now())
                     repository.writeEndTime(
                         Task(
-                            id = lastTask!!.id, startTime = lastTask.startTime,userName = userName,
+                            id = lastTask!!.id, startTime = lastTask.startTime, userName = userName,
                             endTime = currentDateTime, cabinId = x, summ = summ, isPlaying = false
                         )
                     )
@@ -85,11 +85,18 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                         lastTimeFromDB.dayOfYear,
                         summ
                     )
-                    repository.writeStartTime(Task(startTime = currentDateTime, cabinId = x, isPlaying = true,userName = userName))
+                    repository.writeStartTime(
+                        Task(
+                            startTime = currentDateTime,
+                            cabinId = x,
+                            isPlaying = true,
+                            userName = userName
+                        )
+                    )
                 }
 
             }
-            repository.setCash(DailyCount(currentDateTime, userName,DateTime.now().dayOfYear, 0.0))
+            repository.setCash(DailyCount(currentDateTime, userName, DateTime.now().dayOfYear, 0.0))
             Log.d("Worker", "no it is not ${last}")
             Log.d("Worker", " rebearth ${last}")
 //            ProcessPhoenix.triggerRebirth(context)

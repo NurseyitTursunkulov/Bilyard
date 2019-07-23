@@ -1,3 +1,3 @@
 package com.example.sonyadmin.bar.category
 
-data class Category(var categoryName:String)
+data class Category(var categoryName: String)

@@ -1,3 +1,6 @@
 package com.example.sonyadmin.bar.product
 
-data class Product (var name:String,var category: String,var price : Double)
+import com.example.sonyadmin.bar.category.Category
+data class ProductDetails(var amount:Long , var price: Long ,var volume : Double = 1.0)
+data class Product(var name : String , var details : ProductDetails)
+data class Products(var list:List<Product>)

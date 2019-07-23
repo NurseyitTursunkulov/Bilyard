@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation.findNavController
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.databinding.TaskItemBinding
@@ -22,12 +21,13 @@ class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyM
             override fun openBar() {
                 findNavController(binding.barButton).navigate(
                     ListOfGamesFragmentDirections.actionListOfGamesFragmentToBarFragment()
-                )            }
+                )
+            }
 
             override fun deleteAll(taskId: Int) {
 
                 findNavController(binding.textView3).navigate(
-                            ListOfGamesFragmentDirections.actionListOfGamesFragmentToDetailsFragment(taskId)
+                    ListOfGamesFragmentDirections.actionListOfGamesFragmentToDetailsFragment(taskId)
                 )
             }
 
@@ -37,10 +37,9 @@ class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyM
 
             override fun onTaskClicked(task: Task) {
                 task.isPlaying?.let {
-                    if (it){
+                    if (it) {
                         tasksViewModel.completeTask(task)
-                    }
-                    else
+                    } else
                         tasksViewModel.openTask(task)
                 }
                 binding.executePendingBindings()
@@ -58,10 +57,10 @@ class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyM
 
     }
 
-     fun setList(tasks: List<LiveData<Task>>) {
+    fun setList(tasks: List<LiveData<Task>>) {
         this.tasks = tasks
         notifyDataSetChanged()
-         Log.d("Adapter","setList")
+        Log.d("Adapter", "setList")
     }
 
     override fun getItem(position: Int): Any = tasks[position]

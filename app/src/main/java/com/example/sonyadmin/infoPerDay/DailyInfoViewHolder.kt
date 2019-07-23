@@ -7,8 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sonyadmin.R
 import com.example.sonyadmin.data.DailyCount
-import com.example.sonyadmin.data.Task
-import com.example.sonyadmin.gameList.TasksListBindings.getTime
 
 class DailyInfoViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
     (LayoutInflater.from(parent.context).inflate(R.layout.dayli_info_item, parent, false)) {

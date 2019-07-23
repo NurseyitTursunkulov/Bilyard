@@ -39,14 +39,17 @@ class LoginFragment : Fragment() {
 //            }
         }
         // Set an error if the password is less than 8 characters.
-        next_button.setOnClickListener {myView->
+        next_button.setOnClickListener { myView ->
             if (!isPasswordValid(password_edit_text.text)) {
                 password_text_input.error = getString(R.string.shr_error_password)
             } else {
                 password_text_input.error = null // Clear the error
 
                 activity?.let {
-                    auth.signInWithEmailAndPassword(user_name_edit_text.text.toString(), password_edit_text.text.toString())
+                    auth.signInWithEmailAndPassword(
+                        user_name_edit_text.text.toString(),
+                        password_edit_text.text.toString()
+                    )
                         .addOnCompleteListener(it) { task ->
                             if (task.isSuccessful) {
                                 // Sign in success, update UI with the signed-in user's information

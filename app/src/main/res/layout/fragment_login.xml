@@ -5,7 +5,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/loginPageBackgroundColor"
-            tools:context=".login.LoginFragment">
+            tools:context=".login.LoginFragment"
+        >
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -14,7 +15,8 @@
             android:clipToPadding="false"
             android:orientation="vertical"
             android:padding="24dp"
-            android:paddingTop="16dp">
+            android:paddingTop="16dp"
+            >
 
         <ImageView
                 android:layout_width="64dp"
@@ -23,7 +25,8 @@
                 android:layout_marginTop="48dp"
                 android:layout_marginBottom="16dp"
                 app:srcCompat="@drawable/shr_logo"
-                android:contentDescription="@string/shr_error_password"  />
+                android:contentDescription="@string/shr_error_password"
+                />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -32,19 +35,22 @@
                 android:layout_marginBottom="132dp"
                 android:text="@string/shr_app_name"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/shr_hint_username">
+                android:hint="@string/shr_hint_username"
+                >
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -52,18 +58,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/shr_hint_password"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                >
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    />
         </com.google.android.material.textfield.TextInputLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/next_button"
@@ -72,7 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:text="@string/shr_button_next" />
+                    android:text="@string/shr_button_next"
+                    />
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/bar_button"
@@ -83,7 +93,8 @@
                     android:layout_marginRight="12dp"
                     android:layout_toStartOf="@id/next_button"
                     android:layout_toLeftOf="@id/next_button"
-                    android:text="@string/shr_button_cancel" />
+                    android:text="@string/shr_button_cancel"
+                    />
 
         </RelativeLayout>
     </LinearLayout>

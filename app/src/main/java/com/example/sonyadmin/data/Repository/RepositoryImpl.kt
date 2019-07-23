@@ -13,8 +13,8 @@ class RepositoryImpl(var dao: Dao) : Repository {
         set(value) {}
 
     private fun getAllgames(): ArrayList<LiveData<Task>> {
-        var list =  ArrayList<LiveData<Task>>()
-        for (x in 0..10){
+        var list = ArrayList<LiveData<Task>>()
+        for (x in 0..10) {
             list.add(dao.getOneGameLive(x))
         }
         return list
@@ -24,7 +24,7 @@ class RepositoryImpl(var dao: Dao) : Repository {
         get() = dao.getOneGameLive(3)
 
     override fun getLastGameLive(cabinId: Int): LiveData<Task> {
-       return dao.getOneGameLive(cabinId)
+        return dao.getOneGameLive(cabinId)
     }
 
     override fun getLastCash(): DailyCount? {
@@ -32,15 +32,15 @@ class RepositoryImpl(var dao: Dao) : Repository {
     }
 
     override fun getCash(): DataSource.Factory<Int, DailyCount> {
-      return  dao.getCash()
+        return dao.getCash()
     }
 
     override fun setCash(dailyCount: DailyCount) {
         dao.setCash(dailyCount)
     }
 
-    override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime,day:Int, sum: Double) {
-        dao.updateCash(sTimeOfDay,endTimeOfDay,day,sum)
+    override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, day: Int, sum: Double) {
+        dao.updateCash(sTimeOfDay, endTimeOfDay, day, sum)
     }
 
 
@@ -55,7 +55,7 @@ class RepositoryImpl(var dao: Dao) : Repository {
     override fun getLastGame(cabinId: Int): Task {
         var data = dao.getLastGameProcessById(cabinId)
 //        Log.d("DataBase", "getLast = ${data?.cabinId} ${data?.startTime}")
-   return data
+        return data
 
 
     }

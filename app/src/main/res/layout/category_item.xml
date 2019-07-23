@@ -4,7 +4,9 @@
         >
 
     <data>
-        <import type="android.view.View.OnClickListener" />
+
+        <import type="android.view.View.OnClickListener"/>
+
         <variable
                 name="categor"
                 type="com.example.sonyadmin.bar.category.Category"

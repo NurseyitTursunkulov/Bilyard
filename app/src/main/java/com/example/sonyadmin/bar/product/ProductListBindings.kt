@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.sonyadmin.bar.category
+package com.example.sonyadmin.bar.product
 
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
@@ -21,12 +21,12 @@ import androidx.databinding.BindingAdapter
 /**
  * Contains [BindingAdapter]s for the [Task] list.
  */
-object BarListBindings {
+object ProductListBindings {
 
     @BindingAdapter("app:categories")
     @JvmStatic
-    fun setItems(listView: ListView, items: List<Category>) {
-        with(listView.adapter as BarAdapter) {
+    fun setItems(listView: ListView, items: List<Product>) {
+        with(listView.adapter as ProductAdapter) {
             replaceData(items)
         }
     }

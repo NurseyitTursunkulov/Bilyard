@@ -26,7 +26,7 @@ class MyModel(
     CoroutineScope by MainScope() {
 
     internal val _showToast = MutableLiveData<Event<String>>()
-    lateinit var userName :String
+    lateinit var userName: String
 
     val showToast: LiveData<Event<String>>
         get() = _showToast
@@ -39,7 +39,7 @@ class MyModel(
 
     init {
         userName = FirebaseAuth.getInstance().currentUser!!.email!!.substringBeforeLast("@")
-        Log.d("init",userName)
+        Log.d("init", userName)
         liveItems.forEach {
             it.observeForever {
                 items.postValue(liveItems)
@@ -66,7 +66,7 @@ class MyModel(
     }
 
 
-    private val TAG: String=MyModel::class.java.simpleName
+    private val TAG: String = MyModel::class.java.simpleName
 
     fun openTask(task: Task) {
         makeRequest(

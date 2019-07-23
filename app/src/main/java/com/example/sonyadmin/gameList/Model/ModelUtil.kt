@@ -1,20 +1,29 @@
 package com.example.sonyadmin.gameList.Model
 
 import android.util.Log
-import com.example.sonyadmin.util.Event
 import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.ResponseType
 import com.example.sonyadmin.gameList.MyModel
-import kotlinx.coroutines.*
-import org.joda.time.*
+import com.example.sonyadmin.util.Event
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.joda.time.DateTime
+import org.joda.time.Duration
+import org.joda.time.Interval
 import java.math.RoundingMode
 
 
 fun MyModel.changeGameEndTime(task: Task): Task {
     return Task(
-        cabinId = task.cabinId, endTime = DateTime.now(),
-        isPlaying = false, startTime = task.startTime, summ = countSum(task, DateTime.now()), id = task.id,userName = userName
+        cabinId = task.cabinId,
+        endTime = DateTime.now(),
+        isPlaying = false,
+        startTime = task.startTime,
+        summ = countSum(task, DateTime.now()),
+        id = task.id,
+        userName = userName
     )
 }
 
@@ -24,7 +33,7 @@ fun countMinutes(task: Task): Double {
     return duration
 }
 
-fun determineDay() : Int {
+fun determineDay(): Int {
     var day: Int
     if (Interval(
             DateTime.now().withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0),
@@ -40,7 +49,7 @@ fun determineDay() : Int {
 fun MyModel.changeGameStartTime(task: Task): Task {
     return Task(
         cabinId = task.cabinId, startTime = DateTime.now(),
-        isPlaying = true, endTime = null,userName = userName
+        isPlaying = true, endTime = null, userName = userName
     )
 }
 

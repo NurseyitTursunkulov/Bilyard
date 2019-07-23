@@ -182,69 +182,74 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun timeTest(){
+    fun timeTest() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(0),
-            isPlaying = true, endTime = null,userName = "nurs"
+            isPlaying = true, endTime = null, userName = "nurs"
         )
-       var k =  countSum(task, DateTime.now().withHourOfDay(11).withMinuteOfHour(15))
-        assertEquals(k,25.0,0.1)
-    }
-    @Test
-    fun timeTestMidDay(){
-        val task = Task(
-            cabinId = 4, startTime = DateTime.now().withHourOfDay(12).withMinuteOfHour(0),
-            isPlaying = true, endTime = null
-                   , userName = "nurs")
-        var k =  countSum(task, DateTime.now().withHourOfDay(12).withMinuteOfHour(15))
-        assertEquals(k,37.5,0.1)
+        var k = countSum(task, DateTime.now().withHourOfDay(11).withMinuteOfHour(15))
+        assertEquals(k, 25.0, 0.1)
     }
 
     @Test
-    fun timeTestMidDay2(){
+    fun timeTestMidDay() {
+        val task = Task(
+            cabinId = 4, startTime = DateTime.now().withHourOfDay(12).withMinuteOfHour(0),
+            isPlaying = true, endTime = null
+            , userName = "nurs"
+        )
+        var k = countSum(task, DateTime.now().withHourOfDay(12).withMinuteOfHour(15))
+        assertEquals(k, 37.5, 0.1)
+    }
+
+    @Test
+    fun timeTestMidDay2() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(0),
             isPlaying = true, endTime = null, userName = "nurs"
         )
-        var k =  countSum(task, DateTime.now().withHourOfDay(17).withMinuteOfHour(5))
-        assertEquals(k,12.5,0.1)
+        var k = countSum(task, DateTime.now().withHourOfDay(17).withMinuteOfHour(5))
+        assertEquals(k, 12.5, 0.1)
     }
 
     @Test
-    fun timeTest17_19(){
+    fun timeTest17_19() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(1),
             isPlaying = true, endTime = null, userName = "nurs"
         )
-        var k =  countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(53))
-        assertEquals(k,486.5,0.8)
+        var k = countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(53))
+        assertEquals(k, 486.5, 0.8)
     }
+
     @Test
-    fun timeTest11_15(){
+    fun timeTest11_15() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(40),
             isPlaying = true, endTime = null, userName = "nurs"
         )
-        var k =  countSum(task, DateTime.now().withHourOfDay(15).withMinuteOfHour(38))
-        assertEquals(k,578.5,0.8)
+        var k = countSum(task, DateTime.now().withHourOfDay(15).withMinuteOfHour(38))
+        assertEquals(k, 578.5, 0.8)
     }
+
     @Test
-    fun timeTestCabin1(){
+    fun timeTestCabin1() {
         val task = Task(
             cabinId = 1, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(0),
             isPlaying = true, endTime = null, userName = "nurs"
         )
-        var k =  countSum(task, DateTime.now().withHourOfDay(14).withMinuteOfHour(0))
-        assertEquals(k,600.0,0.8)
+        var k = countSum(task, DateTime.now().withHourOfDay(14).withMinuteOfHour(0))
+        assertEquals(k, 600.0, 0.8)
     }
+
     @Test
-    fun timeTestCabin17_19(){
+    fun timeTestCabin17_19() {
         val task = Task(
             cabinId = 1, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(0),
             isPlaying = true, endTime = null, userName = "nurs"
         )
-        var k =  countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(0))
-        assertEquals(k,450.0,0.8)
+        var k = countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(0))
+        assertEquals(k, 450.0, 0.8)
     }
 
     fun assertLiveDataEventTriggered(

@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sonyadmin.data.DailyCount
-import com.example.sonyadmin.data.Task
 
 
 class DailyInfoAdapter : PagedListAdapter<DailyCount, DailyInfoViewHolder>(diffCallback) {

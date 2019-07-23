@@ -14,10 +14,27 @@ public class LoginViewModel extends ViewModel {
     private View.OnFocusChangeListener onFocusEmail;
     private View.OnFocusChangeListener onFocusPassword;
 
+    @BindingAdapter("error")
+    public static void setError(EditText editText, Object strOrResId) {
+        if (strOrResId instanceof Integer) {
+            editText.setError(
+                    editText.getContext().getString((Integer) strOrResId));
+        } else {
+            editText.setError((String) strOrResId);
+        }
+    }
+
+    @BindingAdapter("onFocus")
+    public static void bindFocusChange(EditText editText, View.OnFocusChangeListener onFocusChangeListener) {
+        if (editText.getOnFocusChangeListener() == null) {
+            editText.setOnFocusChangeListener(onFocusChangeListener);
+        }
+    }
+
     @VisibleForTesting
     public void init() {
         login = new LoginForm();
-        onFocusEmail =  new View.OnFocusChangeListener() {
+        onFocusEmail = new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View view, boolean focused) {
@@ -62,22 +79,5 @@ public class LoginViewModel extends ViewModel {
 
     public LoginForm getForm() {
         return login;
-    }
-
-    @BindingAdapter("error")
-    public static void setError(EditText editText, Object strOrResId) {
-        if (strOrResId instanceof Integer) {
-            editText.setError(
-                    editText.getContext().getString((Integer) strOrResId));
-        } else {
-            editText.setError((String) strOrResId);
-        }
-    }
-
-    @BindingAdapter("onFocus")
-    public static void bindFocusChange(EditText editText, View.OnFocusChangeListener onFocusChangeListener) {
-        if (editText.getOnFocusChangeListener() == null) {
-            editText.setOnFocusChangeListener(onFocusChangeListener);
-        }
     }
 }

@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.sonyadmin.R
 import com.example.sonyadmin.databinding.FragmentBarBinding
 import com.example.sonyadmin.util.EventObserver
+import com.example.sonyadmin.util.setupSnackbar
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -36,19 +38,27 @@ class BarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
         setupListAdapter()
-        binding.viewmodel?.openCategoryEvent?.observe(this,EventObserver {
+        binding.viewmodel?.openCategoryEvent?.observe(this, EventObserver {
 
             findNavController().navigate(BarFragmentDirections.actionBarFragmentToProductFragment(it.categoryName))
         })
+        setupSnackbar()
     }
 
     private fun setupListAdapter() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
-            barAdapter = BarAdapter(ArrayList(0), viewModel)
+                barAdapter = BarAdapter(ArrayList(0), viewModel)
             binding.tasksList.adapter = barAdapter
         } else {
-            Log.d("Main","ViewModel not initialized when attempting to set up adapter.")
+            Log.d("Main", "ViewModel not initialized when attempting to set up adapter.")
         }
     }
+
+    private fun setupSnackbar() {
+        binding.viewmodel?.let {
+            view?.setupSnackbar(this, it.snackbarMessage, Snackbar.LENGTH_SHORT)
+        }
+    }
+
 }

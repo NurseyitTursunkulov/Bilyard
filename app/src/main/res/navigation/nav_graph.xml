@@ -15,8 +15,9 @@
                 android:id="@+id/action_listOfGamesFragment_to_detailsFragment"
                 app:destination="@id/detailsFragment"
                 >
-            <argument android:defaultValue="0"
-                      android:name="cabinId"
+            <argument
+                    android:defaultValue="0"
+                    android:name="cabinId"
                     />
         </action>
         <action

@@ -1,7 +1,6 @@
 package com.example.sonyadmin
 
 
-
 import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.*
@@ -9,11 +8,11 @@ import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
 import com.example.sonyadmin.util.EchoWorker
 import org.hamcrest.CoreMatchers.`is`
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThat
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Before
 import org.mockito.Mockito
 import java.util.concurrent.TimeUnit
 
@@ -39,6 +38,7 @@ class ExampleInstrumentedTest {
         // Initialize WorkManager for instrumentation tests.
         WorkManagerTestInitHelper.initializeTestWorkManager(context, config)
     }
+
     @Test
     fun useAppContext() {
         // Context of the app under test.

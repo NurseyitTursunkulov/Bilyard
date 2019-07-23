@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.example.sonyadmin.bar.category.BarViewModel
+import com.example.sonyadmin.bar.product.ProductViewModel
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.GameProcessDataBase
 import com.example.sonyadmin.data.Repository.Repository
@@ -34,11 +35,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class MyApp : Application(){
+class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         // Start Koin
-        startKoin{
+        startKoin {
             androidLogger()
             androidContext(this@MyApp)
             modules(appModule)
@@ -49,22 +50,25 @@ class MyApp : Application(){
 }
 
 val appModule = module {
-    single <Dao>{ GameProcessDataBase.getInstance(androidApplication()).gameProcesDao()}
+    single<Dao> { GameProcessDataBase.getInstance(androidApplication()).gameProcesDao() }
     single<Repository> { RepositoryImpl(get()) }
-    viewModel { MyModel(get(),get(),get(),get()) }
+    viewModel { MyModel(get(), get(), get(), get()) }
     viewModel { DetailsViewModel(get()) }
     viewModel { BarViewModel() }
+    viewModel{ ProductViewModel() }
     viewModel { DailyInfoViewModel(get()) }
-    single <EveryDayUpdateCashWorker>{EveryDayUpdateCashWorkerImpl()  }
+    single<EveryDayUpdateCashWorker> { EveryDayUpdateCashWorkerImpl() }
     factory<Interceptor> {
         HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.d("API", it) })
             .setLevel(HttpLoggingInterceptor.Level.HEADERS)
     }
 
-    factory { OkHttpClient.Builder().addInterceptor(get())
-        .connectTimeout(5, TimeUnit.SECONDS)
-        .readTimeout(5, TimeUnit.SECONDS)
-        .build() }
+    factory {
+        OkHttpClient.Builder().addInterceptor(get())
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
+            .build()
+    }
 
     single {
         Retrofit.Builder()
@@ -77,9 +81,9 @@ val appModule = module {
             .build()
     }
 
-    factory{ get<Retrofit>().create(UserService::class.java) }
+    factory { get<Retrofit>().create(UserService::class.java) }
     factory { UserRepository(get()) }
-    factory<Api> { ApiImpl(get())}
+    factory<Api> { ApiImpl(get()) }
 }
 
 class MyWorkManagerInitializer : DummyContentProvider() {
@@ -89,12 +93,20 @@ class MyWorkManagerInitializer : DummyContentProvider() {
         return true
     }
 }
+
 //where
 abstract class DummyContentProvider : ContentProvider() {
     override fun onCreate() = true
 
     override fun insert(uri: Uri, values: ContentValues?) = null
-    override fun query(uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?) = null
+    override fun query(
+        uri: Uri,
+        projection: Array<String>?,
+        selection: String?,
+        selectionArgs: Array<String>?,
+        sortOrder: String?
+    ) = null
+
     override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?) = 0
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?) = 0
 
