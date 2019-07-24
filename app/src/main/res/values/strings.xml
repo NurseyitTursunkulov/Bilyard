@@ -20,4 +20,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="adf">adkjf</string>
     <string name="bar">бар</string>
+    <string name="price">цена</string>
+    <string name="volume">обьем</string>
 </resources>
