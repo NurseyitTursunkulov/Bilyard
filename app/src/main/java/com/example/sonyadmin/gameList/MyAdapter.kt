@@ -20,7 +20,7 @@ class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyM
         val userActionsListener = object : TaskItemUserActionsListener {
             override fun openBar() {
                 findNavController(binding.barButton).navigate(
-                    ListOfGamesFragmentDirections.actionListOfGamesFragmentToBarFragment()
+                    ListOfGamesFragmentDirections.actionListOfGamesFragmentToBarFragment(position)
                 )
             }
 

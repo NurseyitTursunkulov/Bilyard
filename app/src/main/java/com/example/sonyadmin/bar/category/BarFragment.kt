@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.sonyadmin.R
 import com.example.sonyadmin.databinding.FragmentBarBinding
 import com.example.sonyadmin.util.EventObserver
@@ -22,6 +23,7 @@ class BarFragment : Fragment() {
 
     private lateinit var binding: FragmentBarBinding
     val model: BarViewModel by viewModel()
+    val args : BarFragmentArgs by navArgs()
     lateinit var barAdapter: BarAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +42,7 @@ class BarFragment : Fragment() {
         setupListAdapter()
         binding.viewmodel?.openCategoryEvent?.observe(this, EventObserver {
 
-            findNavController().navigate(BarFragmentDirections.actionBarFragmentToProductFragment(it.categoryName))
+            findNavController().navigate(BarFragmentDirections.actionBarFragmentToProductFragment(it.categoryName,args.gamePosition))
         })
         setupSnackbar()
     }

@@ -7,10 +7,13 @@ import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
 import com.example.sonyadmin.databinding.CategoryItemBinding
 import com.example.sonyadmin.databinding.ProductItemBinding
+import com.example.sonyadmin.gameList.MyModel
 
 class ProductAdapter(
     var data: List<Product>,
-    val viewModel: ProductViewModel
+    val viewModel: ProductViewModel,
+    val gameViewModel: MyModel,
+    val cabinId:Int
 ) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding: ProductItemBinding = getProductItemBinding(convertView, parent)
@@ -23,6 +26,7 @@ class ProductAdapter(
             }
 
             override fun onProductClicked(product: Product) {
+                gameViewModel.addBar(cabinId,product)
 //                viewModel.openCategory(category)
             }
 

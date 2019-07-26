@@ -63,6 +63,10 @@
                 android:id="@+id/action_barFragment_to_productFragment"
                 app:destination="@id/productFragment"
                 />
+        <argument
+                android:name="game_position"
+                app:argType="integer"
+                />
     </fragment>
     <fragment
             android:id="@+id/productFragment"
@@ -74,6 +78,11 @@
                 android:name="category_name"
                 app:argType="string"
                 app:nullable="true"
+                />
+        <argument
+                android:name="cabin_id"
+                app:argType="integer"
+                app:nullable="false"
                 />
     </fragment>
 </navigation>

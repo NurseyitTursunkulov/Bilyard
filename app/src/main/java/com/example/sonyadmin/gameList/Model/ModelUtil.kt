@@ -24,6 +24,7 @@ fun MyModel.changeGameEndTime(task: Task): Task {
         summ = countSum(task, DateTime.now()),
         id = task.id,
         userName = userName
+        ,listOfBars = ArrayList()
     )
 }
 
@@ -50,6 +51,7 @@ fun MyModel.changeGameStartTime(task: Task): Task {
     return Task(
         cabinId = task.cabinId, startTime = DateTime.now(),
         isPlaying = true, endTime = null, userName = userName
+        ,listOfBars = ArrayList()
     )
 }
 

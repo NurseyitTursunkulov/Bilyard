@@ -11,14 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.sonyadmin.R
 import com.example.sonyadmin.databinding.FragmentProductBinding
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.sonyadmin.gameList.MyModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ProductFragment : Fragment() {
 
     private lateinit var binding: FragmentProductBinding
-    val model: ProductViewModel by viewModel()
+    val productViewModel: ProductViewModel by viewModel()
+    val gameListViewModel : MyModel by sharedViewModel()
     lateinit var productAdapter: ProductAdapter
 
     override fun onCreateView(
@@ -27,7 +29,7 @@ class ProductFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate<FragmentProductBinding>(layoutInflater, R.layout.fragment_product, container, false)
             .apply {
-                viewmodel = model
+                viewmodel = productViewModel
             }
         return binding.root
     }
@@ -35,20 +37,22 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
-        setupListAdapter()
+
         arguments?.let { bundle ->
-            val arg = ProductFragmentArgs.fromBundle(bundle).categoryName
-            Log.d("Main", arg)
-            var db = arg?.let { product ->
+            val categoryName = ProductFragmentArgs.fromBundle(bundle).categoryName
+            val cabinId = ProductFragmentArgs.fromBundle(bundle).cabinId
+            Log.d("Main", categoryName)
+            setupListAdapter(cabinId)
+            var db = categoryName?.let { product ->
                 binding.viewmodel?.getProducts(product)
             }
         }
     }
 
-    private fun setupListAdapter() {
+    private fun setupListAdapter(cabinId: Int) {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
-            productAdapter = ProductAdapter(ArrayList(0), viewModel)
+            productAdapter = ProductAdapter(ArrayList(0), viewModel,gameListViewModel,cabinId)
             binding.tasksList.adapter = productAdapter
             viewModel.products.observe(this, Observer {
                 Log.d("Main", "products $it")

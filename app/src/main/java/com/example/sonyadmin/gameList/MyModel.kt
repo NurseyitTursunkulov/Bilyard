@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.EveryDayUpdateCashWorker
+import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
@@ -24,7 +25,7 @@ class MyModel(
 ) :
     AndroidViewModel(application),
     CoroutineScope by MainScope() {
-
+    private val TAG = MyModel::class.java.simpleName
     internal val _showToast = MutableLiveData<Event<String>>()
     lateinit var userName: String
 
@@ -62,11 +63,8 @@ class MyModel(
                 )
             }
         )
-
     }
 
-
-    private val TAG: String = MyModel::class.java.simpleName
 
     fun openTask(task: Task) {
         makeRequest(
@@ -80,5 +78,11 @@ class MyModel(
 
     fun deleteAll() {
         repository.deleteAll()
+    }
+
+    fun addBar(position: Int, product: Product) {
+        items.value?.get(position)?.value?.listOfBars?.add(product)
+
+        Log.d(TAG,"suucessfully saved $position $product")
     }
 }

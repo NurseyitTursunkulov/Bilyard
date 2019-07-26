@@ -75,6 +75,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                         Task(
                             id = lastTask!!.id, startTime = lastTask.startTime, userName = userName,
                             endTime = currentDateTime, cabinId = x, summ = summ, isPlaying = false
+                            ,listOfBars = ArrayList()
                         )
                     )
 
@@ -90,7 +91,8 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                             startTime = currentDateTime,
                             cabinId = x,
                             isPlaying = true,
-                            userName = userName
+                            userName = userName,
+                            listOfBars = ArrayList()
                         )
                     )
                 }

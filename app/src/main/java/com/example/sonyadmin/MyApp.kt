@@ -73,7 +73,7 @@ val appModule = module {
     single {
         Retrofit.Builder()
             .client(get())
-            .baseUrl("http://jsonplaceholder.typicode.com")
+            .baseUrl("http://jsonplaceholder.typicode.com/")
 //            .baseUrl("http://192.168.43.9:5000")//redme
 //            .baseUrl("http://192.168.0.109:5000/")//baza
             .addConverterFactory(GsonConverterFactory.create())
@@ -86,29 +86,3 @@ val appModule = module {
     factory<Api> { ApiImpl(get()) }
 }
 
-class MyWorkManagerInitializer : DummyContentProvider() {
-    override fun onCreate(): Boolean {
-        WorkManager.initialize(context!!, Configuration.Builder().build())
-        //run your tasks here
-        return true
-    }
-}
-
-//where
-abstract class DummyContentProvider : ContentProvider() {
-    override fun onCreate() = true
-
-    override fun insert(uri: Uri, values: ContentValues?) = null
-    override fun query(
-        uri: Uri,
-        projection: Array<String>?,
-        selection: String?,
-        selectionArgs: Array<String>?,
-        sortOrder: String?
-    ) = null
-
-    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?) = 0
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?) = 0
-
-    override fun getType(uri: Uri) = null
-}
