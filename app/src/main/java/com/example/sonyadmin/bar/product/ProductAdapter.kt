@@ -15,6 +15,13 @@ class ProductAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding: ProductItemBinding = getProductItemBinding(convertView, parent)
         val userActionsListener = object : ProductInterface {
+            override fun increase() {
+
+            }
+
+            override fun decrease() {
+            }
+
             override fun onProductClicked(product: Product) {
 //                viewModel.openCategory(category)
             }

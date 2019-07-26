@@ -1,6 +1,5 @@
 package com.example.sonyadmin.bar.product
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +13,7 @@ class ProductViewModel : ViewModel() {
     private val TAG: String = BarViewModel::class.java.simpleName
     var products: MutableLiveData<List<Product>> = MutableLiveData(arrayListOf())
 
-    private val _dataLoading = MutableLiveData<Boolean>()
+     val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
     private val _snackbarText = MutableLiveData<Event<String>>()

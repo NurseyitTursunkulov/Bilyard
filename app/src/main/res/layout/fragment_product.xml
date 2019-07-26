@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/refresh_layout"
-           android:visibility="@{viewmodel.dataLoading? View.GONE : View.VISIBLE}"
+            app:refreshing="@{viewmodel.dataLoading}"
             >
 
         <androidx.constraintlayout.widget.ConstraintLayout
