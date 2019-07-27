@@ -5,7 +5,7 @@
         >
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
                 name="task"
                 type="com.example.sonyadmin.data.Task"
@@ -111,6 +111,7 @@
                         />
 
                 <com.google.android.material.button.MaterialButton
+                        android:visibility="@{task.isPlaying ? View.VISIBLE : View.GONE}"
                         android:onClick="@{() ->listener.openBar()}"
                         android:id="@+id/bar_button"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -134,7 +135,7 @@
 
                 <TextView
                         android:onClick="@{() ->listener.navigateToDetails(task.cabinId)}"
-                        app:ttx="@{task.summ}"
+                        app:ttx="@{task.totalSumWithBar}"
                         tools:text="sum"
                         android:layout_width="141dp"
                         android:layout_height="72dp"

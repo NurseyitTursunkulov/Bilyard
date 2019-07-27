@@ -9,7 +9,8 @@ import androidx.work.*
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
-import com.example.sonyadmin.gameList.Model.countSum
+import com.example.sonyadmin.gameList.Model.countGameSum
+import com.example.sonyadmin.gameList.Model.countTotalSum
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -70,11 +71,14 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
             for (x in 0..10) {
                 var lastTask = repository.getLastGame(x)
                 if (lastTask!!.isPlaying) {
-                    val summ = countSum(lastTask!!, DateTime.now())
+                    val summOfTheGame = countGameSum(lastTask, DateTime.now())
+                    val summWithBar = countTotalSum(lastTask, DateTime.now())
                     repository.writeEndTime(
                         Task(
                             id = lastTask!!.id, startTime = lastTask.startTime, userName = userName,
-                            endTime = currentDateTime, cabinId = x, summ = summ, isPlaying = false
+                            endTime = currentDateTime, cabinId = x, summOfTheGame = summOfTheGame,
+                            isPlaying = false,
+                            totalSumWithBar = summWithBar
                             ,listOfBars = ArrayList()
                         )
                     )
@@ -84,7 +88,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                         lastTimeFromDB.minusDays(1),
                         currentDateTime.plusDays(1).withTime(23, 59, 59, 0),
                         lastTimeFromDB.dayOfYear,
-                        summ
+                        summOfTheGame
                     )
                     repository.writeStartTime(
                         Task(

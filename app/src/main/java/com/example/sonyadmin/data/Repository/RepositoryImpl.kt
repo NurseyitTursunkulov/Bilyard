@@ -67,10 +67,9 @@ class RepositoryImpl(var dao: Dao) : Repository {
     }
 
     override fun writeEndTime(game: Task) {
-//        Log.d("DataBase", "writeEndtime = ${game?.startTime.value} ${game?.endTime?.value}")
         if (game.endTime != null) {
             if (game.id != null)
-                dao.insertEndGameProcees(game.endTime!!, game.summ, game.isPlaying, game.id!!)
+                dao.insertEndGameProcees(game.endTime!!, game.summOfTheGame,game.totalSumWithBar, game.isPlaying, game.id!!)
         }
 
     }

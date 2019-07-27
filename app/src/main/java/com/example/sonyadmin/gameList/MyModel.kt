@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.afollestad.materialdialogs.MaterialDialog
 import com.example.sonyadmin.EveryDayUpdateCashWorker
 import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.Repository.Repository
@@ -59,7 +58,7 @@ class MyModel(
                     DateTime.now().minusDays(1).withTime(0, 0, 0, 0),
                     DateTime.now().plusDays(1).withTime(23, 59, 59, 0),
                     determineDay(),
-                    countSum(task, DateTime.now())
+                    countTotalSum(task, DateTime.now())
                 )
             }
         )

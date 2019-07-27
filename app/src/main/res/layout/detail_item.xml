@@ -97,6 +97,19 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="8dp"
                     />
+
+            <TextView
+                    tools:text="2000 som"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/total_sum"
+                    app:layout_constraintTop_toTopOf="@+id/summ_txt"
+                    app:layout_constraintBottom_toBottomOf="@+id/summ_txt"
+                    android:textColor="#E91E63"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/summ_txt"
+                    android:layout_marginStart="4dp"
+                    />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

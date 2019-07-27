@@ -21,7 +21,8 @@ fun MyModel.changeGameEndTime(task: Task): Task {
         endTime = DateTime.now(),
         isPlaying = false,
         startTime = task.startTime,
-        summ = countSum(task, DateTime.now()),
+        summOfTheGame = countGameSum(task, DateTime.now()),
+        totalSumWithBar = countTotalSum(task, DateTime.now()),
         id = task.id,
         userName = userName
         ,listOfBars = ArrayList()
@@ -60,7 +61,15 @@ private fun countMinutes(task: Task, endTime: DateTime): Double {
     return duration.toBigDecimal().setScale(0, RoundingMode.UP).toDouble()
 }
 
-fun countSum(task: Task, endTime: DateTime): Double {
+fun countTotalSum(task: Task, endTime: DateTime): Double{
+    var totalSum = countGameSum(task,endTime)
+    task.listOfBars.forEach {
+        totalSum += it.details.price
+    }
+    totalSum+= totalSum*0.08
+    return totalSum
+}
+fun countGameSum(task: Task, endTime: DateTime): Double {
     var minutes = countMinutes(task, endTime)
     if (task.cabinId != 1) {
         var sum: Double = minutes / 60 * 100

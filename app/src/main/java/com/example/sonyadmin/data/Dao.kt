@@ -17,9 +17,9 @@ interface Dao {
     @Insert
     fun insertStartGameProcess(gameProcess: Task)
 
-    @Query("update Task set endTime = :endTime, summ = :summ,isPlaying = :isPlaying  where id =:id ")
+    @Query("update Task set endTime = :endTime, summOfTheGame = :summ,totalSumWithBar = :totalSumWithBar,isPlaying = :isPlaying  where id =:id ")
     fun insertEndGameProcees(
-        endTime: DateTime, summ: Double,
+        endTime: DateTime, summ: Double,totalSumWithBar:Double,
         isPlaying: Boolean, id: Int
     )
 

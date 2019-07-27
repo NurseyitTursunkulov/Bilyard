@@ -15,7 +15,8 @@ data class Task(
     var cabinId: Int = 0,
     var startTime: DateTime,
     var endTime: DateTime? = null,
-    var summ: Double = 0.0,
+    var summOfTheGame: Double = 0.0,
+    var totalSumWithBar: Double = 0.0,
     var userName: String,
     var listOfBars: ArrayList<Product>,
     var isPlaying: Boolean = false

@@ -31,9 +31,9 @@ class ProductAdapter(
             override fun onProductClicked(product: Product) {
                 gameViewModel.addBar(cabinId,product)
                 viewModel._snackbarText.postValue(Event(product.name))
-                Navigation.findNavController(binding.btnAdd).navigate(
-                    ProductFragmentDirections.actionProductFragmentToListOfGamesFragment2()
-                )
+//                Navigation.findNavController(binding.btnAdd).navigate(
+//                    ProductFragmentDirections.actionProductFragmentToListOfGamesFragment2()
+//                )
             }
 
         }
