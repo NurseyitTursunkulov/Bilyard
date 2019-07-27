@@ -16,7 +16,7 @@ class ProductViewModel : ViewModel() {
      val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    private val _snackbarText = MutableLiveData<Event<String>>()
+     val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarMessage: LiveData<Event<String>> = _snackbarText
 
     fun getProducts(product: String) {

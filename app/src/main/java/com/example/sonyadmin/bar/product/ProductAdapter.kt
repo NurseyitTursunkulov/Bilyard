@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import com.example.sonyadmin.databinding.CategoryItemBinding
 import com.example.sonyadmin.databinding.ProductItemBinding
+import com.example.sonyadmin.gameList.ListOfGamesFragmentDirections
 import com.example.sonyadmin.gameList.MyModel
+import com.example.sonyadmin.util.Event
 
 class ProductAdapter(
     var data: List<Product>,
@@ -27,7 +30,10 @@ class ProductAdapter(
 
             override fun onProductClicked(product: Product) {
                 gameViewModel.addBar(cabinId,product)
-//                viewModel.openCategory(category)
+                viewModel._snackbarText.postValue(Event(product.name))
+                Navigation.findNavController(binding.btnAdd).navigate(
+                    ProductFragmentDirections.actionProductFragmentToListOfGamesFragment2()
+                )
             }
 
         }

@@ -9,9 +9,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.sonyadmin.bar.product.Product
+import com.google.firebase.auth.FirebaseAuth
 import org.joda.time.DateTime
 
-@Database(entities = [Task::class, DailyCount::class], version = 9)
+@Database(entities = [Task::class, DailyCount::class], version = 10)
 @TypeConverters(Converters::class)
 abstract class GameProcessDataBase : RoomDatabase() {
     abstract fun gameProcesDao(): Dao
@@ -32,7 +33,9 @@ abstract class GameProcessDataBase : RoomDatabase() {
                     mDao.insertStartGameProcess(
                         Task(
                             cabinId = x, startTime = DateTime.now(),
-                            endTime = DateTime.now(), summ = 0.0, isPlaying = false, userName = "",
+                            endTime = DateTime.now(), summ = 0.0,
+                            isPlaying = false,
+                            userName = FirebaseAuth.getInstance().currentUser!!.email!!.substringBeforeLast("@"),
                             listOfBars = ArrayList()
                         )
                     )

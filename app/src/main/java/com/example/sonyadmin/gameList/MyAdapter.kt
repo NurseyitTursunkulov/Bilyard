@@ -24,7 +24,7 @@ class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyM
                 )
             }
 
-            override fun deleteAll(taskId: Int) {
+            override fun navigateToDetails(taskId: Int) {
 
                 findNavController(binding.textView3).navigate(
                     ListOfGamesFragmentDirections.actionListOfGamesFragmentToDetailsFragment(taskId)

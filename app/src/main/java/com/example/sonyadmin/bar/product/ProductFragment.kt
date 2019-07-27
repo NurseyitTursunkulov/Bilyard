@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.afollestad.materialdialogs.MaterialDialog
 import com.example.sonyadmin.R
 import com.example.sonyadmin.databinding.FragmentProductBinding
 import com.example.sonyadmin.gameList.MyModel
@@ -51,6 +52,15 @@ class ProductFragment : Fragment() {
 
     private fun setupListAdapter(cabinId: Int) {
         val viewModel = binding.viewmodel
+        viewModel?._snackbarText?.observe(this,Observer{
+            it.getContentIfNotHandled()?.let {
+                MaterialDialog(requireContext()).show {
+                    title(text = it)
+                    message(text = "добавлен")
+                    positiveButton(text = "ok")
+                }
+            }
+        })
         if (viewModel != null) {
             productAdapter = ProductAdapter(ArrayList(0), viewModel,gameListViewModel,cabinId)
             binding.tasksList.adapter = productAdapter

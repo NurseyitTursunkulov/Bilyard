@@ -174,4 +174,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //material dialog
+    implementation 'com.afollestad.material-dialogs:core:3.1.0'
 }

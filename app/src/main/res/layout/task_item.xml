@@ -133,7 +133,7 @@
                         />
 
                 <TextView
-                        android:onClick="@{() ->listener.deleteAll(task.cabinId)}"
+                        android:onClick="@{() ->listener.navigateToDetails(task.cabinId)}"
                         app:ttx="@{task.summ}"
                         tools:text="sum"
                         android:layout_width="141dp"

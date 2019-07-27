@@ -2,12 +2,16 @@ package com.example.sonyadmin.hz
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
 
 class FakeRepository : Repository {
+    override fun addBarProduct(listOfBars: ArrayList<Product>, id: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     override var list: ArrayList<LiveData<Task>>

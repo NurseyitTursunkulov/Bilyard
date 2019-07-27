@@ -5,6 +5,7 @@ import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.sonyadmin.bar.product.Product
 import org.joda.time.DateTime
 
 @Dao
@@ -22,14 +23,17 @@ interface Dao {
         isPlaying: Boolean, id: Int
     )
 
+    @Query("update Task set listOfBars = :listOfBars where id = :id")
+    fun addBar(listOfBars:ArrayList<Product>,id: Int )
+
     @Query("select * from Task ")
     fun getAllGameProccesBiCabin(): LiveData<List<Task>>?
 
     @Query("select * from Task where cabinId = :cabinId ORDER BY id DESC limit 1")
     fun getOneGameLive(cabinId: Int): LiveData<Task>
 
-    @Query("select * from Task limit 1")
-    fun getOneGame(): Task
+    @Query("select * from task where id = :id")
+    fun getGameById(id: Int): Task
 
     @Insert
     fun setCash(dailyCount: DailyCount)

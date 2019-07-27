@@ -44,7 +44,7 @@ class ListOfGamesFragment : Fragment() {
         listItemBinding.tasksList.adapter = listAdapter
         listItemBinding.viewmodel?.showToast?.observe(this, androidx.lifecycle.Observer {
             it.getContentIfNotHandled()?.let {
-                Toast.makeText(this@ListOfGamesFragment.context, it, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ListOfGamesFragment.context, it, Toast.LENGTH_LONG).show()
             }
         })
         // This callback will only be called when MyFragment is at least Started.

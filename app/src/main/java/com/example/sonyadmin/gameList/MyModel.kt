@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.afollestad.materialdialogs.MaterialDialog
 import com.example.sonyadmin.EveryDayUpdateCashWorker
 import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.Repository.Repository
@@ -13,8 +14,7 @@ import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.gameList.Model.*
 import com.example.sonyadmin.util.Event
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.*
 import org.joda.time.DateTime
 
 class MyModel(
@@ -82,7 +82,13 @@ class MyModel(
 
     fun addBar(position: Int, product: Product) {
         items.value?.get(position)?.value?.listOfBars?.add(product)
-
-        Log.d(TAG,"suucessfully saved $position $product")
+        launch {
+            withContext(Dispatchers.IO) {
+                items.value?.get(position)?.value?.id?.let {
+                    repository.addBarProduct(arrayListOf(product), it)
+                }
+            }
+        }
+        Log.d(TAG, "suucessfully saved $position $product")
     }
 }

@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sonyadmin.R
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.gameList.TasksListBindings.getTime
+import org.w3c.dom.Text
+import java.util.ArrayList
 
 class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
     (LayoutInflater.from(parent.context).inflate(R.layout.cheese_item, parent, false)) {
@@ -15,6 +17,8 @@ class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
     private val endTime = itemView.findViewById<TextView>(R.id.end_time)
     private val sum = itemView.findViewById<TextView>(R.id.sum)
     private val userName = itemView.findViewById<TextView>(R.id.user_name)
+    private val barTextView = itemView.findViewById<TextView>(R.id.bar_txt)
+    private val barSum = itemView.findViewById<TextView>(R.id.summ_txt)
     var cheese: Task? = null
 
     /**
@@ -30,5 +34,10 @@ class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
                 "${cheese?.endTime?.dayOfMonth}"
         sum.text = cheese?.summ.toString()
         userName.text = cheese?.userName
+        barTextView.setSingleLine(false)
+       cheese?.listOfBars?.forEach {
+           barTextView.append(it.name + "\n")
+           barSum.append( "${it.details.price}" + "\n")
+       }
     }
 }

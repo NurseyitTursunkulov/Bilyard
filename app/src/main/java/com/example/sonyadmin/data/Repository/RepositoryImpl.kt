@@ -1,7 +1,9 @@
 package com.example.sonyadmin.data.Repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.Task
@@ -75,6 +77,13 @@ class RepositoryImpl(var dao: Dao) : Repository {
 
     override fun getAllGameProccesBiCabin(cabinId: Int): LiveData<List<Task>>? {
         return dao.getAllGameProccesBiCabin()
+    }
+
+    override fun addBarProduct(listOfBars: ArrayList<Product>, id: Int) {
+        val prevBar = dao.getGameById(id).listOfBars
+        listOfBars.addAll(prevBar)
+        Log.d("Repo"," listOfProducts $prevBar" )
+        dao.addBar(listOfBars, id)
     }
 
 }

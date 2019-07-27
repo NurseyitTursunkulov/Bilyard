@@ -2,6 +2,7 @@ package com.example.sonyadmin.data.Repository
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
@@ -25,5 +26,7 @@ interface Repository {
     fun getCash(): DataSource.Factory<Int, DailyCount>
     fun getGameDetails(cabinId: Int): DataSource.Factory<Int, Task>
     fun getLastCash(): DailyCount?
+
+    fun addBarProduct(listOfBars:ArrayList<Product>, id: Int)
 
 }
