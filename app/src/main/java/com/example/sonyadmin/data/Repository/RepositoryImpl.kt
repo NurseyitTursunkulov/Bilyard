@@ -7,6 +7,7 @@ import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.Task
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import org.joda.time.DateTime
 
@@ -42,10 +43,19 @@ class RepositoryImpl(var dao: Dao) : Repository {
 
     override fun setCash(dailyCount: DailyCount) {
         dao.setCash(dailyCount)
+        db.collection("cash").document("cash").set(dailyCount)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "cash written with ID: ${documentReference}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "cash set Error adding document", e)
+            }
     }
 
     override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, day: Int, sum: Double) {
         dao.updateCash(sTimeOfDay, endTimeOfDay, day, sum)
+        db.collection("cash").document("cash").
+            update("summ", FieldValue.increment(sum))
     }
 
 
@@ -59,10 +69,7 @@ class RepositoryImpl(var dao: Dao) : Repository {
 
     override fun getLastGame(cabinId: Int): Task {
         var data = dao.getLastGameProcessById(cabinId)
-//        Log.d("DataBase", "getLast = ${data?.cabinId} ${data?.startTime}")
         return data
-
-
     }
 
     override fun writeStartTime(game: Task) {
