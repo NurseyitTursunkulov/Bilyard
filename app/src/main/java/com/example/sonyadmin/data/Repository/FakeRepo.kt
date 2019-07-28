@@ -8,7 +8,7 @@ import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
 
 class FakeRepo : Repository {
-    override fun addBarProduct(listOfBars: ArrayList<Product>, id: Int) {
+    override fun addBarProduct(listOfBars: ArrayList<Product>, task: Task) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

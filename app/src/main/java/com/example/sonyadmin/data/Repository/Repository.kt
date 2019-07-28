@@ -8,12 +8,10 @@ import com.example.sonyadmin.data.Task
 import org.joda.time.DateTime
 
 
-interface Repository {
+interface Repository : FirebaseRepository{
     var list: ArrayList<LiveData<Task>>
     val first: LiveData<Task>
-    fun writeStartTime(game: Task)
 
-    fun writeEndTime(game: Task)
 
     fun getAllGameProccesBiCabin(cabinId: Int): LiveData<List<Task>>?
 
@@ -21,12 +19,10 @@ interface Repository {
     fun getLastGameLive(cabinId: Int): LiveData<Task>
 
     fun deleteAll()
-    fun setCash(dailyCount: DailyCount)
-    fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, day: Int, sum: Double)
+
+
     fun getCash(): DataSource.Factory<Int, DailyCount>
     fun getGameDetails(cabinId: Int): DataSource.Factory<Int, Task>
     fun getLastCash(): DailyCount?
-
-    fun addBarProduct(listOfBars:ArrayList<Product>, id: Int)
 
 }

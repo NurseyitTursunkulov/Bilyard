@@ -11,6 +11,8 @@ import com.example.sonyadmin.bar.category.BarViewModel
 import com.example.sonyadmin.bar.product.ProductViewModel
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.GameProcessDataBase
+import com.example.sonyadmin.data.Repository.FirebaseRepoImpl
+import com.example.sonyadmin.data.Repository.FirebaseRepository
 import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Repository.RepositoryImpl
 import com.example.sonyadmin.data.service.Api
@@ -51,7 +53,8 @@ class MyApp : Application() {
 
 val appModule = module {
     single<Dao> { GameProcessDataBase.getInstance(androidApplication()).gameProcesDao() }
-    single<Repository> { RepositoryImpl(get()) }
+    single<Repository> { RepositoryImpl(get(),get()) }
+    single<FirebaseRepository>{FirebaseRepoImpl()}
     viewModel { MyModel(get(), get(), get(), get()) }
     viewModel { DetailsViewModel(get()) }
     viewModel { BarViewModel() }

@@ -83,7 +83,7 @@ class MyModel(
         items.value?.get(position)?.value?.listOfBars?.add(product)
         launch {
             withContext(Dispatchers.IO) {
-                items.value?.get(position)?.value?.id?.let {
+                items.value?.get(position)?.value?.let {
                     repository.addBarProduct(arrayListOf(product), it)
                 }
             }

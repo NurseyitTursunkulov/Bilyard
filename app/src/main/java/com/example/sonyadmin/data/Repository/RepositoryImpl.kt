@@ -9,11 +9,11 @@ import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.Task
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import org.joda.time.DateTime
 
-class RepositoryImpl(var dao: Dao) : Repository {
-    private val TAG = RepositoryImpl::class.java.simpleName
-    var db = FirebaseFirestore.getInstance()
+class RepositoryImpl(var dao: Dao,val firebaseRepository: FirebaseRepository) : Repository {
+
     override var list: ArrayList<LiveData<Task>>
         get() = getAllgames()
         set(value) {}
@@ -43,19 +43,12 @@ class RepositoryImpl(var dao: Dao) : Repository {
 
     override fun setCash(dailyCount: DailyCount) {
         dao.setCash(dailyCount)
-        db.collection("cash").document("cash").set(dailyCount)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "cash written with ID: ${documentReference}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "cash set Error adding document", e)
-            }
+        firebaseRepository.setCash(dailyCount)
     }
 
     override fun updateCash(sTimeOfDay: DateTime, endTimeOfDay: DateTime, day: Int, sum: Double) {
         dao.updateCash(sTimeOfDay, endTimeOfDay, day, sum)
-        db.collection("cash").document("cash").
-            update("summ", FieldValue.increment(sum))
+        firebaseRepository.updateCash(sTimeOfDay, endTimeOfDay, day, sum)
     }
 
 
@@ -74,16 +67,7 @@ class RepositoryImpl(var dao: Dao) : Repository {
 
     override fun writeStartTime(game: Task) {
         dao.insertStartGameProcess(game)
-
-
-        db.collection("games").document(game.idForTitle)
-            .set(game)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }
+        firebaseRepository.writeStartTime(game)
     }
 
     override fun writeEndTime(game: Task) {
@@ -96,14 +80,7 @@ class RepositoryImpl(var dao: Dao) : Repository {
                     game.isPlaying,
                     game.id!!
                 )
-                db.collection("games").document(game.idForTitle)
-                    .set(game)
-                    .addOnSuccessListener { documentReference ->
-                        Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference}")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w(TAG, "Error adding document", e)
-                    }
+                firebaseRepository.writeEndTime(game)
             }
         }
     }
@@ -112,19 +89,12 @@ class RepositoryImpl(var dao: Dao) : Repository {
         return dao.getAllGameProccesBiCabin()
     }
 
-    override fun addBarProduct(listOfBars: ArrayList<Product>, id: Int) {
-        val game = dao.getGameById(id)
-        listOfBars.addAll(game.listOfBars)
-        dao.addBar(listOfBars, id)
-        game.listOfBars = listOfBars
-        db.collection("games").document(game.idForTitle)
-            .set(game)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference}")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }
+    override fun addBarProduct(listOfBars: ArrayList<Product>, task: Task) {
+         dao.getGameById(task.id!!).apply {
+            this.listOfBars.addAll(listOfBars)
+            dao.addBar(this.listOfBars, task.id!!)
+        }
+        firebaseRepository.addBarProduct(listOfBars,task)
     }
 
 }
