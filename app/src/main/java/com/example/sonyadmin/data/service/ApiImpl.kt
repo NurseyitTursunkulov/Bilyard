@@ -7,7 +7,7 @@ class ApiImpl(val userService: UserService) : Api {
 
     override suspend fun off(led: String): Result<ResponseType> {
         try {
-            val call = userService.off(led).await()
+            val call = userService.off("1").await()
             if (call.isSuccessful) {
                 return Result.Success(call.body()!!)
             } else {
@@ -20,7 +20,7 @@ class ApiImpl(val userService: UserService) : Api {
 
     override suspend fun onn(led: String): Result<ResponseType> {
         try {
-            val call = userService.onn(led).await()
+            val call = userService.onn("1").await()
             if (call.isSuccessful) {
                 return Result.Success(call.body()!!)
             } else {

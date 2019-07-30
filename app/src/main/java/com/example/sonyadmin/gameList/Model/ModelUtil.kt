@@ -19,7 +19,7 @@ fun MyModel.changeGameEndTime(task: Task): Task {
     return Task(
         cabinId = task.cabinId,
         endTime = DateTime.now(),
-        isPlaying = false,
+        playing = false,
         startTime = task.startTime,
         summOfTheGame = countGameSum(task, DateTime.now()),
         totalSumWithBar = countTotalSum(task, DateTime.now()),
@@ -51,7 +51,7 @@ fun determineDay(): Int {
 fun MyModel.changeGameStartTime(task: Task): Task {
     return Task(
         cabinId = task.cabinId, startTime = DateTime.now(),
-        isPlaying = true, endTime = null, userName = userName
+        playing = true, endTime = null, userName = userName
         ,listOfBars = ArrayList()
     )
 }

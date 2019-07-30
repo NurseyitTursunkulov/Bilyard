@@ -19,7 +19,7 @@ data class Task(
     var totalSumWithBar: Double = 0.0,
     var userName: String,
     var listOfBars: ArrayList<Product>,
-    var isPlaying: Boolean = false
+    var playing: Boolean = false
 ) {
     var idForTitle = cabinId.toString() + "я кабинка"
 

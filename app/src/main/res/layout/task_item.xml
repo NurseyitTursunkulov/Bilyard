@@ -45,7 +45,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:background="@{task.isPlaying ? @color/colorAccent : @color/colorPrimary}"
+                    android:background="@{task.playing ? @color/colorAccent : @color/colorPrimary}"
                     >
 
                 <TextView
@@ -111,7 +111,7 @@
                         />
 
                 <com.google.android.material.button.MaterialButton
-                        android:visibility="@{task.isPlaying ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{task.playing ? View.VISIBLE : View.GONE}"
                         android:onClick="@{() ->listener.openBar()}"
                         android:id="@+id/bar_button"
                         style="@style/Widget.MaterialComponents.Button.TextButton"

@@ -36,7 +36,7 @@ class MyAdapter(private var tasks: List<LiveData<Task>>, var tasksViewModel: MyM
             }
 
             override fun onTaskClicked(task: Task) {
-                task.isPlaying?.let {
+                task.playing?.let {
                     if (it) {
                         tasksViewModel.completeTask(task)
                     } else

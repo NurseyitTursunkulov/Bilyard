@@ -1,15 +1,11 @@
 package com.example.sonyadmin.data.Repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.example.sonyadmin.bar.product.Product
 import com.example.sonyadmin.data.DailyCount
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.Task
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
 import org.joda.time.DateTime
 
 class RepositoryImpl(var dao: Dao,val firebaseRepository: FirebaseRepository) : Repository {
@@ -77,7 +73,7 @@ class RepositoryImpl(var dao: Dao,val firebaseRepository: FirebaseRepository) : 
                     game.endTime!!,
                     game.summOfTheGame,
                     game.totalSumWithBar,
-                    game.isPlaying,
+                    game.playing,
                     game.id!!
                 )
                 firebaseRepository.writeEndTime(game)

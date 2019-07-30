@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.firebase.auth.FirebaseAuth
 import org.joda.time.DateTime
 
-@Database(entities = [Task::class, DailyCount::class], version = 3)
+@Database(entities = [Task::class, DailyCount::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class GameProcessDataBase : RoomDatabase() {
     abstract fun gameProcesDao(): Dao
@@ -33,7 +33,7 @@ abstract class GameProcessDataBase : RoomDatabase() {
                         Task(
                             cabinId = x, startTime = DateTime.now(),
                             endTime = DateTime.now(), summOfTheGame = 0.0,
-                            isPlaying = false,
+                            playing = false,
                             userName = FirebaseAuth.getInstance().currentUser!!.email!!.substringBeforeLast("@"),
                             listOfBars = ArrayList()
                         )

@@ -71,14 +71,14 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
             // I need to finish all started games for previous game and continue count as it was started today
             for (x in 0..10) {
                 var lastTask = repository.getLastGame(x)
-                if (lastTask!!.isPlaying) {
+                if (lastTask!!.playing) {
                     val summOfTheGame = countGameSum(lastTask, DateTime.now())
                     val summWithBar = countTotalSum(lastTask, DateTime.now())
                     repository.writeEndTime(
                         Task(
                             id = lastTask!!.id, startTime = lastTask.startTime, userName = userName,
                             endTime = currentDateTime, cabinId = x, summOfTheGame = summOfTheGame,
-                            isPlaying = false,
+                            playing = false,
                             totalSumWithBar = summWithBar
                             ,listOfBars = ArrayList()
                         )
@@ -95,7 +95,7 @@ class MyCoroutineWorker(val context: Context, params: WorkerParameters) : Corout
                         Task(
                             startTime = currentDateTime,
                             cabinId = x,
-                            isPlaying = true,
+                            playing = true,
                             userName = userName,
                             listOfBars = ArrayList()
                         )
