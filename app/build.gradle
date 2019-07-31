@@ -175,5 +175,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     //material dialog
+    implementation 'com.afollestad.material-dialogs:input:3.1.0'
     implementation 'com.afollestad.material-dialogs:core:3.1.0'
 }
