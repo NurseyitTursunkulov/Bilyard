@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <import type="android.view.View" />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
 
-        <import type="androidx.core.content.ContextCompat" />
-        <variable name="viewmodel" type="com.example.sonyadmin.gameList.MyModel"/>
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="androidx.core.content.ContextCompat"/>
+
+        <variable
+                name="viewmodel"
+                type="com.example.sonyadmin.gameList.MyModel"
+                />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

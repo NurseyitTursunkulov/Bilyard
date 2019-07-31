@@ -1,4 +1,4 @@
-package com.example.sonyadmin
+package com.example.sonyadmin.login
 
 
 import android.os.Bundle
@@ -10,21 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.example.sonyadmin.login.LoginViewModel
+import com.example.sonyadmin.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class LoginFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var viewModel: LoginViewModel? = null
@@ -49,14 +39,17 @@ class LoginFragment : Fragment() {
 //            }
         }
         // Set an error if the password is less than 8 characters.
-        next_button.setOnClickListener {myView->
+        next_button.setOnClickListener { myView ->
             if (!isPasswordValid(password_edit_text.text)) {
                 password_text_input.error = getString(R.string.shr_error_password)
             } else {
                 password_text_input.error = null // Clear the error
 
                 activity?.let {
-                    auth.signInWithEmailAndPassword(user_name_edit_text.text.toString(), password_edit_text.text.toString())
+                    auth.signInWithEmailAndPassword(
+                        user_name_edit_text.text.toString(),
+                        password_edit_text.text.toString()
+                    )
                         .addOnCompleteListener(it) { task ->
                             if (task.isSuccessful) {
                                 // Sign in success, update UI with the signed-in user's information

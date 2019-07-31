@@ -7,15 +7,16 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface UserService{
+interface UserService {
 
-//    @GET("/off/{led}")
+    //    @GET("/off/{led}")
 //    fun off(@Path("led")led: Int) : Deferred<Response<List<ResponseType>>>
 //    @GET("/onn/{led}")
 //    fun onn(@Path("led")led: Int) : Deferred<Response<List<ResponseType>>>
     @GET("/posts/{led}")
-    fun off(@Path("led") led: String) : Deferred<Response<ResponseType>>
+    fun off(@Path("led") led: String): Deferred<Response<ResponseType>>
+
     @GET("/posts/{led}")
-    fun onn(@Path("led") led: String) : Deferred<Response<ResponseType>>
+    fun onn(@Path("led") led: String): Deferred<Response<ResponseType>>
 
 }

@@ -1,5 +1,5 @@
 package com.example.sonyadmin
 
-interface EveryDayUpdateCashWorker{
+interface EveryDayUpdateCashWorker {
     fun update()
 }

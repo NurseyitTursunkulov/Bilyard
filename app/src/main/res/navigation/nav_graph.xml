@@ -15,10 +15,15 @@
                 android:id="@+id/action_listOfGamesFragment_to_detailsFragment"
                 app:destination="@id/detailsFragment"
                 >
-            <argument android:defaultValue="0"
-                      android:name="cabinId"
+            <argument
+                    android:defaultValue="0"
+                    android:name="cabinId"
                     />
         </action>
+        <action
+                android:id="@+id/action_listOfGamesFragment_to_barFragment"
+                app:destination="@id/barFragment"
+                />
     </fragment>
     <fragment
             android:id="@+id/detailsFragment"
@@ -39,12 +44,48 @@
             />
     <fragment
             android:id="@+id/loginFragment"
-            android:name="com.example.sonyadmin.LoginFragment"
+            android:name="com.example.sonyadmin.login.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/fragment_login"
             >
         <action
                 android:id="@+id/action_loginFragment_to_listOfGamesFragment"
+                app:destination="@id/listOfGamesFragment"
+                />
+    </fragment>
+    <fragment
+            android:id="@+id/barFragment"
+            android:name="com.example.sonyadmin.bar.category.BarFragment"
+            android:label="fragment_bar"
+            tools:layout="@layout/fragment_bar"
+            >
+        <action
+                android:id="@+id/action_barFragment_to_productFragment"
+                app:destination="@id/productFragment"
+                />
+        <argument
+                android:name="game_position"
+                app:argType="integer"
+                />
+    </fragment>
+    <fragment
+            android:id="@+id/productFragment"
+            android:name="com.example.sonyadmin.bar.product.ProductFragment"
+            android:label="fragment_product"
+            tools:layout="@layout/fragment_product"
+            >
+        <argument
+                android:name="category_name"
+                app:argType="string"
+                app:nullable="true"
+                />
+        <argument
+                android:name="cabin_id"
+                app:argType="integer"
+                app:nullable="false"
+                />
+        <action
+                android:id="@+id/action_productFragment_to_listOfGamesFragment2"
                 app:destination="@id/listOfGamesFragment"
                 />
     </fragment>

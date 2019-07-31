@@ -8,12 +8,12 @@ import androidx.lifecycle.LiveData
 import com.example.sonyadmin.CoroutinesTestRule
 import com.example.sonyadmin.EveryDayUpdateCashWorker
 import com.example.sonyadmin.LiveDataTestUtil
-import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Result
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.data.service.ResponseType
-import com.example.sonyadmin.gameList.Model.countSum
+import com.example.sonyadmin.gameList.Model.countGameSum
 import com.example.sonyadmin.gameList.MyModel
 import com.example.sonyadmin.util.Event
 import com.nhaarman.mockitokotlin2.any
@@ -103,7 +103,8 @@ class ExampleUnitTest {
         tasksViewModel.openTask(
             Task(
                 cabinId = 4, startTime = DateTime.now(),
-                isPlaying = true, endTime = null, userName = "nurs"
+                playing = true, endTime = null, userName = "nurs",
+                listOfBars = ArrayList()
             )
         )
         // Execute pending coroutines actions
@@ -122,7 +123,8 @@ class ExampleUnitTest {
         tasksViewModel.completeTask(
             Task(
                 cabinId = 4, startTime = DateTime.now(),
-                isPlaying = true, endTime = null, userName = "nurs"
+                playing = true, endTime = null, userName = "nurs",
+                listOfBars = ArrayList()
             )
         )
         // Execute pending coroutines actions
@@ -142,7 +144,8 @@ class ExampleUnitTest {
         tasksViewModel.openTask(
             Task(
                 cabinId = 4, startTime = DateTime.now(),
-                isPlaying = true, endTime = null, userName = "nurs"
+                playing = true, endTime = null, userName = "nurs",
+                listOfBars = ArrayList()
             )
         )
         assertEquals(tasksViewModel.dataLoading.value, true)
@@ -156,8 +159,8 @@ class ExampleUnitTest {
         val st = DateTime(2016, DateTimeConstants.MARCH, 28, 9, 10)
         val task = Task(
             cabinId = 4, startTime = st,
-            isPlaying = true, endTime = null, userName = "nurs"
-        )
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
         tasksViewModel.openTask(task)
         testContext.triggerActions()
 //        verify(api).onn(any())
@@ -172,8 +175,8 @@ class ExampleUnitTest {
         val st = DateTime(2016, DateTimeConstants.MARCH, 28, 9, 10)
         val task = Task(
             cabinId = 4, startTime = st,
-            isPlaying = true, endTime = null, userName = "nurs"
-        )
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
         tasksViewModel.completeTask(task)
         testContext.triggerActions()
 //        verify(api).off(any())
@@ -182,69 +185,74 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun timeTest(){
+    fun timeTest() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(0),
-            isPlaying = true, endTime = null,userName = "nurs"
-        )
-       var k =  countSum(task, DateTime.now().withHourOfDay(11).withMinuteOfHour(15))
-        assertEquals(k,25.0,0.1)
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
+        var k = countGameSum(task, DateTime.now().withHourOfDay(11).withMinuteOfHour(15))
+        assertEquals(k, 25.0, 0.1)
     }
+
     @Test
-    fun timeTestMidDay(){
+    fun timeTestMidDay() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(12).withMinuteOfHour(0),
-            isPlaying = true, endTime = null
-                   , userName = "nurs")
-        var k =  countSum(task, DateTime.now().withHourOfDay(12).withMinuteOfHour(15))
-        assertEquals(k,37.5,0.1)
+            playing = true, endTime = null
+            , userName = "nurs"
+            ,listOfBars = ArrayList())
+        var k = countGameSum(task, DateTime.now().withHourOfDay(12).withMinuteOfHour(15))
+        assertEquals(k, 37.5, 0.1)
     }
 
     @Test
-    fun timeTestMidDay2(){
+    fun timeTestMidDay2() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(0),
-            isPlaying = true, endTime = null, userName = "nurs"
-        )
-        var k =  countSum(task, DateTime.now().withHourOfDay(17).withMinuteOfHour(5))
-        assertEquals(k,12.5,0.1)
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
+        var k = countGameSum(task, DateTime.now().withHourOfDay(17).withMinuteOfHour(5))
+        assertEquals(k, 12.5, 0.1)
     }
 
     @Test
-    fun timeTest17_19(){
+    fun timeTest17_19() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(1),
-            isPlaying = true, endTime = null, userName = "nurs"
-        )
-        var k =  countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(53))
-        assertEquals(k,486.5,0.8)
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
+        var k = countGameSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(53))
+        assertEquals(k, 486.5, 0.8)
     }
+
     @Test
-    fun timeTest11_15(){
+    fun timeTest11_15() {
         val task = Task(
             cabinId = 4, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(40),
-            isPlaying = true, endTime = null, userName = "nurs"
-        )
-        var k =  countSum(task, DateTime.now().withHourOfDay(15).withMinuteOfHour(38))
-        assertEquals(k,578.5,0.8)
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
+        var k = countGameSum(task, DateTime.now().withHourOfDay(15).withMinuteOfHour(38))
+        assertEquals(k, 578.5, 0.8)
     }
+
     @Test
-    fun timeTestCabin1(){
+    fun timeTestCabin1() {
         val task = Task(
             cabinId = 1, startTime = DateTime.now().withHourOfDay(11).withMinuteOfHour(0),
-            isPlaying = true, endTime = null, userName = "nurs"
-        )
-        var k =  countSum(task, DateTime.now().withHourOfDay(14).withMinuteOfHour(0))
-        assertEquals(k,600.0,0.8)
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
+        var k = countGameSum(task, DateTime.now().withHourOfDay(14).withMinuteOfHour(0))
+        assertEquals(k, 600.0, 0.8)
     }
+
     @Test
-    fun timeTestCabin17_19(){
+    fun timeTestCabin17_19() {
         val task = Task(
             cabinId = 1, startTime = DateTime.now().withHourOfDay(17).withMinuteOfHour(0),
-            isPlaying = true, endTime = null, userName = "nurs"
-        )
-        var k =  countSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(0))
-        assertEquals(k,450.0,0.8)
+            playing = true, endTime = null, userName = "nurs"
+            ,listOfBars = ArrayList())
+        var k = countGameSum(task, DateTime.now().withHourOfDay(19).withMinuteOfHour(0))
+        assertEquals(k, 450.0, 0.8)
     }
 
     fun assertLiveDataEventTriggered(

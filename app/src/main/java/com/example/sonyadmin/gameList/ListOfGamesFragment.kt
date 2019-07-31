@@ -26,7 +26,7 @@ class ListOfGamesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) { activity?.finish()}
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) { activity?.finish() }
         listItemBinding = DataBindingUtil.inflate<FragmentListOfGamesBinding>(
             layoutInflater,
             R.layout.fragment_list_of_games,
@@ -44,11 +44,10 @@ class ListOfGamesFragment : Fragment() {
         listItemBinding.tasksList.adapter = listAdapter
         listItemBinding.viewmodel?.showToast?.observe(this, androidx.lifecycle.Observer {
             it.getContentIfNotHandled()?.let {
-                Toast.makeText(this@ListOfGamesFragment.context, it, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ListOfGamesFragment.context, it, Toast.LENGTH_LONG).show()
             }
         })
         // This callback will only be called when MyFragment is at least Started.
-
 
 
     }

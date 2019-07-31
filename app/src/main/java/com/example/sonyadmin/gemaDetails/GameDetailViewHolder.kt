@@ -10,11 +10,14 @@ import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.gameList.TasksListBindings.getTime
 
 class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
-    (LayoutInflater.from(parent.context).inflate(R.layout.cheese_item, parent, false)) {
+    (LayoutInflater.from(parent.context).inflate(R.layout.detail_item, parent, false)) {
     private val startTime = itemView.findViewById<TextView>(R.id.date)
     private val endTime = itemView.findViewById<TextView>(R.id.end_time)
     private val sum = itemView.findViewById<TextView>(R.id.sum)
     private val userName = itemView.findViewById<TextView>(R.id.user_name)
+    private val barTextView = itemView.findViewById<TextView>(R.id.bar_txt)
+    private val barSum = itemView.findViewById<TextView>(R.id.summ_txt)
+    private val totalSum = itemView.findViewById<TextView>(R.id.total_sum)
     var cheese: Task? = null
 
     /**
@@ -28,7 +31,13 @@ class GameDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
         endTime.text = getTime(cheese?.endTime) +
                 " ${cheese?.endTime?.year}/${cheese?.endTime?.monthOfYear}/" +
                 "${cheese?.endTime?.dayOfMonth}"
-        sum.text = cheese?.summ.toString()
+        sum.text = cheese?.summOfTheGame.toString()
         userName.text = cheese?.userName
+        barTextView.setSingleLine(false)
+        totalSum.text = "${cheese?.totalSumWithBar}"
+       cheese?.listOfBars?.forEach {
+           barTextView.append(it.name + "\n")
+           barSum.append( "${it.details.price}" + "\n")
+       }
     }
 }

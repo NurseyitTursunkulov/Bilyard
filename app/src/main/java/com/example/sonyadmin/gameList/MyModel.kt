@@ -6,14 +6,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sonyadmin.EveryDayUpdateCashWorker
-import com.example.sonyadmin.data.Repository
+import com.example.sonyadmin.bar.product.Product
+import com.example.sonyadmin.data.Repository.Repository
 import com.example.sonyadmin.data.Task
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.gameList.Model.*
 import com.example.sonyadmin.util.Event
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.*
 import org.joda.time.DateTime
 
 class MyModel(
@@ -24,9 +24,9 @@ class MyModel(
 ) :
     AndroidViewModel(application),
     CoroutineScope by MainScope() {
-
+    private val TAG = MyModel::class.java.simpleName
     internal val _showToast = MutableLiveData<Event<String>>()
-    lateinit var userName :String
+    lateinit var userName: String
 
     val showToast: LiveData<Event<String>>
         get() = _showToast
@@ -39,7 +39,7 @@ class MyModel(
 
     init {
         userName = FirebaseAuth.getInstance().currentUser!!.email!!.substringBeforeLast("@")
-        Log.d("init",userName)
+        Log.d("init", userName)
         liveItems.forEach {
             it.observeForever {
                 items.postValue(liveItems)
@@ -58,11 +58,10 @@ class MyModel(
                     DateTime.now().minusDays(1).withTime(0, 0, 0, 0),
                     DateTime.now().plusDays(1).withTime(23, 59, 59, 0),
                     determineDay(),
-                    countSum(task, DateTime.now())
+                    countTotalSum(task, DateTime.now())
                 )
             }
         )
-
     }
 
 
@@ -78,5 +77,17 @@ class MyModel(
 
     fun deleteAll() {
         repository.deleteAll()
+    }
+
+    fun addBar(position: Int, product: Product) {
+        items.value?.get(position)?.value?.listOfBars?.add(product)
+        launch {
+            withContext(Dispatchers.IO) {
+                items.value?.get(position)?.value?.let {
+                    repository.addBarProduct(arrayListOf(product), it)
+                }
+            }
+        }
+        Log.d(TAG, "suucessfully saved $position $product")
     }
 }

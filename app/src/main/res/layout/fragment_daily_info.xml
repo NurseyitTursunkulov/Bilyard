@@ -5,12 +5,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".infoPerDay.DailyInfoFragment">
+        tools:context=".infoPerDay.DailyInfoFragment"
+        >
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cheeseList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            app:layoutManager="LinearLayoutManager"/>
+            app:layoutManager="LinearLayoutManager"
+            />
 </LinearLayout>

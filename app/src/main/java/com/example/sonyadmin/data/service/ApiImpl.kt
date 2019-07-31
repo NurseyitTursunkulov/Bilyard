@@ -3,30 +3,30 @@ package com.example.sonyadmin.data.service
 import com.example.sonyadmin.data.Result
 import io.navendra.retrofitkotlindeferred.service.UserService
 
-class ApiImpl(val userService: UserService):Api{
+class ApiImpl(val userService: UserService) : Api {
 
-    override suspend fun off(led:String):Result<ResponseType> {
+    override suspend fun off(led: String): Result<ResponseType> {
         try {
-            val call = userService.off(led).await()
+            val call = userService.off("1").await()
             if (call.isSuccessful) {
                 return Result.Success(call.body()!!)
             } else {
                 return Result.Error(Exception("no connection"))
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             return Result.Error(e)
         }
     }
 
-    override suspend fun onn(led:String):Result<ResponseType>{
+    override suspend fun onn(led: String): Result<ResponseType> {
         try {
-            val call = userService.onn(led).await()
+            val call = userService.onn("1").await()
             if (call.isSuccessful) {
                 return Result.Success(call.body()!!)
             } else {
                 return Result.Error(Exception("no connection"))
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             return Result.Error(e)
         }
     }

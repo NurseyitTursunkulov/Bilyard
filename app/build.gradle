@@ -11,7 +11,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         applicationId "com.example.sonyadmin"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -46,8 +46,7 @@ dependencies {
 //    implementation 'com.google.android.material:material:1.1.0-alpha04'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
-    implementation 'com.google.firebase:firebase-ml-vision:20.0.0'
-    implementation 'com.google.firebase:firebase-firestore:17.1.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:20.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'androidx.test:core:1.2.0-beta01'
@@ -173,4 +172,8 @@ dependencies {
 
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //material dialog
+    implementation 'com.afollestad.material-dialogs:core:3.1.0'
 }

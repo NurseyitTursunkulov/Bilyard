@@ -3,9 +3,7 @@ package com.example.sonyadmin.infoPerDay
 import androidx.lifecycle.ViewModel
 import androidx.paging.Config
 import androidx.paging.toLiveData
-import com.example.sonyadmin.data.Repository
-import com.example.sonyadmin.data.Task
-import org.joda.time.DateTime
+import com.example.sonyadmin.data.Repository.Repository
 
 class DailyInfoViewModel(var repository: Repository) : ViewModel() {
     var chees = repository.getCash().toLiveData(
@@ -16,7 +14,7 @@ class DailyInfoViewModel(var repository: Repository) : ViewModel() {
     )
 
 
-    fun getCash( ) {
+    fun getCash() {
 
         chees = repository.getCash().toLiveData(
             Config(
