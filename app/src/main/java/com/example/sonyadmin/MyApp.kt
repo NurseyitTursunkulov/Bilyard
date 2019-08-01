@@ -56,7 +56,8 @@ val appModule = module {
     viewModel { DetailsViewModel(get()) }
     viewModel { BarViewModel(get()) }
     single<CategoryRepository>{CategoryRepoImpl()}
-    viewModel{ ProductViewModel() }
+    viewModel{ ProductViewModel(get()) }
+    single<ProductRepository>{ProductRepoImpl()}
     viewModel { DailyInfoViewModel(get()) }
     single<EveryDayUpdateCashWorker> { EveryDayUpdateCashWorkerImpl() }
     factory<Interceptor> {
