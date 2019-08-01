@@ -11,10 +11,7 @@ import com.example.sonyadmin.bar.category.BarViewModel
 import com.example.sonyadmin.bar.product.ProductViewModel
 import com.example.sonyadmin.data.Dao
 import com.example.sonyadmin.data.GameProcessDataBase
-import com.example.sonyadmin.data.Repository.FirebaseRepoImpl
-import com.example.sonyadmin.data.Repository.FirebaseRepository
-import com.example.sonyadmin.data.Repository.Repository
-import com.example.sonyadmin.data.Repository.RepositoryImpl
+import com.example.sonyadmin.data.Repository.*
 import com.example.sonyadmin.data.service.Api
 import com.example.sonyadmin.data.service.ApiImpl
 import com.example.sonyadmin.data.service.UserRepository
@@ -57,8 +54,10 @@ val appModule = module {
     single<FirebaseRepository>{FirebaseRepoImpl()}
     viewModel { MyModel(get(), get(), get(), get()) }
     viewModel { DetailsViewModel(get()) }
-    viewModel { BarViewModel() }
-    viewModel{ ProductViewModel() }
+    viewModel { BarViewModel(get()) }
+    single<CategoryRepository>{CategoryRepoImpl()}
+    viewModel{ ProductViewModel(get()) }
+    single<ProductRepository>{ProductRepoImpl()}
     viewModel { DailyInfoViewModel(get()) }
     single<EveryDayUpdateCashWorker> { EveryDayUpdateCashWorkerImpl() }
     factory<Interceptor> {

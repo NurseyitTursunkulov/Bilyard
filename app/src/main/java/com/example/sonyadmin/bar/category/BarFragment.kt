@@ -10,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.example.sonyadmin.R
 import com.example.sonyadmin.databinding.FragmentBarBinding
 import com.example.sonyadmin.util.EventObserver
@@ -23,7 +25,7 @@ class BarFragment : Fragment() {
 
     private lateinit var binding: FragmentBarBinding
     val model: BarViewModel by viewModel()
-    val args : BarFragmentArgs by navArgs()
+    val args: BarFragmentArgs by navArgs()
     lateinit var barAdapter: BarAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,15 +44,29 @@ class BarFragment : Fragment() {
         setupListAdapter()
         binding.viewmodel?.openCategoryEvent?.observe(this, EventObserver {
 
-            findNavController().navigate(BarFragmentDirections.actionBarFragmentToProductFragment(it.categoryName,args.gamePosition))
+            findNavController().navigate(
+                BarFragmentDirections.actionBarFragmentToProductFragment(
+                    it.categoryName,
+                    args.gamePosition
+                )
+            )
         })
         setupSnackbar()
+        binding.viewmodel?.dialog?.observe(this, EventObserver {
+            MaterialDialog(requireContext()).show {
+                input(allowEmpty = false) { dialog, text ->
+                    title(text = "дабавить категорию")
+                    model.addCategory(text.toString())
+                }
+                positiveButton(R.string.add)
+            }
+        })
     }
 
     private fun setupListAdapter() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
-                barAdapter = BarAdapter(ArrayList(0), viewModel)
+            barAdapter = BarAdapter(ArrayList(0), viewModel)
             binding.tasksList.adapter = barAdapter
         } else {
             Log.d("Main", "ViewModel not initialized when attempting to set up adapter.")
